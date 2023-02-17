@@ -1,102 +1,75 @@
 // import Auth from './Auth'
-import { useState } from 'react'
-import { insertDataIntoSupabase } from './utils'
+import { useState, useEffect } from 'react'
+import { fetchClientsFromSupabase } from './utils'
 
 import './App.css'
+import Banner from './UI/Banner'
+import ClientsTable from './components/ClientsTable'
+import ClientsForm from './components/ClientsForm'
+import Modal from './UI/Modal'
 
 function App () {
   const [input, setInput] = useState({
     dni: '',
     name: '',
-    lastname: '',
+    lastName: '',
     phoneNumber: ''
   })
-  const [message, setMessage] = useState('')
+  const [error, setError] = useState({
+    dniError: '',
+    nameError: '',
+    lastNameError: '',
+    phoneNumberError: ''
+  })
+  const [loading, setLoading] = useState('loading...')
+  const [listOfClients, setListOfClients] = useState('')
+  const [banner, setBanner] = useState({
+    show: false,
+    message: '',
+    style: ''
+  })
+  const [showModal, setShowModal] = useState(false)
 
-  const onInputChangeHandler = (e) => {
-    const name = e.target.name
-    const value = e.target.value
-    // setting all the input in a single state
-    setInput((prevState) => {
-      return {
-        ...prevState,
-        [name]: value
+  useEffect(() => {
+    const clients = fetchClientsFromSupabase()
+    clients.then(response => {
+      if (response.status === 200) {
+        setLoading(null)
+        const { data } = response
+        setListOfClients(data.reverse())
       }
     })
-  }
+  }, [])
 
-  const onSubmitFormHandler = (e) => {
-    e.preventDefault()
-    // creating the object that contains the form data
-    const inputsData = {
-      dni: input.dni,
-      name: input.name,
-      last_name: input.lastname,
-      phone_number: input.phoneNumber
-    }
-
-    const insertData = insertDataIntoSupabase(inputsData)
-
-    insertData.then(error => {
-      console.log(error)
-
-      if (error === null) {
-        console.log('This has worked correctly')
-        setMessage('This has worked correctly')
-      }
-    })
-    resetInputToDefaultValue()
-  }
-
-  // reset inputs to initial state
-  const resetInputToDefaultValue = () => {
-    setInput({
-      dni: '',
-      name: '',
-      lastname: '',
-      phoneNumber: ''
-    })
-  }
+  useEffect(() => {
+    setTimeout(() => {
+      setBanner({
+        show: false,
+        message: '',
+        style: ''
+      })
+    }, 3000)
+  }, [banner.show])
 
   return (
     <div className='App'>
-      <div className='new-client'>
-        <h3>Registra nuevo cliente</h3>
-        <form className='form' onSubmit={onSubmitFormHandler}>
-          <label>DNI</label>
-          <input type='number' className='form-input' name='dni' placeholder='DNI' onChange={onInputChangeHandler} value={input.dni} />
-          <label>Nombre del usuario</label>
-          <input type='text' className='form-input' name='name' placeholder='Nombre del usuario' onChange={onInputChangeHandler} />
-          <label>Apellido del usuario</label>
-          <input type='text' className='form-input' name='lastname' placeholder='Apellido del usuario' onChange={onInputChangeHandler} />
-          <label>Número de teléfono</label>
-          <input type='number' className='form-input' name='phoneNumber' placeholder='Número de teléfono' onChange={onInputChangeHandler} />
-          <button type='submit' className='submit-button'>Ingresar Usuario</button>
-        </form>
-        {message}
+      {showModal ? <Modal /> : null}
+      {banner.show ? <Banner style={banner.style}>{banner.message}</Banner> : null}
+      <div className='content'>
+        <div className='new-client'>
+          <h3>Registra nuevo cliente</h3>
+          <ClientsForm
+            input={input}
+            listOfClients={listOfClients}
+            setListOfClients={setListOfClients}
+            error={error}
+            setInput={setInput}
+            setError={setError}
+            setBanner={setBanner}
+          />
+        </div>
+        <ClientsTable loading={loading} listOfClients={listOfClients} />
       </div>
-      <div className='list-clients'>
-        <h3>Lista de clientes</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>DNI</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Número de teléfono</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>49003535</td>
-              <td>Carlos Hernan</td>
-              <td>Mayo Borja</td>
-              <td>956533328</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      {/* {clients.length > 0 ? clients.map(client => <p key={client.id}>{client.dni} || {client.name}</p>) : <p>loading...</p>} */}
     </div>
   )
 }

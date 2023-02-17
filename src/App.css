@@ -1,71 +1,11 @@
-.App {
+.content {
   display: flex;
-  padding: .5rem;
+}
+
+.new-client {
+  width: 50%;
 }
 
 .new-client h3 {
   text-align: center;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  border: 2px solid #fff;
-  border-radius: 10px;
-  min-width: 300px;
-  width: 50%;
-  margin: 0 auto;
-}
-
-
-.list-clients {
-  width: 50%;
-}
-
-form label {
-  margin-bottom: .5rem;
-}
-
-form input {
-  padding: .5rem;
-  margin-bottom: .5rem;
-}
-
-form input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.submit-button {
-  margin: 0 auto;
-  background: #ffa927;
-  border: 3px solid #ffb906;
-  outline: none;
-}
-
-.submit-button:hover {
-  background: #FECC4C !important;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-thead th {
-  width: 300px;
-}
-
-th:nth-child(1) {
-  width: 100px;
-}
-
-th,
-td {
-  border: 2px solid #fff;
-}
-
-td {
-  padding: .5rem;
 }

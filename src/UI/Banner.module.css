@@ -1,0 +1,19 @@
+.banner {
+  padding: .5rem;
+  font-size: 18px;
+  margin-bottom: .5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.loading {
+  background: #646cff;
+}
+
+.success {
+  background: #34A853;
+}
+
+.error {
+  background: #EA4335;
+}
