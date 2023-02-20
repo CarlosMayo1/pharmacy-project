@@ -1,8 +1,23 @@
+import { useSelector } from 'react-redux'
+
 import classes from './ClientsTable.module.css'
 
-const ClientsTable = ({ loading, listOfClients }) => {
-  const onClickUpdatHandler = (dni) => {
-    console.log(`The follogin DNI: ${dni} has been clicked`)
+const ClientsTable = ({ setShowModal, setUpdateClient }) => {
+  // state using redux
+  const listOfClients = useSelector(state => state.clientReducer.listOfClients)
+  const loading = useSelector(state => state.clientReducer.loading)
+
+  const onClickUpdatHandler = (client) => {
+    console.log(`The follogin DNI: ${client.dni} has been clicked`)
+
+    setUpdateClient(client)
+
+    // shows edit modal handler
+    onUpdateClientHandler()
+  }
+
+  const onUpdateClientHandler = () => {
+    setShowModal(prevState => !prevState)
   }
 
   return (
@@ -27,7 +42,7 @@ const ClientsTable = ({ loading, listOfClients }) => {
               <td>{client.phone_number}</td>
               <td>
                 <div>
-                  <button onClick={() => onClickUpdatHandler(client.dni)}>update</button>
+                  <button onClick={() => onClickUpdatHandler(client)}>update</button>
                   <button>delete</button>
                 </div>
               </td>

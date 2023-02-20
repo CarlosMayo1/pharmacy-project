@@ -1,9 +1,11 @@
+import { useSelector } from 'react-redux'
 import classes from './Banner.module.css'
 
 let bannerBackground = ''
 
 const Banner = (props) => {
-  switch (props.style) {
+  const bannerStyle = useSelector(state => state.clientReducer.banner.style)
+  switch (bannerStyle) {
     case 'loading':
       bannerBackground = classes.loading
       break

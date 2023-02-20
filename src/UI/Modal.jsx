@@ -5,8 +5,8 @@ import Backdrop from './Backdrop'
 const Modal = ({ children, onClick }) => {
   return (
     <>
-      <Backdrop />
-      <div className={classes.modal} onClick={onClick}>
+      <Backdrop onClick={onClick} />
+      <div className={classes.modal}>
         {children}
       </div>
     </>

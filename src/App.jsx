@@ -1,12 +1,16 @@
 // import Auth from './Auth'
 import { useState, useEffect } from 'react'
-import { fetchClientsFromSupabase } from './utils'
+import { fetchClientsFromSupabase } from './utils/clients'
 
 import './App.css'
 import Banner from './UI/Banner'
 import ClientsTable from './components/ClientsTable'
 import ClientsForm from './components/ClientsForm'
-import Modal from './UI/Modal'
+import ClientsModal from './components/ClientsModal'
+
+// trying redux toolkit
+import { useDispatch, useSelector } from 'react-redux'
+import { clientSliceAction } from './store/clientStore/client-redux'
 
 function App () {
   const [input, setInput] = useState({
@@ -21,46 +25,58 @@ function App () {
     lastNameError: '',
     phoneNumberError: ''
   })
-  const [loading, setLoading] = useState('loading...')
-  const [listOfClients, setListOfClients] = useState('')
+  const [listOfClients, setListOfClients] = useState([])
   const [banner, setBanner] = useState({
     show: false,
     message: '',
     style: ''
   })
   const [showModal, setShowModal] = useState(false)
+  const [updateClient, setUpdateClient] = useState({
+    updateDni: '',
+    updateName: '',
+    updateLastName: '',
+    updatePhoneNumber: ''
+  })
+
+  // react redux
+  const dispatch = useDispatch()
+  const showBanner = useSelector(state => state.clientReducer.banner)
 
   useEffect(() => {
     const clients = fetchClientsFromSupabase()
     clients.then(response => {
       if (response.status === 200) {
-        setLoading(null)
+        dispatch(clientSliceAction.loadingTable())
         const { data } = response
-        setListOfClients(data.reverse())
+
+        // const reverseData = data.reverse()
+        dispatch(clientSliceAction.getClients(data))
       }
     })
-  }, [])
+  }, [showBanner.show])
 
-  useEffect(() => {
-    setTimeout(() => {
-      setBanner({
-        show: false,
-        message: '',
-        style: ''
-      })
-    }, 3000)
-  }, [banner.show])
+  // useEffect(() => {
+  //   // hide banner after some seconds
+  //   setTimeout(() => {
+  //     setBanner({
+  //       show: false,
+  //       message: '',
+  //       style: ''
+  //     })
+  //   }, 3000)
+  // }, [banner.show])
 
   return (
     <div className='App'>
-      {showModal ? <Modal /> : null}
-      {banner.show ? <Banner style={banner.style}>{banner.message}</Banner> : null}
+      {showModal ? <ClientsModal setShowModal={setShowModal} updateClient={updateClient} /> : null}
+      {showBanner.show ? <Banner>{showBanner.message}</Banner> : null}
       <div className='content'>
         <div className='new-client'>
           <h3>Registra nuevo cliente</h3>
           <ClientsForm
             input={input}
-            listOfClients={listOfClients}
+            // listOfClients={listOfClients}
             setListOfClients={setListOfClients}
             error={error}
             setInput={setInput}
@@ -68,7 +84,12 @@ function App () {
             setBanner={setBanner}
           />
         </div>
-        <ClientsTable loading={loading} listOfClients={listOfClients} />
+        <ClientsTable
+          // loading={loading}
+          listOfClients={listOfClients}
+          setShowModal={setShowModal}
+          setUpdateClient={setUpdateClient}
+        />
       </div>
     </div>
   )
