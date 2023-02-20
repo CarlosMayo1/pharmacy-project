@@ -44,28 +44,26 @@ function App () {
   const showBanner = useSelector(state => state.clientReducer.banner)
 
   useEffect(() => {
+    console.log('using console.log')
     const clients = fetchClientsFromSupabase()
     clients.then(response => {
       if (response.status === 200) {
         dispatch(clientSliceAction.loadingTable())
         const { data } = response
 
-        // const reverseData = data.reverse()
+        // sorting data based on the date
+        data.sort((date1, date2) => {
+          return new Date(date2.created_at) - new Date(date1.created_at)
+        })
+
         dispatch(clientSliceAction.getClients(data))
       }
     })
-  }, [showBanner.show])
 
-  // useEffect(() => {
-  //   // hide banner after some seconds
-  //   setTimeout(() => {
-  //     setBanner({
-  //       show: false,
-  //       message: '',
-  //       style: ''
-  //     })
-  //   }, 3000)
-  // }, [banner.show])
+    setTimeout(() => {
+      dispatch(clientSliceAction.resetToInitialState())
+    }, 3000)
+  }, [showBanner.show])
 
   return (
     <div className='App'>
@@ -74,15 +72,7 @@ function App () {
       <div className='content'>
         <div className='new-client'>
           <h3>Registra nuevo cliente</h3>
-          <ClientsForm
-            input={input}
-            // listOfClients={listOfClients}
-            setListOfClients={setListOfClients}
-            error={error}
-            setInput={setInput}
-            setError={setError}
-            setBanner={setBanner}
-          />
+          <ClientsForm />
         </div>
         <ClientsTable
           // loading={loading}

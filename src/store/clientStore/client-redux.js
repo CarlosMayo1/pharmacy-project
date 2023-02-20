@@ -29,9 +29,8 @@ const clientSlice = createSlice({
   reducers: {
     // fetching clients data from supabase
     getClients (state, action) {
-      const reverseListOfClients = action.payload.reverse()
       // 👁️ reverse the listo of clients 👇
-      state.listOfClients = reverseListOfClients
+      state.listOfClients = action.payload
     },
     // set loading to null when data is loaded
     loadingTable (state) {
@@ -56,10 +55,21 @@ const clientSlice = createSlice({
       state.banner.show = true
       state.banner.message = '¡Oops algo salio mal!'
       state.banner.style = 'error'
+    },
+    resetToInitialState (state) {
+      state.inputs = {
+        dni: '',
+        name: '',
+        lastName: '',
+        phoneNumber: ''
+      }
+
+      state.banner = {
+        show: false,
+        message: '',
+        style: ''
+      }
     }
-    // insertNewClientToSupabase (state, action) {
-    //   console.log(state)
-    // }
   }
 })
 

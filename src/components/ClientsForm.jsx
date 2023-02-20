@@ -7,6 +7,7 @@ import { clientSliceAction } from '../store/clientStore/client-redux'
 import classes from './ClientsForm.module.css'
 
 const ClientsForm = () => {
+  // use redux
   const dispatch = useDispatch()
   const inputs = useSelector(state => state.clientReducer.inputs)
   const [error, setError] = useState({
@@ -73,43 +74,13 @@ const ClientsForm = () => {
     insertData.then(() => {
       // Shows a successful message
       dispatch(clientSliceAction.handleSuccessfullBanner())
-
-      // insert data
-      // const newListsOfClients = [...listOfClients]
-      // newListsOfClients.unshift(inputsData)
-      dispatch(clientSliceAction.getClients(inputsData))
-    //   setListOfClients(newListsOfClients)
-    // }).catch(error => {
-    //   // throw an error in case something goes wrong with the databas
-    //   setBanner({
-    //     show: true,
-    //     message: 'Oops algo salio mal',
-    //     style: 'error'
-    //   })
-    //   throw Error(error)
+      // resets values to initial state
+      dispatch(clientSliceAction.resetToInitialState())
     })
 
     // // set a message sending data
     dispatch(clientSliceAction.handleLoadingBanner())
-    // resetInputToDefaultValue()
   }
-
-  // reset inputs to initial state
-  // const resetInputToDefaultValue = () => {
-  //   setInput({
-  //     dni: '',
-  //     name: '',
-  //     lastName: '',
-  //     phoneNumber: ''
-  //   })
-
-  //   setError({
-  //     dniError: '',
-  //     nameError: '',
-  //     lastNameError: '',
-  //     phoneNumberError: ''
-  //   })
-  // }
 
   return (
     <form className={classes.form} onSubmit={onSubmitFormHandler}>
