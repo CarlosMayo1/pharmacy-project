@@ -29,7 +29,6 @@ const clientSlice = createSlice({
   reducers: {
     // fetching clients data from supabase
     getClients (state, action) {
-      // 👁️ reverse the listo of clients 👇
       state.listOfClients = action.payload
     },
     // set loading to null when data is loaded
@@ -42,19 +41,25 @@ const clientSlice = createSlice({
     },
     // shows a successfull banner
     handleSuccessfullBanner (state) {
-      state.banner.show = true
-      state.banner.message = 'Se ha registrado un nuevo cliente exitosamente'
-      state.banner.style = 'success'
+      state.banner = {
+        show: true,
+        message: 'Se ha registrado un nuevo cliente exitosamente',
+        style: 'success'
+      }
     },
     handleLoadingBanner (state) {
-      state.banner.show = true
-      state.banner.message = 'Enviando datos...'
-      state.banner.style = 'loading'
+      state.banner = {
+        show: true,
+        message: 'Enviando datos...',
+        style: 'loading'
+      }
     },
     handleErrorBanner (state) {
-      state.banner.show = true
-      state.banner.message = '¡Oops algo salio mal!'
-      state.banner.style = 'error'
+      state.banner = {
+        show: true,
+        message: '¡Oops algo salio mal!',
+        style: 'error'
+      }
     },
     resetToInitialState (state) {
       state.inputs = {

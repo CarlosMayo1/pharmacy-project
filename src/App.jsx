@@ -13,24 +13,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clientSliceAction } from './store/clientStore/client-redux'
 
 function App () {
-  const [input, setInput] = useState({
-    dni: '',
-    name: '',
-    lastName: '',
-    phoneNumber: ''
-  })
-  const [error, setError] = useState({
-    dniError: '',
-    nameError: '',
-    lastNameError: '',
-    phoneNumberError: ''
-  })
-  const [listOfClients, setListOfClients] = useState([])
-  const [banner, setBanner] = useState({
-    show: false,
-    message: '',
-    style: ''
-  })
   const [showModal, setShowModal] = useState(false)
   const [updateClient, setUpdateClient] = useState({
     updateDni: '',
@@ -44,25 +26,29 @@ function App () {
   const showBanner = useSelector(state => state.clientReducer.banner)
 
   useEffect(() => {
-    console.log('using console.log')
     const clients = fetchClientsFromSupabase()
     clients.then(response => {
       if (response.status === 200) {
         dispatch(clientSliceAction.loadingTable())
         const { data } = response
 
-        // sorting data based on the date
+        // 👁️ sorting data based on the date 👇
         data.sort((date1, date2) => {
           return new Date(date2.created_at) - new Date(date1.created_at)
         })
 
+        console.log('Data has been added')
         dispatch(clientSliceAction.getClients(data))
       }
     })
 
+    // 👇 this code is not working
     setTimeout(() => {
+      console.log('Excuting code inside the timeout')
       dispatch(clientSliceAction.resetToInitialState())
     }, 3000)
+
+    // return clearTimeout(timeout)
   }, [showBanner.show])
 
   return (
@@ -75,8 +61,6 @@ function App () {
           <ClientsForm />
         </div>
         <ClientsTable
-          // loading={loading}
-          listOfClients={listOfClients}
           setShowModal={setShowModal}
           setUpdateClient={setUpdateClient}
         />

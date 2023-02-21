@@ -72,10 +72,9 @@ const ClientsForm = () => {
     const insertData = insertDataIntoSupabase(inputsData)
 
     insertData.then(() => {
-      // Shows a successful message
       dispatch(clientSliceAction.handleSuccessfullBanner())
       // resets values to initial state
-      dispatch(clientSliceAction.resetToInitialState())
+      // dispatch(clientSliceAction.resetToInitialState())
     })
 
     // // set a message sending data
