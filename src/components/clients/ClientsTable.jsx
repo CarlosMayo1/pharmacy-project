@@ -1,11 +1,17 @@
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import classes from './ClientsTable.module.css'
+
+import Pagination from './Pagination'
 
 const ClientsTable = ({ setShowModal, setUpdateClient }) => {
   // state using redux
   const listOfClients = useSelector(state => state.clientReducer.listOfClients)
   const loading = useSelector(state => state.clientReducer.loading)
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const [clientsPerPage, setClientsPerPage] = useState(10)
 
   const onClickUpdatHandler = (client) => {
     console.log(`The follogin DNI: ${client.dni} has been clicked`)
@@ -19,6 +25,11 @@ const ClientsTable = ({ setShowModal, setUpdateClient }) => {
   const onUpdateClientHandler = () => {
     setShowModal(prevState => !prevState)
   }
+
+  // Logic of pagination
+  const lastClientsIndex = currentPage * clientsPerPage
+  const firstClientsIndex = lastClientsIndex - clientsPerPage
+  const currentClients = listOfClients.slice(firstClientsIndex, lastClientsIndex)
 
   return (
     <div className='list-clients'>
@@ -35,7 +46,7 @@ const ClientsTable = ({ setShowModal, setUpdateClient }) => {
           </tr>
         </thead>
         <tbody>
-          {loading ?? listOfClients.map(client => (
+          {loading ?? currentClients.map(client => (
             <tr key={client.dni}>
               <td>{client.dni}</td>
               <td>{client.name}</td>
@@ -51,6 +62,12 @@ const ClientsTable = ({ setShowModal, setUpdateClient }) => {
           ))}
         </tbody>
       </table>
+      <Pagination
+        totalClients={listOfClients.length}
+        clientsPerPage={clientsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   )
 }
