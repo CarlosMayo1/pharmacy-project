@@ -4,11 +4,11 @@ import { fetchClientsFromSupabase } from './utils/clients'
 
 import './App.css'
 import Banner from './UI/Banner'
-import ClientsTable from './components/ClientsTable'
-import ClientsForm from './components/ClientsForm'
-import ClientsModal from './components/ClientsModal'
+import ClientsTable from './components/clients/ClientsTable'
+import ClientsForm from './components/clients/ClientsForm'
+import ClientsModal from './components/clients/ClientsModal'
 
-// trying redux toolkit
+// redux toolkit
 import { useDispatch, useSelector } from 'react-redux'
 import { clientSliceAction } from './store/clientStore/client-redux'
 
@@ -37,18 +37,14 @@ function App () {
           return new Date(date2.created_at) - new Date(date1.created_at)
         })
 
-        console.log('Data has been added')
         dispatch(clientSliceAction.getClients(data))
       }
     })
 
     // 👇 this code is not working
     setTimeout(() => {
-      console.log('Excuting code inside the timeout')
       dispatch(clientSliceAction.resetToInitialState())
     }, 3000)
-
-    // return clearTimeout(timeout)
   }, [showBanner.show])
 
   return (

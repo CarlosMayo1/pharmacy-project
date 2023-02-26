@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { insertDataIntoSupabase } from '../utils/clients/index'
+import { insertDataIntoSupabase } from '../../utils/clients/index'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { clientSliceAction } from '../store/clientStore/client-redux'
+import { clientSliceAction } from '../../store/clientStore/client-redux'
 
 import classes from './ClientsForm.module.css'
 
@@ -73,8 +73,6 @@ const ClientsForm = () => {
 
     insertData.then(() => {
       dispatch(clientSliceAction.handleSuccessfullBanner())
-      // resets values to initial state
-      // dispatch(clientSliceAction.resetToInitialState())
     })
 
     // // set a message sending data

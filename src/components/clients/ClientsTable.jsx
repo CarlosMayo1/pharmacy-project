@@ -22,7 +22,8 @@ const ClientsTable = ({ setShowModal, setUpdateClient }) => {
 
   return (
     <div className='list-clients'>
-      <h3>Lista de clientes</h3>
+      <h3>Lista de clientes </h3>
+      <span>Número de clientes = {listOfClients.length}</span>
       <table className={classes.table}>
         <thead>
           <tr>
