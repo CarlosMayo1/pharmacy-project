@@ -73,10 +73,21 @@ const ClientsForm = () => {
 
     insertData.then(() => {
       dispatch(clientSliceAction.handleSuccessfullBanner())
+    }).catch(error => { // handles error
+      dispatch(clientSliceAction.handleErrorBanner())
+      throw new Error(error)
     })
 
     // // set a message sending data
     dispatch(clientSliceAction.handleLoadingBanner())
+
+    // reset error in the form to initial state
+    setError({
+      errorDni: '',
+      errorName: '',
+      errorLastName: '',
+      errorPhoneNumber: ''
+    })
   }
 
   return (
@@ -89,7 +100,6 @@ const ClientsForm = () => {
         placeholder='DNI'
         onChange={onInputChangeHandler}
         value={inputs.dni}
-
       />
       <span className={classes['error-message']}>{error.errorDni}</span>
       <label>Nombre del usuario</label>

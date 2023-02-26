@@ -44,7 +44,7 @@ function App () {
     // 👇 this code is not working
     setTimeout(() => {
       dispatch(clientSliceAction.resetToInitialState())
-    }, 3000)
+    }, 2000)
   }, [showBanner.show])
 
   return (

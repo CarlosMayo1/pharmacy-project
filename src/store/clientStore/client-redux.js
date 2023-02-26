@@ -47,6 +47,7 @@ const clientSlice = createSlice({
         style: 'success'
       }
     },
+    // shows a blue loading banner
     handleLoadingBanner (state) {
       state.banner = {
         show: true,
@@ -54,6 +55,7 @@ const clientSlice = createSlice({
         style: 'loading'
       }
     },
+    // shows an error banner
     handleErrorBanner (state) {
       state.banner = {
         show: true,
