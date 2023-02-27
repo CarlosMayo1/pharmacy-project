@@ -1,29 +1,34 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import classes from './ClientsTable.module.css'
 
+import { clientSliceAction } from '../../store/clientStore/client-redux'
+import UpdadateClientModal from './UpdateClientModal'
 import Pagination from './Pagination'
 
-const ClientsTable = ({ setShowModal, setUpdateClient }) => {
+const ClientsTable = () => {
   // state using redux
   const listOfClients = useSelector(state => state.clientReducer.listOfClients)
   const loading = useSelector(state => state.clientReducer.loading)
+  const dispatch = useDispatch()
+
   // Pagination
   const [currentPage, setCurrentPage] = useState(1)
-  const [clientsPerPage, setClientsPerPage] = useState(10)
+  const [clientsPerPage] = useState(10)
+  // updating client
+  const [showModal, setShowModal] = useState(false)
 
-  const onClickUpdatHandler = (client) => {
-    console.log(`The follogin DNI: ${client.dni} has been clicked`)
-
-    setUpdateClient(client)
-
-    // shows edit modal handler
-    onUpdateClientHandler()
+  // close update modal
+  const onCloseModal = () => {
+    setShowModal(false)
   }
 
-  const onUpdateClientHandler = () => {
-    setShowModal(prevState => !prevState)
+  // show update modal
+  const onShowModal = (client) => {
+    // getting client info
+    dispatch(clientSliceAction.updateClient(client))
+    setShowModal(true)
   }
 
   // Logic of pagination
@@ -34,6 +39,12 @@ const ClientsTable = ({ setShowModal, setUpdateClient }) => {
   return (
     <div className='list-clients'>
       <h3>Lista de clientes </h3>
+      {/* modal that containt the form to update client */}
+      {
+      showModal
+        ? <UpdadateClientModal onClose={onCloseModal} />
+        : null
+      }
       <span>Número de clientes = {listOfClients.length}</span>
       <table className={classes.table}>
         <thead>
@@ -46,15 +57,15 @@ const ClientsTable = ({ setShowModal, setUpdateClient }) => {
           </tr>
         </thead>
         <tbody>
-          {loading ?? currentClients.map(client => (
-            <tr key={client.dni}>
+          {loading ?? currentClients.map((client, index) => (
+            <tr key={index}>
               <td>{client.dni}</td>
               <td>{client.name}</td>
               <td>{client.last_name}</td>
               <td>{client.phone_number}</td>
               <td>
                 <div>
-                  <button onClick={() => onClickUpdatHandler(client)}>update</button>
+                  <button onClick={() => onShowModal(client)}>update</button>
                   <button>delete</button>
                 </div>
               </td>

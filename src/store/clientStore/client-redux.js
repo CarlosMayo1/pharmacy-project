@@ -55,7 +55,7 @@ const clientSlice = createSlice({
         style: 'loading'
       }
     },
-    // shows an error banner
+    // shows an error
     handleErrorBanner (state) {
       state.banner = {
         show: true,
@@ -63,6 +63,7 @@ const clientSlice = createSlice({
         style: 'error'
       }
     },
+    // reset to initial state
     resetToInitialState (state) {
       state.inputs = {
         dni: '',
@@ -76,6 +77,10 @@ const clientSlice = createSlice({
         message: '',
         style: ''
       }
+    },
+    // update client
+    updateClient (state, action) {
+      state.updateClient = action.payload
     }
   }
 })

@@ -2,10 +2,10 @@ import classes from './Modal.module.css'
 
 import Backdrop from './Backdrop'
 
-const Modal = ({ children, onClick }) => {
+const Modal = ({ children, onClose }) => {
   return (
     <>
-      <Backdrop onClick={onClick} />
+      <Backdrop onClick={onClose} />
       <div className={classes.modal}>
         {children}
       </div>
