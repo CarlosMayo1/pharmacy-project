@@ -82,7 +82,8 @@ const ClientsModal = ({ onClose }) => {
       phone_number: inputs.phoneNumber
     }
 
-    console.log(updateDataIntoSupabase(updatedData))
+    const response = updateDataIntoSupabase(updatedData)
+    console.log(response)
   }
 
   return (
