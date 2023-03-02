@@ -10,11 +10,39 @@ th:nth-child(1) {
   width: 100px;
 }
 
+th:last-child {
+  width: 60px;
+}
+
 th,
 td {
   border: 2px solid #fff;
 }
 
-td {
-  padding: .5rem;
+.actions {
+  padding:.2rem;
+  display: flex;
+  justify-content: center;
+}
+
+
+.update {
+  background: #218838;
+  border: none;
+  color: inherit;
+  width:20px;
+  display: flex;
+  align-items: ceter;
+  justify-content: center;
+  margin-right: .5rem;
+}
+
+.delete {
+  background: #C82333;
+  border: none;
+  color: inherit;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

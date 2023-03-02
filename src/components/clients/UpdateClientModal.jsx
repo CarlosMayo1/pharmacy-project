@@ -127,7 +127,7 @@ const ClientsModal = ({ onClose }) => {
         />
         <span className={classes['error-message']}>{error.errorPhoneNumber}</span>
         <div className={classes.actions}>
-          <button type='submit' className={classes.submit}>Editar</button>
+          <button type='submit' className={classes['submit-button']}>Editar</button>
         </div>
       </form>
     </Modal>

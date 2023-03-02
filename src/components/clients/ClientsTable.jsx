@@ -64,9 +64,9 @@ const ClientsTable = () => {
               <td>{client.last_name}</td>
               <td>{client.phone_number}</td>
               <td>
-                <div>
-                  <button onClick={() => onShowModal(client)}>update</button>
-                  <button>delete</button>
+                <div className={classes.actions}>
+                  <button className={classes.update} onClick={() => onShowModal(client)}><i className='fa-sharp fa-regular fa-pen-to-square' /></button>
+                  <button className={classes.delete}><i className='fa-solid fa-trash' /></button>
                 </div>
               </td>
             </tr>
