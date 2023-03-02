@@ -86,7 +86,7 @@ const ClientsModal = ({ onClose }) => {
 
     const response = updateDataIntoSupabase(updatedData)
 
-    response.then((result) => {
+    response.then(() => {
       // close modal
       onClose()
       // shows a successful banner

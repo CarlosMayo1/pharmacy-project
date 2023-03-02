@@ -1,8 +1,8 @@
 import Modal from '../../UI/Modal'
 
-const DeleteClientModal = () => {
+const DeleteClientModal = ({ onClose }) => {
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       Hell this is working
     </Modal>
   )
