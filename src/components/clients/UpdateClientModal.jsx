@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import ReactDOM from 'react-dom'
 import Modal from '../../UI/Modal'
 
 import classes from './UpdateClientModal.module.css'
 
 import { updateDataIntoSupabase } from '../../utils/clients'
+import { clientSliceAction } from '../../store/clientStore/client-redux'
 
 const ClientsModal = ({ onClose }) => {
   // redux state -> showing info from the selected client
   const updateClientInfo = useSelector(state => state.clientReducer.updateClient)
+  const dispatch = useDispatch()
   // state of the app
   const [inputs, setInputs] = useState({
     dni: updateClientInfo.dni.toString(),
@@ -83,7 +85,16 @@ const ClientsModal = ({ onClose }) => {
     }
 
     const response = updateDataIntoSupabase(updatedData)
-    console.log(response)
+
+    response.then((result) => {
+      // close modal
+      onClose()
+      // shows a successful banner
+      dispatch(clientSliceAction.handleSuccessfullBanner())
+    }).catch(error => {
+      dispatch(clientSliceAction.handleErrorBanner())
+      throw new Error(error)
+    })
   }
 
   return (
