@@ -2,7 +2,7 @@ import Modal from '../../UI/Modal'
 
 import classes from './DeleteClientModal.module.css'
 
-const DeleteClientModal = ({ onClose }) => {
+const DeleteClientModal = ({ onClose, deleteClient }) => {
   return (
     <Modal onClose={onClose}>
       <div className={classes.header}><i className='fa fa-triangle-exclamation' /></div>
@@ -11,8 +11,8 @@ const DeleteClientModal = ({ onClose }) => {
         <p>¿Está seguro de eliminar el usuario?</p>
       </div>
       <div className={classes.actions}>
-        <button onClick={onClose}>Cancelar</button>
-        <button>Aceptar</button>
+        <button className={classes.cancel} onClick={onClose}>Cancelar</button>
+        <button className={classes.submit} onClick={deleteClient}>Aceptar</button>
       </div>
     </Modal>
   )

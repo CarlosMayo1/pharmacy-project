@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import classes from './ClientsTable.module.css'
 
+import { deleteDataIntoSupabase } from '../../utils/clients'
+
 import { clientSliceAction } from '../../store/clientStore/client-redux'
 import UpdadateClientModal from './UpdateClientModal'
 import DeleteClientModal from './DeleteClientModal'
@@ -12,6 +14,7 @@ const ClientsTable = () => {
   // state using redux
   const listOfClients = useSelector(state => state.clientReducer.listOfClients)
   const loading = useSelector(state => state.clientReducer.loading)
+  const deleteClient = useSelector(state => state.clientReducer.deleteClient)
   const dispatch = useDispatch()
 
   // Pagination
@@ -33,11 +36,25 @@ const ClientsTable = () => {
     setShowUpdateClientModal(true)
   }
 
-  const onShowDeleteClientModal = () => {
+  const onShowDeleteClientModal = (id) => {
+    dispatch(clientSliceAction.deleteClient(id))
+    // delete client
     setShowDeleteClientModal(true)
   }
 
   const onCloseDeleteClientModal = () => {
+    setShowDeleteClientModal(false)
+  }
+
+  const onDeleteClientHandler = () => {
+    console.log(deleteClient)
+    const response = deleteDataIntoSupabase(deleteClient)
+    response.then(() => {
+      dispatch(clientSliceAction.handleSuccessfullBanner('Se ha eliminado el cliente exitosamente'))
+    }).catch(error => {
+      dispatch(clientSliceAction.handleErrorBanner('¡Oops error al eliminar cliente!'))
+      throw new Error(error)
+    })
     setShowDeleteClientModal(false)
   }
 
@@ -57,7 +74,7 @@ const ClientsTable = () => {
       }
       {/* adding delete modal */}
       {showDeleteClientModal
-        ? <DeleteClientModal onClose={onCloseDeleteClientModal} />
+        ? <DeleteClientModal onClose={onCloseDeleteClientModal} deleteClient={onDeleteClientHandler} />
         : null}
       <span>Número de clientes = {listOfClients.length}</span>
       <table className={classes.table}>
@@ -80,7 +97,7 @@ const ClientsTable = () => {
               <td>
                 <div className={classes.actions}>
                   <button className={classes.update} onClick={() => onShowUpdateClientModal(client)}><i className='fa-sharp fa-regular fa-pen-to-square' /></button>
-                  <button className={classes.delete} onClick={() => onShowDeleteClientModal()}><i className='fa-solid fa-trash' /></button>
+                  <button className={classes.delete} onClick={() => onShowDeleteClientModal(client.id)}><i className='fa-solid fa-trash' /></button>
                 </div>
               </td>
             </tr>

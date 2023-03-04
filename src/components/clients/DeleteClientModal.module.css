@@ -19,3 +19,22 @@
   justify-content: space-evenly;
 }
 
+.cancel {
+  background: #E92841;
+  color: #fff;
+  border: 1px solid #C82333;
+}
+
+.cancel:hover {
+  background: #C82333;
+}
+
+.submit {
+  background: #59B259;
+  color: #fff;
+  border: 1px solid #1B9E43;
+}
+
+.submit:hover {
+  background: #218838;
+}

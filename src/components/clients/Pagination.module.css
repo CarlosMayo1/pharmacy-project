@@ -6,3 +6,8 @@
 .active {
   background: #FECC4C
 }
+
+.actions button {
+  margin-top: 5px;
+  margin-right: 3px;
+}

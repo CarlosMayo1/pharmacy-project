@@ -15,3 +15,9 @@ export const updateDataIntoSupabase = async (updatedClient) => {
   if (error) return error
   if (data) return data
 }
+
+export const deleteDataIntoSupabase = async (id) => {
+  const { data, error } = await supabase.from('clients').delete().eq('id', id)
+  if (error) return error
+  if (data) return data
+}

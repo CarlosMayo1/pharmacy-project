@@ -20,7 +20,8 @@ const initialState = {
     updateName: '',
     updateLastName: '',
     updatePhoneNumber: ''
-  }
+  },
+  deleteClient: ''
 }
 
 const clientSlice = createSlice({
@@ -40,10 +41,10 @@ const clientSlice = createSlice({
       state.inputs[action.payload.name] = action.payload.value
     },
     // shows a successfull banner
-    handleSuccessfullBanner (state) {
+    handleSuccessfullBanner (state, action) {
       state.banner = {
         show: true,
-        message: 'Se ha registrado un nuevo cliente exitosamente',
+        message: action.payload,
         style: 'success'
       }
     },
@@ -56,10 +57,10 @@ const clientSlice = createSlice({
       }
     },
     // shows an error
-    handleErrorBanner (state) {
+    handleErrorBanner (state, action) {
       state.banner = {
         show: true,
-        message: '¡Oops algo salio mal!',
+        message: action.payload,
         style: 'error'
       }
     },
@@ -81,6 +82,10 @@ const clientSlice = createSlice({
     // update client
     updateClient (state, action) {
       state.updateClient = action.payload
+    },
+    // delete client
+    deleteClient (state, action) {
+      state.deleteClient = action.payload
     }
   }
 })
