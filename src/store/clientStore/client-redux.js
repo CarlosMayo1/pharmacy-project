@@ -16,6 +16,7 @@ const initialState = {
   },
   showModal: false,
   updateClient: {
+    id: '',
     updateDni: '',
     updateName: '',
     updateLastName: '',

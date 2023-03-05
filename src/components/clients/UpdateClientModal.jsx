@@ -84,7 +84,7 @@ const ClientsModal = ({ onClose }) => {
       phone_number: inputs.phoneNumber
     }
 
-    const response = updateDataIntoSupabase(updatedData)
+    const response = updateDataIntoSupabase(updatedData, updateClientInfo.id)
 
     response.then(() => {
       // shows a successful banner

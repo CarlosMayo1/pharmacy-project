@@ -10,8 +10,8 @@ export const insertDataIntoSupabase = async (data) => {
   return error
 }
 
-export const updateDataIntoSupabase = async (updatedClient) => {
-  const { data, error } = await supabase.from('clients').update(updatedClient).eq('dni', updatedClient.dni)
+export const updateDataIntoSupabase = async (updatedClient, id) => {
+  const { data, error } = await supabase.from('clients').update(updatedClient).eq('id', id)
   if (error) return error
   if (data) return data
 }

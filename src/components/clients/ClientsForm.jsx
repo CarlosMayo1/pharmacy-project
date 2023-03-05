@@ -10,6 +10,7 @@ const ClientsForm = () => {
   // use redux
   const dispatch = useDispatch()
   const inputs = useSelector(state => state.clientReducer.inputs)
+  const listOfClients = useSelector(state => state.clientReducer.listOfClients)
   const [error, setError] = useState({
     errorDni: '',
     errorName: '',
@@ -51,7 +52,7 @@ const ClientsForm = () => {
     }
 
     // validate phone number
-    if (inputs.phoneNumber.split('').length !== 9) {
+    if (inputs.phoneNumber.split('').length < 9 || inputs.phoneNumber.split('').length > 9) {
       setError({
         errorDni: '',
         errorName: '',
@@ -69,6 +70,14 @@ const ClientsForm = () => {
       phone_number: inputs.phoneNumber
     }
 
+    const error = validateExistingData(listOfClients, inputsData)
+
+    // if the client exists error = true
+    if (error) {
+      // error message
+      return dispatch(clientSliceAction.handleErrorBanner('El usuario ya esta registrado'))
+    }
+
     const insertData = insertDataIntoSupabase(inputsData)
 
     insertData.then(() => {
@@ -78,7 +87,7 @@ const ClientsForm = () => {
       throw new Error(error)
     })
 
-    // // set a message sending data
+    // set a message sending data
     dispatch(clientSliceAction.handleLoadingBanner())
 
     // reset error in the form to initial state
@@ -87,6 +96,13 @@ const ClientsForm = () => {
       errorName: '',
       errorLastName: '',
       errorPhoneNumber: ''
+    })
+  }
+
+  // validates if a client already exists in database
+  const validateExistingData = (clients, inputs) => {
+    return clients.some(client => {
+      return inputs.dni === client.dni
     })
   }
 
