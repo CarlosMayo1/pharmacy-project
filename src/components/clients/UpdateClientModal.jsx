@@ -87,14 +87,14 @@ const ClientsModal = ({ onClose }) => {
     const response = updateDataIntoSupabase(updatedData)
 
     response.then(() => {
-      // close modal
-      onClose()
       // shows a successful banner
-      dispatch(clientSliceAction.handleSuccessfullBanner())
+      dispatch(clientSliceAction.handleSuccessfullBanner('Se ha editado el cliente correctamente'))
     }).catch(error => {
-      dispatch(clientSliceAction.handleErrorBanner())
+      dispatch(clientSliceAction.handleErrorBanner('¡Oops error al editar cliente!'))
       throw new Error(error)
     })
+    // close modal
+    onClose()
   }
 
   return (

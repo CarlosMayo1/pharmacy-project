@@ -40,7 +40,7 @@ const ClientsForm = () => {
     }
 
     // validate DNI
-    if (inputs.dni.split('').length !== 8) {
+    if (inputs.dni.split('').length < 8 || inputs.dni.split('').length > 8) {
       setError({
         errorDni: 'El DNI debe contener 8 números',
         errorName: '',
@@ -72,9 +72,9 @@ const ClientsForm = () => {
     const insertData = insertDataIntoSupabase(inputsData)
 
     insertData.then(() => {
-      dispatch(clientSliceAction.handleSuccessfullBanner())
+      dispatch(clientSliceAction.handleSuccessfullBanner('Cliente insertado correctamente'))
     }).catch(error => { // handles error
-      dispatch(clientSliceAction.handleErrorBanner())
+      dispatch(clientSliceAction.handleErrorBanner('¡Oops error al insertar cliente!'))
       throw new Error(error)
     })
 
