@@ -2,14 +2,18 @@
 import { useEffect } from 'react'
 import { fetchClientsFromSupabase } from './utils/clients'
 
+import { Routes, Route } from 'react-router-dom'
+
 import './App.css'
-import Banner from './UI/Banner'
-import ClientsTable from './components/clients/ClientsTable'
-import ClientsForm from './components/clients/ClientsForm'
 
 // redux toolkit
 import { useDispatch, useSelector } from 'react-redux'
 import { clientSliceAction } from './store/clientStore/client-redux'
+
+// components
+import Clients from './components/Clients/Clients'
+import Home from './components/Home/Home'
+import Header from './Layout/Header/Header'
 
 function App () {
   // react redux
@@ -40,14 +44,11 @@ function App () {
 
   return (
     <div className='App'>
-      {showBanner.show ? <Banner>{showBanner.message}</Banner> : null}
-      <div className='content'>
-        <div className='new-client'>
-          <h3>Registra nuevo cliente</h3>
-          <ClientsForm />
-        </div>
-        <ClientsTable />
-      </div>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/clients' element={<Clients />} />
+      </Routes>
     </div>
   )
 }

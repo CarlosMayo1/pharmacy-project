@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: .5rem 1.5rem .5rem 1.5rem;
+  color: #000;
+  background: #fff;
+  height: 60px;
+}
+
+.logo {
+  width: 200px;
+  font-weight: 600;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  list-style-type: none;
+}
+
+.navbar li {
+  margin-right: .5rem;
+}
+
+.navbar li a {
+  color: #000;
+}
+
+.navbar li a.active {
+  color: #0D6CE4;
+}
