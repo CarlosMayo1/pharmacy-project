@@ -15,6 +15,7 @@ import Clients from './components/Clients/Clients'
 import Home from './components/Home/Home'
 import Header from './Layout/Header/Header'
 import Products from './components/Products/Products'
+import Sells from './components/Sells/Sells'
 
 function App () {
   // react redux
@@ -49,6 +50,7 @@ function App () {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/clients' element={<Clients />} />
+        <Route path='/sells' element={<Sells />} />
         <Route path='/products' element={<Products />} />
       </Routes>
     </div>

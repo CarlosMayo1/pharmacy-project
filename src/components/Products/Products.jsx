@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import classes from './Products.module.css'
 
-import { insertProductIntoSupabse } from '../../utils/products'
+import { fetchProductsFromSupabase, insertProductIntoSupabse } from '../../utils/products'
+import { productSliceAction } from '../../store/productStore/product-redux'
 
 const Products = () => {
+  // state using redux
+  const listOfProducts = useSelector(state => state.productReducer.listOfProducts)
+  const dispatch = useDispatch()
+  // state of the app
+  const [loading, setLoading] = useState(false)
   const [inputs, setIinputs] = useState({
     name: '',
     common_name: '',
@@ -39,6 +46,14 @@ const Products = () => {
     })
   }
 
+  useEffect(() => {
+    const clients = fetchProductsFromSupabase()
+    clients.then(response => {
+      const { data } = response
+      dispatch(productSliceAction.getProducts(data))
+      setLoading(true)
+    })
+  }, [])
   return (
     <div className={classes.container}>
       <div className={classes['form-wrapper']}>
@@ -97,24 +112,31 @@ const Products = () => {
               <th>Nombre</th>
               <th>Tipo</th>
               <th>Fecha de caducidad</th>
+              <th>Funcion</th>
               <th>Cantidad</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <td>Repriman</td>
-            <td>Jarabe</td>
-            <td>05/07/2024</td>
-            <td>30</td>
-            <td>
-              <div className={classes.actions}>
-                <button>Editar</button>
-                <button>Elimnar</button>
-              </div>
-            </td>
+            {loading
+              ? listOfProducts.map(product => (
+                <tr key={product.product_id}>
+                  <td>{product.name}</td>
+                  <td>{product.type}</td>
+                  <td>{product.expiration_date}</td>
+                  <td>{product.function}</td>
+                  <td>{product.stock}</td>
+                  <td>
+                    <div className={classes['form-actions']}>
+                      <button>Editar</button>
+                      <button>Eliminar</button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+              : null}
           </tbody>
         </table>
-        {inputs.name}
       </div>
     </div>
   )
