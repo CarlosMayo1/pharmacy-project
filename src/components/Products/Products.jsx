@@ -31,12 +31,12 @@ const Products = () => {
     console.log(inputs)
     dispatch(productSliceAction.handleSuccessfullBanner('El producto ha sido agregado correctamente.'))
 
-    // insertProductIntoSupabse(inputs).then(() => {
-    //   dispatch(productSliceAction.handleSuccessfullBanner('El producto ha sido agregado correctamente.'))
-    // }).catch(error => {
-    //   dispatch(productSliceAction.handleErrorBanner('¡Oops ha ocurrido un problema al insertar el producto! '))
-    //   throw new Error(error)
-    // })
+    insertProductIntoSupabse(inputs).then(() => {
+      dispatch(productSliceAction.handleSuccessfullBanner('El producto ha sido agregado correctamente.'))
+    }).catch(error => {
+      dispatch(productSliceAction.handleErrorBanner('¡Oops ha ocurrido un problema al insertar el producto! '))
+      throw new Error(error)
+    })
   }
 
   useEffect(() => {
