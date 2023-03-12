@@ -10,7 +10,7 @@ const Clients = () => {
   const showBanner = useSelector(state => state.clientReducer.banner)
   return (
     <>
-      {showBanner.show ? <Banner>{showBanner.message}</Banner> : null}
+      {showBanner.show ? <Banner style={showBanner.style}>{showBanner.message}</Banner> : null}
       <div className={classes.content}>
         <div className={classes['new-client']}>
           <h3>Registra nuevo cliente</h3>
