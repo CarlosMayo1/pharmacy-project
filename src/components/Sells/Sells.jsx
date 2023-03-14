@@ -1,121 +1,42 @@
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+
+import { productSliceAction } from '../../store/productStore/product-redux'
+import { fetchProductsFromSupabase } from '../../utils/products'
+
+// components
+import SellProducts from './SellProducts'
+
 import classes from './Sells.module.css'
 
 import Card from '../../UI/Card'
 
 const Sell = () => {
+  // redux
+  const listOfProducts = useSelector(state => state.productReducer.listOfProducts)
+  const dispatch = useDispatch()
+
+  const onSearchProductHandler = (e) => {
+    console.log(e.target.value)
+  }
+
+  useEffect(() => {
+    // getting products from database
+    const products = fetchProductsFromSupabase()
+    products.then(response => {
+      const { data } = response
+      dispatch(productSliceAction.getProducts(data))
+    })
+  }, [])
   return (
     <div className={classes.container}>
       <Card>
         <h3>Productos</h3>
         <form className={classes.form}>
-          <input type='text' placeholder='Buscar producto' />
+          <input type='text' id='search' name='search' placeholder='Buscar producto' onChange={onSearchProductHandler} />
           <button className={classes.search}>Buscar</button>
         </form>
-        <div className={classes.products}>
-          <table className={classes.table}>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Stock</th>
-                <th>Precio</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Repriman</td>
-                <td>Jarabe</td>
-                <td>15</td>
-                <td>S/ 15</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Ibuprofeno</td>
-                <td>Jarabe</td>
-                <td>3</td>
-                <td>S/ 7</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Alcohol</td>
-                <td>Frasco</td>
-                <td>6</td>
-                <td>S/ 10</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Repriman</td>
-                <td>Jarabe</td>
-                <td>15</td>
-                <td>S/ 15</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Repriman</td>
-                <td>Jarabe</td>
-                <td>15</td>
-                <td>S/ 15</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Repriman</td>
-                <td>Jarabe</td>
-                <td>15</td>
-                <td>S/ 15</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Repriman</td>
-                <td>Jarabe</td>
-                <td>15</td>
-                <td>S/ 15</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Repriman</td>
-                <td>Jarabe</td>
-                <td>15</td>
-                <td>S/ 15</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Repriman</td>
-                <td>Jarabe</td>
-                <td>15</td>
-                <td>S/ 15</td>
-                <td>
-                  <button className={classes.info}>Info</button>
-                  <button className={classes.add}>Add</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {listOfProducts.length > 0 ? <SellProducts listOfProducts={listOfProducts} /> : <p>Loading...</p>}
       </Card>
       <Card>
         <div className='buy-section'>
