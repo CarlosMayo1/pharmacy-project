@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { productSliceAction } from '../../store/productStore/product-redux'
 import { fetchProductsFromSupabase } from '../../utils/products'
@@ -16,8 +16,21 @@ const Sell = () => {
   const listOfProducts = useSelector(state => state.productReducer.listOfProducts)
   const dispatch = useDispatch()
 
+  // state of the app
+  const [searchedProducts, setSearchedProducts] = useState([])
+
   const onSearchProductHandler = (e) => {
-    console.log(e.target.value)
+    const searchWord = e.target.value
+
+    if (e.target.value !== '') {
+      // you get the input from the user
+      const filteredProducts = listOfProducts.filter(product => {
+        return product.name.toLowerCase().includes(searchWord.toLocaleLowerCase())
+      })
+      setSearchedProducts(filteredProducts)
+    } else {
+      setSearchedProducts([])
+    }
   }
 
   useEffect(() => {
@@ -28,15 +41,18 @@ const Sell = () => {
       dispatch(productSliceAction.getProducts(data))
     })
   }, [])
+
   return (
     <div className={classes.container}>
       <Card>
         <h3>Productos</h3>
-        <form className={classes.form}>
-          <input type='text' id='search' name='search' placeholder='Buscar producto' onChange={onSearchProductHandler} />
-          <button className={classes.search}>Buscar</button>
-        </form>
-        {listOfProducts.length > 0 ? <SellProducts listOfProducts={listOfProducts} /> : <p>Loading...</p>}
+        <div className={classes['search-bar']}>
+          <div className={classes['search-input']}>
+            <input type='text' id='search' name='search' placeholder='Buscar producto' onChange={onSearchProductHandler} />
+            <div className={classes['search-icon']}><i className='fa-solid fa-magnifying-glass' /></div>
+          </div>
+        </div>
+        {listOfProducts.length > 0 ? <SellProducts listOfProducts={listOfProducts} searchedProducts={searchedProducts} /> : <p>Cargando datos...</p>}
       </Card>
       <Card>
         <div className='buy-section'>

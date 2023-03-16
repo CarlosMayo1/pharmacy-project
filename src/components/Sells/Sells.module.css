@@ -2,9 +2,32 @@
   display: flex;
 }
 
-.form {
-  display: flex;
+.search-bar {
   margin-bottom:1rem;
+}
+
+.search-input {
+  display: flex;
+  width: 100%;
+}
+
+.search-bar input {
+  border-radius: 5px;
+  outline: none;
+  padding:.5rem;
+  border: 2px solid #e5e5e5be;
+}
+
+.search-icon {
+  color: #afafafd1;
+  position: absolute;
+  /* display: grid;
+  place-items: center; */
+}
+
+.search-icon i {
+  height: 100%;
+  display: flex;
 }
 
 .inputs-container {
