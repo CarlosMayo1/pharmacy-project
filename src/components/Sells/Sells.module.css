@@ -11,54 +11,8 @@
   width: 100%;
 }
 
-.search-bar input {
-  border-radius: 5px;
-  outline: none;
-  padding:.5rem;
-  border: 2px solid #e5e5e5be;
-}
-
-.search-icon {
-  color: #afafafd1;
-  position: absolute;
-  /* display: grid;
-  place-items: center; */
-}
-
-.search-icon i {
-  height: 100%;
-  display: flex;
-}
-
-.inputs-container {
-  display: flex;
-}
-
-.inputs-container input {
-  margin-left: 5px;
-  margin-right: 5px;
-  width: 25%;
-}
-
-.new-sell { 
-  color: #fff;
-  background:#17a2b8;
-  font-size:14px;
-}
-
-.bill {
-  height: 200px;
+.list-products {
+  list-style:none;
+  height: 400px;
   overflow: auto;
-}
-
-.delete {
-  background: #dc3545;
-  color:#fff;
-  font-size: 14px;
-}
-
-.payment {
-  margin-top: .5rem;
-  border: 2px solid #e5e5e5be;
-  padding: 1rem;
 }

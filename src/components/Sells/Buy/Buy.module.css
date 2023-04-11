@@ -1,0 +1,29 @@
+.inputs-container {
+  display: flex;
+}
+
+.inputs-container input {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 25%;
+}
+
+.bill {
+  height: 200px;
+  overflow: auto;
+}
+
+.delete {
+  background: #dc3545;
+  color:#fff;
+  font-size: 14px;
+}
+
+.amount span {
+  margin-right:.5rem;
+  font-weight: 600;
+}
+
+.amount button {
+  background: #ffa927;
+}

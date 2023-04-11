@@ -1,0 +1,35 @@
+.new-sell { 
+  color: #fff;
+  background:#17a2b8;
+  font-size:14px;
+}
+
+
+.payment {
+  margin-top: .5rem;
+  border: 2px solid #e5e5e5be;
+  padding: 1rem;
+}
+
+.actions {
+  display: flex;
+}
+
+.actions input {
+  width: 50px;
+}
+
+.cash {
+  display: flex;
+  align-items: center;
+}
+
+.cash input {
+  width:50px;
+  margin-left:1rem;
+  margin-right: 1rem;
+}
+
+.form-group {
+  margin-bottom:.5rem;
+}

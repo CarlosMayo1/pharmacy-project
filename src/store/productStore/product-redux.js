@@ -13,12 +13,14 @@ const initialState = {
     price: '',
     function: ''
   },
-  listOfProducts: [],
   banner: {
     show: false,
     message: '',
     style: ''
-  }
+  },
+  listOfProducts: [],
+  selectedProducts: [],
+  totalAmount: 0
 }
 
 const productSlice = createSlice({
@@ -75,6 +77,32 @@ const productSlice = createSlice({
         message: '',
         style: ''
       }
+    },
+    handleSelectedProducts (state, action) {
+      state.selectedProducts = action.payload
+    },
+    handleAddProduct (state, action) {
+      const updatedTotalAmount = state.totalAmount + action.payload.price * action.payload.amount
+
+      const existingCartItemIndex = state.selectedProducts.findIndex(item => item.id === action.payload.id)
+
+      const existingCartItem = state.selectedProducts[existingCartItemIndex]
+
+      let updatedSelectedProducts
+
+      if (existingCartItem) {
+        const updatedSelectedProduct = {
+          ...existingCartItem,
+          amount: existingCartItem.amount + action.payload.amount
+        }
+
+        updatedSelectedProducts = [...state.selectedProducts]
+        updatedSelectedProducts[existingCartItemIndex] = updatedSelectedProduct
+      } else {
+        updatedSelectedProducts = state.selectedProducts.concat(action.payload)
+      }
+      state.selectedProducts = updatedSelectedProducts
+      state.totalAmount = updatedTotalAmount
     }
   }
 })

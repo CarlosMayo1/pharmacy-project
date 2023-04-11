@@ -44,13 +44,6 @@ textarea {
   padding: .5rem;
 }
 
-.table {
-  border-collapse: collapse;
-}
-
-td, th {
-  padding: 5px;
-}
 
 /* .form {
   width: 440px;

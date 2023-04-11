@@ -1,32 +1,36 @@
-
-.products {
-  height: 400px;
-  overflow: auto;
-}
-
-.table {
-  border-collapse: collapse;
-}
-
-th, td {
- border: 2px solid #e5e5e5be;
-}
-
 .actions {
   display: flex;
 }
 
-.info {
-  padding:.5rem;
-  width: 30px;
+.increment {
+  width:30px;
   height: 30px;
-  background:#ffc107;
-  color: #000;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #0397D8;
+  padding:.5rem;
+  border-radius: 50%;
+  color:#fff;
+}
+
+.decrement {
+  background: #dc3545;
+  font-size: 14px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:.5rem;
+  border-radius: 50%;
+  color:#fff;
+}
+
+.amount {
   margin-right: .5rem;
+  margin-left:.5rem;
+  width: 50px;
 }
 
 .add {

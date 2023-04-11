@@ -38,8 +38,13 @@ h1 {
   line-height: 1.1;
 }
 
-input {
+input, select {
   width: 100%;
+  border-radius: 5px;
+  outline: none;
+  padding:.5rem;
+  border: 2px solid #e5e5e5be;
+  background: #fff;
 }
 
 button {
@@ -54,6 +59,27 @@ button {
   cursor: pointer;
   /* transition: border-color 0.25s; */
 }
+
+table {
+  border-collapse: collapse;
+}
+
+th:nth-child(1) {
+  width: 100px;
+}
+
+th:last-child {
+  width: 60px;
+}
+
+th, td {
+  font-size:14px;
+  padding:.5rem;
+  border: 2px solid #e5e5e5be;
+ }
+ 
+
+
 
 /* button:hover {
   border-color: #646cff;

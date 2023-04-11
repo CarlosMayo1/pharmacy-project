@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom'
 import classes from './Header.module.css'
+// import logo from '../../assets/logo.png'
 
 const Header = () => {
   return (
     <header className={classes.header}>
-      <div className={classes.logo}>
+      <div className={classes['logo-wrapper']}>
         Divino Niño
+        {/* <img className={classes.logo} src={logo} alt='Divino Niño' /> */}
       </div>
       <ul className={classes.navbar}>
         <li><NavLink to='/' className={({ isActive }) => isActive ? classes.active : undefined}>Home</NavLink></li>
