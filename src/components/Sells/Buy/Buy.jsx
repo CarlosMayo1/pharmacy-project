@@ -24,7 +24,18 @@ const Buy = () => {
 
   // shows modal to edit amount
   const onShowEditModalHandler = (product) => {
-    setShowEditModal(!showEditModal)
+    dispatch(productSliceAction.handleUpdateProductAmount(product))
+    setShowEditModal(true)
+  }
+
+  // hides edit modal
+  const onCloseShowEditModalHandler = () => {
+    setShowEditModal(false)
+  }
+
+  // delete product
+  const handleDeleteProduct = (id) => {
+    console.log('deliting product with the id: ' + id)
   }
 
   const total = selectedProducts.reduce((accumulator, object) => {
@@ -42,7 +53,7 @@ const Buy = () => {
   return (
     <Card>
       {showBanner.show ? <Banner style={showBanner.style}>{showBanner.message}</Banner> : null}
-      {showEditModal ? <EditAmountModal close={onShowEditModalHandler} /> : null}
+      {showEditModal ? <EditAmountModal close={onCloseShowEditModalHandler} /> : null}
       <div className='buy-section'>
         <div className={classes.bill}>
           <h4>Pedido</h4>
@@ -65,14 +76,13 @@ const Buy = () => {
                   <td>
                     <div className={classes.amount}>
                       <span>{product.amount}</span>
-                      <button type='button' onClick={onShowEditModalHandler(product)}><i className='fa-sharp fa-regular fa-pen-to-square' /></button>
+                      <button type='button' onClick={() => onShowEditModalHandler(product)}><i className='fa-sharp fa-regular fa-pen-to-square' /></button>
                     </div>
-                    {/* <BuyForm product={product} /> */}
                   </td>
                   <td>{product.price}</td>
                   <td>{product.total}</td>
                   <td>
-                    <button className={classes.delete}>
+                    <button className={classes.delete} onClick={() => handleDeleteProduct(product.id)}>
                       <i className='fa-solid fa-trash' />
                     </button>
                   </td>

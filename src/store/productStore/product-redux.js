@@ -18,6 +18,7 @@ const initialState = {
     message: '',
     style: ''
   },
+  updateProductAmount: {},
   listOfProducts: [],
   selectedProducts: [],
   totalAmount: 0
@@ -103,7 +104,23 @@ const productSlice = createSlice({
       }
       state.selectedProducts = updatedSelectedProducts
       state.totalAmount = updatedTotalAmount
+    },
+    handleUpdateProductAmount (state, action) {
+      const existingProductItemIndex = state.selectedProducts.findIndex(product => product.id === action.payload.id)
+
+      state.updateProductAmount = state.selectedProducts[existingProductItemIndex]
+    },
+    handleUpdateAmount (state, action) {
+      // getting index of the product inside the list of selected products
+      const existingProductItemIndex = state.selectedProducts.findIndex(product => product.id === action.payload.id)
+
+      // updating list of selected products
+      state.selectedProducts[existingProductItemIndex].amount = action.payload.amount
+    },
+    hanldeDeleteProduct (state, action) {
+      console.log('deleting')
     }
+
   }
 })
 
