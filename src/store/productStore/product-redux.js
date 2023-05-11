@@ -20,6 +20,7 @@ const initialState = {
   },
   updateProductAmount: {},
   listOfProducts: [],
+  deleteProductId: '',
   selectedProducts: [],
   totalAmount: 0
 }
@@ -117,10 +118,13 @@ const productSlice = createSlice({
       // updating list of selected products
       state.selectedProducts[existingProductItemIndex].amount = action.payload.amount
     },
-    hanldeDeleteProduct (state, action) {
-      console.log('deleting')
+    handleDeleteProductId (state, action) {
+      state.deleteProductId = action.payload
+    },
+    handlerRemoveProductFromList (state, action) {
+      const filteredProducts = state.selectedProducts.filter(product => product.id !== action.payload)
+      state.selectedProducts = filteredProducts
     }
-
   }
 })
 

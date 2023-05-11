@@ -17,3 +17,9 @@ export const updateProductIntoSupabse = async (updateProduct, id) => {
   if (error) return error
   if (data) return data
 }
+
+export const deleteDataIntoSupabase = async (id) => {
+  const { data, error } = await supabase.from('products').delete().eq('id', id)
+  if (error) return error
+  if (data) return data
+}
