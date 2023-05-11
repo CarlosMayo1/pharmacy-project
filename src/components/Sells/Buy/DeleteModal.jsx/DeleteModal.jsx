@@ -12,7 +12,6 @@ const DeleteModal = ({ onClose }) => {
 
   // delete product from the selected list
   const deleteProduct = () => {
-    console.log(deleteProductId)
     dispatch(productSliceAction.handlerRemoveProductFromList(deleteProductId))
     dispatch(productSliceAction.handleSuccessfullBanner('El producto ha sido eliminado de la lista'))
     onClose()
