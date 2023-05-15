@@ -2,13 +2,15 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { productSliceAction } from '../../../../store/productStore/product-redux'
 
+import { inserNewSellIntoSupabse } from '../../../../utils/products'
+
 import classes from './Payment.module.css'
 
 const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts }) => {
   const [wayOfPayment, setWayOfPayment] = useState('cash')
   const dispatch = useDispatch()
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault()
 
     if (wayOfPayment === 'cash' && change < 0) {
@@ -23,14 +25,27 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts })
 
     const data = {
       date: new Date(),
-      listOfProducts: selectedProducts,
+      list_of_products: selectedProducts,
       total,
-      wayOfPayment,
+      way_of_payment: wayOfPayment,
       payment,
       change
     }
 
-    console.log(data)
+    const response = await inserNewSellIntoSupabse(data)
+    if (response.error) {
+      dispatch(productSliceAction.handleErrorBanner('Oops! Ocurrió un error al registrar la venta'))
+      throw new Error(response.error.message)
+    }
+
+    dispatch(productSliceAction.handleSuccessfullBanner('Se ha registrado la venta exitosamente'))
+    // sends data to supabase
+  //  .then(() => {
+  //     dispatch(productSliceAction.handleSuccessfullBanner('Se ha registrado la venta exitosamente'))
+  //   }).catch(error => {
+  //     dispatch(productSliceAction.handleErrorBanner('Oops! Error al realizar venta'))
+  //     throw new Error(error)
+  //   })
   }
 
   const onSelectWayOfPaymentHander = (e) => {

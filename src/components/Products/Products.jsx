@@ -29,8 +29,6 @@ const Products = () => {
     e.preventDefault()
 
     console.log(inputs)
-    dispatch(productSliceAction.handleSuccessfullBanner('El producto ha sido agregado correctamente.'))
-
     insertProductIntoSupabse(inputs).then(() => {
       dispatch(productSliceAction.handleSuccessfullBanner('El producto ha sido agregado correctamente.'))
     }).catch(error => {

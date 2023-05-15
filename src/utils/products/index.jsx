@@ -1,5 +1,8 @@
 import { supabase } from '../supabase.client'
 
+// NOTES:
+// It is possible to create a reusable function?
+
 // fetch producst from supabase
 export const fetchProductsFromSupabase = async () => {
   const products = await supabase.from('store').select()
@@ -22,4 +25,9 @@ export const deleteDataIntoSupabase = async (id) => {
   const { data, error } = await supabase.from('products').delete().eq('id', id)
   if (error) return error
   if (data) return data
+}
+
+export const inserNewSellIntoSupabse = async (data) => {
+  const products = await supabase.from('sells').insert(data)
+  return products
 }
