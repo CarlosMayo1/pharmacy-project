@@ -95,7 +95,8 @@ const productSlice = createSlice({
       if (existingCartItem) {
         const updatedSelectedProduct = {
           ...existingCartItem,
-          amount: existingCartItem.amount + action.payload.amount
+          amount: existingCartItem.amount + action.payload.amount,
+          total: state.totalAmount + action.payload.price * action.payload.amount
         }
 
         updatedSelectedProducts = [...state.selectedProducts]
@@ -117,6 +118,7 @@ const productSlice = createSlice({
 
       // updating list of selected products
       state.selectedProducts[existingProductItemIndex].amount = action.payload.amount
+      state.selectedProducts[existingProductItemIndex].total = state.selectedProducts[existingProductItemIndex].amount * state.selectedProducts[existingProductItemIndex].price
     },
     handleDeleteProductId (state, action) {
       state.deleteProductId = action.payload

@@ -23,6 +23,8 @@ const ProductForm = ({ product }) => {
       amount: enteredAmountNumber,
       total: enteredAmountNumber * product.price
     }))
+
+    amountInputRef.current.value = 1
   }
 
   return (

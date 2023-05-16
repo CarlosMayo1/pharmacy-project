@@ -19,6 +19,7 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, s
     }
 
     if (wayOfPayment !== 'cash') {
+      payment = 0
       change = 0
     }
 
@@ -50,11 +51,7 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, s
 
   const changeSection = (
     <>
-      <div className={classes['form-group']}>
-        <label>Total</label>
-        <span>S/ {total}
-        </span>
-      </div>
+
       <div className={classes.cash}>
         <label>Paga con:</label>
         <input type='number' placeholder='0' value={payment} onChange={onGetCashHandler} />
@@ -76,6 +73,11 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, s
           <option value='yape'>Yape</option>
           <option value='transferencia'>Trasnferencia</option>
         </select>
+      </div>
+      <div className={classes['form-group']}>
+        <label>Total</label>
+        <span>S/ {total}
+        </span>
       </div>
       {wayOfPayment === 'cash' ? changeSection : null}
       <button type='submit' className={classes['new-sell']}>Nueva venta</button>

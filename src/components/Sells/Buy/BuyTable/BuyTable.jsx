@@ -21,7 +21,7 @@ const BuyTable = ({ setShowEditModal, setShowDeleteModal }) => {
 
   return (
     <div className={classes.bill}>
-      <h4>Pedido</h4>
+      <h4>Sección de Pedido</h4>
       <table className={classes.table}>
         <thead>
           <tr>
