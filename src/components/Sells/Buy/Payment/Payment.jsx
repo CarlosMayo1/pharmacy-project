@@ -6,7 +6,7 @@ import { inserNewSellIntoSupabse } from '../../../../utils/products'
 
 import classes from './Payment.module.css'
 
-const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts }) => {
+const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, setPayment }) => {
   const [wayOfPayment, setWayOfPayment] = useState('cash')
   const dispatch = useDispatch()
 
@@ -14,7 +14,6 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts })
     e.preventDefault()
 
     if (wayOfPayment === 'cash' && change < 0) {
-      console.log('error')
       dispatch(productSliceAction.handleErrorBanner('Debe ingresar el monto a pagar'))
       return
     }
@@ -39,13 +38,9 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts })
     }
 
     dispatch(productSliceAction.handleSuccessfullBanner('Se ha registrado la venta exitosamente'))
-    // sends data to supabase
-  //  .then(() => {
-  //     dispatch(productSliceAction.handleSuccessfullBanner('Se ha registrado la venta exitosamente'))
-  //   }).catch(error => {
-  //     dispatch(productSliceAction.handleErrorBanner('Oops! Error al realizar venta'))
-  //     throw new Error(error)
-  //   })
+    dispatch(productSliceAction.handleCleanSelectedProducts())
+    setWayOfPayment('cash')
+    setPayment('')
   }
 
   const onSelectWayOfPaymentHander = (e) => {
@@ -62,7 +57,7 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts })
       </div>
       <div className={classes.cash}>
         <label>Paga con:</label>
-        <input type='number' placeholder='0' onChange={onGetCashHandler} />
+        <input type='number' placeholder='0' value={payment} onChange={onGetCashHandler} />
       </div>
       <div className={classes['form-group']}>
         <label>Vuelto de</label>

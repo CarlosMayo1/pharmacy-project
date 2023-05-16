@@ -1,0 +1,20 @@
+.bill {
+  height: 200px;
+  overflow: auto;
+  margin-bottom:1rem;
+}
+
+.delete {
+  background: #dc3545;
+  color:#fff;
+  font-size: 14px;
+}
+
+.amount span {
+  margin-right:.5rem;
+  font-weight: 600;
+}
+
+.amount button {
+  background: #ffa927;
+}

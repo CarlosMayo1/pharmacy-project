@@ -124,6 +124,9 @@ const productSlice = createSlice({
     handlerRemoveProductFromList (state, action) {
       const filteredProducts = state.selectedProducts.filter(product => product.id !== action.payload)
       state.selectedProducts = filteredProducts
+    },
+    handleCleanSelectedProducts (state) {
+      state.selectedProducts = []
     }
   }
 })

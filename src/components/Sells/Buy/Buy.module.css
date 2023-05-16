@@ -1,3 +1,7 @@
+.buy-section {
+  height: 100%;
+}
+
 .inputs-container {
   display: flex;
 }
@@ -8,22 +12,3 @@
   width: 25%;
 }
 
-.bill {
-  height: 200px;
-  overflow: auto;
-}
-
-.delete {
-  background: #dc3545;
-  color:#fff;
-  font-size: 14px;
-}
-
-.amount span {
-  margin-right:.5rem;
-  font-weight: 600;
-}
-
-.amount button {
-  background: #ffa927;
-}

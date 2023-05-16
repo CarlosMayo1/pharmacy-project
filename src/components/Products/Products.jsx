@@ -28,7 +28,6 @@ const Products = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault()
 
-    console.log(inputs)
     insertProductIntoSupabse(inputs).then(() => {
       dispatch(productSliceAction.handleSuccessfullBanner('El producto ha sido agregado correctamente.'))
     }).catch(error => {
