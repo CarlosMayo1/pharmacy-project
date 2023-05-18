@@ -5,6 +5,10 @@ import ProductForm from './ProductForm/ProductForm'
 const ListOfProducts = ({ listOfProducts, searchedProducts }) => {
   const productsArr = searchedProducts.length > 0 ? searchedProducts : listOfProducts
 
+  // const sortedProductsArr = productsArr.sort()
+
+  // console.log(sortedProductsArr)
+
   return (
     productsArr.map((product, index) => (
       <li key={index} className={classes['product-wrapper']}>

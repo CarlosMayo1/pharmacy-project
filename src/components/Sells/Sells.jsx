@@ -18,6 +18,7 @@ const Sell = () => {
   const listOfProducts = useSelector(
     (state) => state.productReducer.listOfProducts
   )
+
   // const showBanner = useSelector(state => state.productReducer.banner)
   const dispatch = useDispatch()
 
@@ -45,6 +46,18 @@ const Sell = () => {
     const products = fetchProductsFromSupabase()
     products.then((response) => {
       const { data } = response
+
+      // order alphabetically
+      data.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1
+        }
+        if (a.name > b.name) {
+          return 1
+        }
+        return 0
+      })
+
       dispatch(productSliceAction.getProducts(data))
     })
   }, [])

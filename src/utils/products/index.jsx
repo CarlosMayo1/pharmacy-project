@@ -21,13 +21,19 @@ export const updateProductIntoSupabse = async (updateProduct, id) => {
   if (data) return data
 }
 
-export const deleteDataIntoSupabase = async (id) => {
-  const { data, error } = await supabase.from('products').delete().eq('id', id)
+// export const deleteDataIntoSupabase = async (id) => {
+//   const { data, error } = await supabase.from('products').delete().eq('id', id)
+//   if (error) return error
+//   if (data) return data
+// }
+
+export const updateAmountOfStoreInSupbase = async (updatedStock, id) => {
+  const { data, error } = await supabase.from('store').update({ stock: updatedStock }).eq('product_id', id)
   if (error) return error
   if (data) return data
 }
 
-export const inserNewSellIntoSupabse = async (data) => {
+export const insertNewSellIntoSupabse = async (data) => {
   const products = await supabase.from('sells').insert(data)
   return products
 }

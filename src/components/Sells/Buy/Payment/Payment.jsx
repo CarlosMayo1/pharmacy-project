@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { productSliceAction } from '../../../../store/productStore/product-redux'
 
-import { inserNewSellIntoSupabse } from '../../../../utils/products'
+import { insertNewSellIntoSupabse, updateAmountOfStoreInSupbase } from '../../../../utils/products'
 
 import classes from './Payment.module.css'
 
@@ -32,16 +32,29 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, s
       change
     }
 
-    const response = await inserNewSellIntoSupabse(data)
+    const response = await insertNewSellIntoSupabse(data)
     if (response.error) {
       dispatch(productSliceAction.handleErrorBanner('Oops! Ocurrió un error al registrar la venta'))
       throw new Error(response.error.message)
     }
 
+    // update amount in supabase
+    const res = updateProductAmountInSupabse(data.list_of_products)
+    if (res.error) {
+      dispatch(productSliceAction.handleErrorBanner('Oops! Ocurrió un error al actualizar inventario'))
+      throw new Error(response.error.message)
+    }
+
     dispatch(productSliceAction.handleSuccessfullBanner('Se ha registrado la venta exitosamente'))
     dispatch(productSliceAction.handleCleanSelectedProducts())
+
     setWayOfPayment('cash')
     setPayment('')
+  }
+
+  const updateProductAmountInSupabse = (arr) => {
+    console.log(arr)
+    arr.map(product => updateAmountOfStoreInSupbase(product.updatedStock, product.id))
   }
 
   const onSelectWayOfPaymentHander = (e) => {
@@ -51,7 +64,6 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, s
 
   const changeSection = (
     <>
-
       <div className={classes.cash}>
         <label>Paga con:</label>
         <input type='number' placeholder='0' value={payment} onChange={onGetCashHandler} />
