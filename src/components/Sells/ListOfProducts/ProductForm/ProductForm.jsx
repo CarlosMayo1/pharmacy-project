@@ -25,7 +25,7 @@ const ProductForm = ({ product }) => {
       updatedStock: product.stock - enteredAmountNumber
     }))
 
-    amountInputRef.current.value = 1
+    amountInputRef.current.value = product.stock === 0 ? '0' : '1'
   }
 
   return (
@@ -33,10 +33,10 @@ const ProductForm = ({ product }) => {
       <input
         type='numer'
         id='amount'
-        defaultValue='1'
+        defaultValue={product.stock === 0 ? '0' : '1'}
         ref={amountInputRef}
       />
-      <button type='submit'>+ Agregar</button>
+      <button type='submit' className={product.stock === 0 ? classes.disabled : classes['submit-button']} disabled={product.stock === 0}>+ Agregar</button>
     </form>
   )
 }

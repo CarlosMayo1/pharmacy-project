@@ -27,7 +27,7 @@ export const updateProductIntoSupabse = async (updateProduct, id) => {
 //   if (data) return data
 // }
 
-export const updateAmountOfStoreInSupbase = async (updatedStock, id) => {
+export const updateAmountOfStoreInSupabase = async (updatedStock, id) => {
   const { data, error } = await supabase.from('store').update({ stock: updatedStock }).eq('product_id', id)
   if (error) return error
   if (data) return data

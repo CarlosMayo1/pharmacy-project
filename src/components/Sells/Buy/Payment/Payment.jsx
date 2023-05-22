@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { productSliceAction } from '../../../../store/productStore/product-redux'
 
-import { insertNewSellIntoSupabse, updateAmountOfStoreInSupbase } from '../../../../utils/products'
+import { insertNewSellIntoSupabse, updateAmountOfStoreInSupabase } from '../../../../utils/products'
 
 import classes from './Payment.module.css'
 
@@ -32,6 +32,7 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, s
       change
     }
 
+    // inserting a new sell into the table
     const response = await insertNewSellIntoSupabse(data)
     if (response.error) {
       dispatch(productSliceAction.handleErrorBanner('Oops! Ocurrió un error al registrar la venta'))
@@ -39,9 +40,9 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, s
     }
 
     // update amount in supabase
-    const res = updateProductAmountInSupabse(data.list_of_products)
+    const res = updateProductAmountInSupabase(data.list_of_products)
     if (res.error) {
-      dispatch(productSliceAction.handleErrorBanner('Oops! Ocurrió un error al actualizar inventario'))
+      dispatch(productSliceAction.handleErrorBanner('Oops! Ocurrió un error al actualizar el inventario'))
       throw new Error(response.error.message)
     }
 
@@ -52,9 +53,8 @@ const Payment = ({ payment, total, onGetCashHandler, change, selectedProducts, s
     setPayment('')
   }
 
-  const updateProductAmountInSupabse = (arr) => {
-    console.log(arr)
-    arr.map(product => updateAmountOfStoreInSupbase(product.updatedStock, product.id))
+  const updateProductAmountInSupabase = (arr) => {
+    return arr.map(product => updateAmountOfStoreInSupabase(product.updatedStock, product.id))
   }
 
   const onSelectWayOfPaymentHander = (e) => {

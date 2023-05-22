@@ -15,10 +15,23 @@
   font-size: 14px;
 } 
 
-.bold {
+.italic {
+  font-style: italic;
+}
+
+.stock {
+  font-size: 15px;
   font-weight: 600;
 }
 
-.italic {
-  font-style: italic;
+.full {
+  color:  #008E43;
+}
+
+.warning {
+  color: #ffa927;
+}
+
+.danger {
+  color: #dc3545
 }

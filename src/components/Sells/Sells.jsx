@@ -18,6 +18,8 @@ const Sell = () => {
   const listOfProducts = useSelector(
     (state) => state.productReducer.listOfProducts
   )
+  // banner
+  const showBanner = useSelector(state => state.productReducer.banner)
 
   // const showBanner = useSelector(state => state.productReducer.banner)
   const dispatch = useDispatch()
@@ -60,7 +62,7 @@ const Sell = () => {
 
       dispatch(productSliceAction.getProducts(data))
     })
-  }, [])
+  }, [showBanner.show])
 
   return (
     <div className={classes.container}>
