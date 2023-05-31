@@ -49,6 +49,11 @@ const Products = () => {
     }, 3000)
   }, [showBanner.show])
 
+  function dateFormat (date) {
+    const newDate = new Date(date)
+    return newDate.getDate() + '/' + newDate.getMonth() + '/' + newDate.getFullYear()
+  }
+
   return (
     <>
       {showBanner.show ? <Banner style={showBanner.style}>{showBanner.message}</Banner> : null}
@@ -59,14 +64,6 @@ const Products = () => {
             <div className={classes['form-control']}>
               <label>Nombre comercial</label>
               <input type='text' id='name' name='name' value={inputs.name} placeholder='Nombre comercial del producto' onChange={onChangeInputHandler} />
-            </div>
-            <div className={classes['form-control']}>
-              <label>Nombre comun</label>
-              <input type='text' id='commonName' name='common_name' value={inputs.common_name} placeholder='Nombre comun del producto' onChange={onChangeInputHandler} />
-            </div>
-            <div className={classes['form-control']}>
-              <label>Componente activo</label>
-              <input type='text' id='activeComponent' name='active_component' value={inputs.active_component} placeholder='Componente activo' onChange={onChangeInputHandler} />
             </div>
             <div className={classes['form-control']}>
               <label>Laboratorio</label>
@@ -109,7 +106,6 @@ const Products = () => {
                 <th>Nombre</th>
                 <th>Tipo</th>
                 <th>Fecha de caducidad</th>
-                <th>Funcion</th>
                 <th>Cantidad</th>
                 <th>Actions</th>
               </tr>
@@ -120,8 +116,7 @@ const Products = () => {
                   <tr key={product.product_id}>
                     <td>{product.name}</td>
                     <td>{product.type}</td>
-                    <td>{product.expiration_date}</td>
-                    <td>{product.function}</td>
+                    <td>{dateFormat(product.expiration_date)}</td>
                     <td>{product.stock}</td>
                     <td>
                       <div className={classes['form-actions']}>

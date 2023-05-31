@@ -3,8 +3,6 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   inputs: {
     name: '',
-    common_name: '',
-    active_component: '',
     laboratory: '',
     type: '',
     entry_date: '',

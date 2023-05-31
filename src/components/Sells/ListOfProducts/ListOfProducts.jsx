@@ -16,9 +16,6 @@ const ListOfProducts = ({ listOfProducts, searchedProducts }) => {
     }
   }
 
-  // const stockColor = product.stock >= 24 ? classes.full ? product.stock >= 10 || product.stock <= 23 ? classes.warning : classes.danger
-  // product.stock >= 0 && product.stock <= 9 ? classes.danger : product.sotck >= 10 && product.stock <= 23 ? classes.warning : classes.full
-
   return (
     productsArr.map((product, index) => (
       <li key={index} className={classes['product-wrapper']}>
@@ -26,8 +23,7 @@ const ListOfProducts = ({ listOfProducts, searchedProducts }) => {
           <h2>{product.name}</h2>
           <div className={classes['product-info']}>
             <p>stock: <span className={`${classes.stock} ${productColor(product.stock)}`}>{product.stock}</span></p>
-            <p>Nombre común: <span className={classes.italic}>{product.common_name}</span></p>
-            <p>Componente activo: {product.active_component}</p>
+            <p>Tipo: <span>{product.type}</span></p>
           </div>
           <div className={classes['price-wrapper']}>
             Precio: <span>S/ {product.price}</span>
