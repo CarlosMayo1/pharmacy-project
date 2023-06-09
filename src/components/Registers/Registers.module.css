@@ -1,0 +1,61 @@
+.container {
+  margin:10px auto;
+  max-width: 1150px;
+  background: #fff;
+  border-radius: 10px;
+  color: #000;
+}
+
+.container h2 {
+  text-align: center;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.total-container {
+  
+}
+
+.total {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.products {
+  list-style-type:none;
+}
+
+.products ul {
+  list-style-type:none;
+}
+
+.list-products li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table thead th {
+  width: 25%;
+}
+
+.product-title {
+  font-size: 18px;
+  text-decoration: underline;
+  margin-bottom: .5rem;
+}
+
+.subtotal {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.filter {
+  width: 300px;
+}
