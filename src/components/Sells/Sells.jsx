@@ -19,7 +19,7 @@ const Sell = () => {
     (state) => state.productReducer.listOfProducts
   )
   // banner
-  const showBanner = useSelector(state => state.productReducer.banner)
+  const showBanner = useSelector((state) => state.productReducer.banner)
 
   // const showBanner = useSelector(state => state.productReducer.banner)
   const dispatch = useDispatch()
@@ -80,7 +80,10 @@ const Sell = () => {
           </div>
         </div>
         <ul className={classes['list-products']}>
-          <ListOfProducts listOfProducts={listOfProducts} searchedProducts={searchedProducts} />
+          <ListOfProducts
+            listOfProducts={listOfProducts}
+            searchedProducts={searchedProducts}
+          />
         </ul>
       </Card>
       <Buy />

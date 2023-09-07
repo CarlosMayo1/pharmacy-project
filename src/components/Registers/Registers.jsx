@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useSelect, useDispatch } from 'react'
 
 import { fetchSellsFromSupabase, fetchSellsByRange } from '../../utils/sells/index'
 
@@ -11,27 +11,40 @@ const Registers = () => {
   const [endDate, setEndDate] = useState('')
 
   const onChangeSelectHandler = (e) => {
-    console.log(e.target.value)
     setSelectedOption(e.target.value)
   }
 
   const onChangeStartDateHandler = (e) => {
     const newStartedDate = e.target.value + ' ' + '00:00:00'
     setStartDate(newStartedDate)
-    console.log(newStartedDate)
   }
 
   const onChangeEndDateHandler = (e) => {
     const newEndedDate = e.target.value + ' ' + '23:59:59.999'
     setEndDate(newEndedDate)
-    console.log(e.target.value)
   }
 
   const onSubmitFilterHandler = (e) => {
     e.preventDefault()
-    console.log('working')
-    const range = fetchSellsByRange(startDate, endDate)
-    range.then(response => console.log(response))
+
+    if (selectedOption === 'day') {
+      console.log('showing sells of the day')
+    }
+
+    if (selectedOption === 'week') {
+      if (startDate !== '' && endDate !== '') {
+        const range = fetchSellsByRange(startDate, endDate)
+        range.then(response => setListOfProducts(response.data))
+      } else {
+        throw new Error('Empty spaces are not acceptable')
+      }
+    }
+
+    if (selectedOption === 'month') {
+      console.log('showing sells of the month')
+    }
+
+    console.log('this is the end of the program')
   }
 
   useEffect(() => {
@@ -42,6 +55,11 @@ const Registers = () => {
       setListOfProducts(data)
     })
   }, [])
+
+  function dateFormat (date) {
+    const newDate = new Date(date)
+    return newDate.getDate() + '/' + newDate.getMonth() + '/' + newDate.getFullYear()
+  }
 
   return (
     <div className={classes.container}>
@@ -96,6 +114,7 @@ const Registers = () => {
                     <table className={classes.table}>
                       <thead>
                         <tr>
+                          <th>Fecha</th>
                           <th>Nombre</th>
                           <th>tipo</th>
                           <th>Cantidad</th>
@@ -105,14 +124,15 @@ const Registers = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {JSON.parse(product.list_of_products).map(product => {
+                        {JSON.parse(product.list_of_products).map(subproduct => {
                           return (
-                            <tr key={product.id}>
-                              <td>{product.name}</td>
-                              <td>{product.type}</td>
-                              <td>{product.amount}</td>
-                              <td>{product.price}</td>
-                              <td>{product.amount * product.price}</td>
+                            <tr key={subproduct.id}>
+                              <td>{dateFormat(product.date)}</td>
+                              <td>{subproduct.name}</td>
+                              <td>{subproduct.type}</td>
+                              <td>{subproduct.amount}</td>
+                              <td>{subproduct.price}</td>
+                              <td>{subproduct.amount * subproduct.price}</td>
                               <td>
                                 <button>Eliminar</button>
                               </td>
