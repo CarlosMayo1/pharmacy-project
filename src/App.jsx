@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clientSliceAction } from './store/clientStore/client-redux'
 
 // components
+import Login from './components/Login/Login'
 import Clients from './components/Clients/Clients'
 import Home from './components/Home/Home'
 import Header from './Layout/Header/Header'
@@ -18,14 +19,14 @@ import Products from './components/Products/Products'
 import Sells from './components/Sells/Sells'
 import Registers from './components/Registers/Registers'
 
-function App () {
+function App() {
   // react redux
   const dispatch = useDispatch()
-  const showBanner = useSelector(state => state.clientReducer.banner)
+  const showBanner = useSelector((state) => state.clientReducer.banner)
 
   useEffect(() => {
     const clients = fetchClientsFromSupabase()
-    clients.then(response => {
+    clients.then((response) => {
       if (response.status === 200) {
         dispatch(clientSliceAction.loadingTable())
         const { data } = response
@@ -47,9 +48,10 @@ function App () {
 
   return (
     <div className='App'>
-      <Header />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Login />} />
+        {/* <Header /> */}
+        {/* <Route path='/' element={<Home />} /> */}
         <Route path='/clients' element={<Clients />} />
         <Route path='/sells' element={<Sells />} />
         <Route path='/products' element={<Products />} />
