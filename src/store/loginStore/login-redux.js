@@ -7,6 +7,7 @@ const initialState = {
 	success: false,
 }
 
+// logic of the login section
 const loginSlice = createSlice({
 	name: 'login',
 	initialState,

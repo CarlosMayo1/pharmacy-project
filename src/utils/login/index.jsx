@@ -1,5 +1,6 @@
 import { supabase } from '../supabase.client'
 
+// login queries
 export const logIn = async (username, password) => {
 	const { data, error } = await supabase
 		.from('user_worker')
