@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { logIn } from '../../utils/login'
 
 const initialState = {
 	loading: false,
@@ -13,14 +12,18 @@ const loginSlice = createSlice({
 	initialState,
 	reducers: {
 		startSession(state, action) {
-			const session = logIn(action.payload.username, action.payload.password)
-			session.then(response => {
-				if (response.length > 0) {
-					console.log('You can access to the app')
-					return
-				}
-				console.log('You can not access to the app, you need permission')
-			})
+			state.userInfo = {
+				user_worker_id: action.payload.user_worker_id,
+				status: action.payload.status,
+				role: action.payload.users.role,
+				name: `${action.payload.worker.last_name}, ${action.payload.worker.name}`,
+			}
+		},
+		loginError(state, action) {
+			state.error = action.payload
+		},
+		hideErrorMessage(state) {
+			state.error = null
 		},
 	},
 })
