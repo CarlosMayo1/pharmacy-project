@@ -30,16 +30,26 @@ const Login = () => {
 		const session = logIn(data.username, data.password)
 		session.then(response => {
 			console.log(response)
-			// if the user exits and it is active
+			// if the user exits
 			if (response.length > 0) {
-				// the user is active
+				// if the user is active
 				if (response[0].status === 1) {
-					// store the information of the session
-					dispatch(loginSliceAction.startSession(response[0]))
+					// set the session variable
+					const userData = {
+						// think about a way to create multiple userData
+						user_worker_id: response[0].user_worker_id,
+						status: response[0].status,
+						role: response[0].users.role,
+						name: response[0].worker.name,
+						last_name: response[0].worker.last_name,
+						isAuth: true,
+					}
+					// store the information in local storage
+					localStorage.setItem('session', JSON.stringify(userData))
 					// let the user continue
-					navigate('/home')
+					navigate('/')
 				} else {
-					// the user is inactive
+					// throws and error if the user is inactive
 					dispatch(
 						loginSliceAction.loginError('El usuario no se encuentra activo.'),
 					)

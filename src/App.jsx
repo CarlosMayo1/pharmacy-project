@@ -18,6 +18,7 @@ import Header from './Layout/Header/Header'
 import Products from './components/Products/Products'
 import Sells from './components/Sells/Sells'
 import Registers from './components/Registers/Registers'
+import PrivateRoutes from './auth/PrivateRoutes'
 
 function App() {
 	// react redux
@@ -49,13 +50,18 @@ function App() {
 	return (
 		<div className='App'>
 			<Routes>
-				<Route path='/' element={<Login />} />
+				<Route path='/login' element={<Login />} />
+				<Route element={<PrivateRoutes />}>
+					<Route element={<Home />} path='/' exact />
+					<Route element={<Clients />} path='/clients' />
+				</Route>
 				{/* <Header /> */}
-				<Route path='/home' element={<Home />} />
+				{/* checks if has acess to the app */}
+				{/* <Route path='/home' element={<Home />} />
 				<Route path='/clients' element={<Clients />} />
 				<Route path='/sells' element={<Sells />} />
 				<Route path='/products' element={<Products />} />
-				<Route path='/registers' element={<Registers />} />
+				<Route path='/registers' element={<Registers />} /> */}
 			</Routes>
 		</div>
 	)

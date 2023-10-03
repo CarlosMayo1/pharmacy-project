@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
 	loading: false,
-	userInfo: {},
 	error: null,
-	success: false,
+	// userInfo: {},
+	// success: false,
 }
 
 // logic of the login section
@@ -12,14 +12,13 @@ const loginSlice = createSlice({
 	name: 'login',
 	initialState,
 	reducers: {
-		startSession(state, action) {
-			state.userInfo = {
-				user_worker_id: action.payload.user_worker_id,
-				status: action.payload.status,
-				role: action.payload.users.role,
-				name: `${action.payload.worker.last_name}, ${action.payload.worker.name}`,
-			}
-		},
+		// it is not necessary
+		// startSession(state, action) {
+		// 	// stores the session in global state
+		// 	state.userInfo = action.payload.userData
+		// 	// the session was successfully set
+		// 	state.success = true
+		// },
 		loginError(state, action) {
 			state.error = action.payload
 		},
