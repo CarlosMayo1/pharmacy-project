@@ -5,7 +5,11 @@ import { supabase } from '../supabase.client'
 
 // fetch producst from supabase
 export const fetchProductsFromSupabase = async () => {
-	const products = await supabase.from('product').select()
+	const products = await supabase
+		.from('product')
+		.select(
+			'product_id, name, created_date, user_worker_id, user_worker(worker(worker_id, name, last_name), users(role)), status, is_mixed',
+		)
 	return products
 	// const products = await supabase.from('store').select()
 	// return products
