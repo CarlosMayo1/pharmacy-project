@@ -6,8 +6,7 @@ import { Fragment, useState } from 'react'
 
 import { productSliceAction } from '../../store/productStore/product-redux'
 import { fetchProductsFromSupabase } from '../../utils/products'
-import Products from './Products/Products' // restore it later
-import ProductPrice from './ProductPrice/ProductPrice'
+import Products from './Products/Products'
 
 const Home = () => {
 	const dispatch = useDispatch()
