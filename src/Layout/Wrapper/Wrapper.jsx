@@ -15,12 +15,12 @@ const Wrapper = () => {
 	const session = JSON.parse(localStorage.getItem('session'))
 	return (
 		<>
-			<header className='container w-full bg-pharmacy-color-1 text-white'>
-				<div className='py-4  shadow-md'>
+			<header className='bg-pharmacy-color-1 text-white'>
+				<div className='container py-4  shadow-md'>
 					<div className='flex px-6'>
 						<ul className='flex justify-between'>
 							<li>
-								<Menu as='div' className='relative inline-block text-left'>
+								<Menu as='div' className='relative z-10 inline-block text-left'>
 									<Menu.Button className='flex items-center'>
 										Modulos
 									</Menu.Button>
@@ -95,7 +95,7 @@ const Wrapper = () => {
 								</Menu>
 							</li>
 							<li className='pl-4'>
-								<Menu as='div' className='relative inline-block text-left'>
+								<Menu as='div' className='relative z-10 inline-block text-left'>
 									<Menu.Button className='flex items-center'>
 										Tablas
 									</Menu.Button>
@@ -163,7 +163,7 @@ const Wrapper = () => {
               <li>Ayuda</li> */}
 						</ul>
 						<div className='flex justify-end w-full'>
-							<Menu as='div' className='relative inline-block text-left'>
+							<Menu as='div' className='relative z-10 inline-block text-left'>
 								<Menu.Button className='flex items-center'>
 									<IconUser className='mr-2 text-white' />
 									{session.name}

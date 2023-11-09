@@ -5,13 +5,11 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
 import { productSliceAction } from '../../store/productStore/product-redux'
-import { fetchProductsFromSupabase } from '../../utils/products'
-import Products from './Products/Products' // restore it later
-import ProductPrice from './ProductPrice/ProductPrice'
+import { fetchProductPriceFromSupabase } from '../../utils/price/index'
 
-const Home = () => {
+const Price = () => {
 	const dispatch = useDispatch()
-	const products = useSelector(state => state.productReducer.products)
+	const price = useSelector(state => state.priceReducer.products)
 	// headlessUI state
 	const [isOpen, setIsOpen] = useState(false)
 
@@ -23,21 +21,7 @@ const Home = () => {
 		setIsOpen(true)
 	}
 
-	useEffect(() => {
-		const products = fetchProductsFromSupabase()
-		products.then(response => {
-			// if status is ok
-			if (response.status === 200) {
-				// gets products from and supase and store it in a redux
-				const data = {
-					loading: true,
-					listOfProducts: response.data,
-				}
-				dispatch(productSliceAction.getProductsFromSupabase(data))
-			}
-			console.log(response)
-		})
-	}, [])
+	useEffect(() => {}, [])
 
 	return (
 		<div className='p-6'>
@@ -54,7 +38,7 @@ const Home = () => {
 					</button>
 				</div>
 				{/* {products.loading && <ProductPrice />} */}
-				{products.loading && <Products />}
+				{/* {products.loading && <Products />} */}
 			</div>
 			{/* HeadlessUI */}
 			<Transition appear show={isOpen} as={Fragment}>
@@ -115,4 +99,4 @@ const Home = () => {
 	)
 }
 
-export default Home
+export default Price

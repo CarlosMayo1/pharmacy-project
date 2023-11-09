@@ -19,6 +19,7 @@ import Products from './components/Products/Products'
 import Sells from './components/Sells/Sells'
 import Registers from './components/Registers/Registers'
 import PrivateRoutes from './auth/PrivateRoutes'
+import Price from './components/Warehouse/Price/Price'
 
 function App() {
 	// react redux
@@ -54,11 +55,14 @@ function App() {
 				<Route element={<PrivateRoutes />}>
 					<Route element={<Home />} path='/' exact />
 					<Route element={<Clients />} path='/clients' />
+					{/* I'm not sure about this component */}
+					<Route element={<Price />} path='/prices' />
+					{/* <Route element={<Warehouse/>} path='/warehouse' /> */}
 				</Route>
 				{/* <Header /> */}
 				{/* checks if has acess to the app */}
 				{/* <Route path='/home' element={<Home />} />
-				<Route path='/clients' element={<Clients />} />
+				<Route path='/clients' element={<Clie	nts />} />
 				<Route path='/sells' element={<Sells />} />
 				<Route path='/products' element={<Products />} />
 				<Route path='/registers' element={<Registers />} /> */}
