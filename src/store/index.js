@@ -4,6 +4,7 @@ import loginReducer from './loginStore/login-redux'
 import clientReducer from './clientStore/client-redux'
 import productReducer from './productStore/product-redux'
 import priceReducer from './priceStore/price-redux'
+import warehouseReducer from './warehouseStore/warehouse-redux'
 
 const store = configureStore({
 	reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
 		clientReducer,
 		productReducer,
 		priceReducer,
+		warehouseReducer,
 	},
 })
 

@@ -20,6 +20,7 @@ import Sells from './components/Sells/Sells'
 import Registers from './components/Registers/Registers'
 import PrivateRoutes from './auth/PrivateRoutes'
 import Price from './components/Warehouse/Price/Price'
+import Stock from './components/Warehouse/Stock/Stock'
 
 function App() {
 	// react redux
@@ -57,6 +58,7 @@ function App() {
 					<Route element={<Clients />} path='/clients' />
 					{/* I'm not sure about this component */}
 					<Route element={<Price />} path='/prices' />
+					<Route element={<Stock />} path='/stock' />
 					{/* <Route element={<Warehouse/>} path='/warehouse' /> */}
 				</Route>
 				{/* <Header /> */}
