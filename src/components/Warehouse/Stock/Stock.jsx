@@ -88,75 +88,74 @@ const Store = () => {
 					</div>
 				</div>
 				{/* Table of prices */}
-				<table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+				<table className='border-collapse w-full text-sm text-left text-gray-500 dark:text-gray-400'>
 					<thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
 						<tr>
-							<th scope='col' className='px-3 py-3'>
+							<th scope='col' className='px-3 py-3 border'>
 								Nombre del producto
 							</th>
 							{/* <th scope='col' className='px-6 py-3'>
 								Classificacion
 							</th> */}
-							<th scope='col' className='px-3 py-3'>
-								Tipo de producto
-							</th>
-							<th scope='col' className='px-3 py-3'>
+							<th scope='col' className='px-3 py-3 border'>
 								Cantidad
 							</th>
-							<th scope='col' className='px-3 py-3'>
+							<th scope='col' className='px-3 py-3 border'>
 								Fecha de vencimiento
 							</th>
-							<th scope='col' className='px-3 py-3'>
+							<th scope='col' className='px-3 py-3 border'>
+								Ubciación
+							</th>
+							<th scope='col' className='px-3 py-3 border'>
 								Observaciones
 							</th>
-							<th scope='col' className='px-3 py-3'>
+							<th scope='col' className='px-3 py-3 border'>
 								Acción
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						{stock.map(element => (
-							<tr
-								key={element.stock_id}
-								className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'
+					<tr
+						className='bg-white'
+					>
+						<td
+							scope='row'
+							className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+						>
+							Clorfenamina Meleato 20mg
+						</td>
+						<td className='border px-3 py-4'>
+							1000
+						</td>
+						<td className='border px-3 py-4'>02/04/2024</td>
+						<td className='border px-3 py-4'>
+							<ul>
+								<li>
+								ANT0000000001
+								</li>
+								<li>
+								ANT0000000002
+								</li>
+								<li>
+								ANT0000000003
+								</li>
+							</ul>
+						</td>
+						<td
+							className='border px-3 py-4'
+						>
+							Hay 200 unidades que vencen para la fecha de 01/01/2024
+						</td>
+						<td className='border px-3 py-4 h-full'>
+							<button
+								type='button'
+								onClick={() => console.log('working')}
+								className='bg-pharmacy-color-5 hover:bg-pharmacy-color-1 text-white font-bold py-1 px-2 rounded'
 							>
-								<td
-									scope='row'
-									className='px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-								>
-									{element.product_detail.product.name}
-								</td>
-								{/* <td className='px-6 py-4'>
-									{element.product_detail.classification.description}
-								</td> */}
-								<td className='px-3 py-4'>
-									{element.product_detail.product_type.description}
-								</td>
-								<td className='px-3 py-4'>{element.stock}</td>
-								<td className='px-3 py-4'>
-									{formatDate(element.expiration_date)}
-								</td>
-								<td
-									className={`${
-										element.observation === null ? `text-center` : ''
-									}  px-3 py-4`}
-								>
-									{element.observation === null ? '' : element.observation}
-								</td>
-								<td className='flex justify-between items-center px-3 py-2'>
-									{/* <p className='mr-4 font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline'>
-										Detalle
-									</p> */}
-									<button
-										type='button'
-										onClick={() => console.log('working')}
-										className='bg-pharmacy-color-5 hover:bg-pharmacy-color-1 text-white font-bold py-1 px-2 rounded'
-									>
-										Edit
-									</button>
-								</td>
-							</tr>
-						))}
+								Edit
+							</button>
+						</td>
+					</tr>
 					</tbody>
 				</table>
 			</div>
@@ -167,3 +166,47 @@ const Store = () => {
 }
 
 export default Store
+
+
+// {stock.map(element => (
+// 	<tr
+// 		key={element.stock_id}
+// 		className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'
+// 	>
+// 		<td
+// 			scope='row'
+// 			className='px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+// 		>
+// 			{element.product_detail.product.name}
+// 		</td>
+// 		{/* <td className='px-6 py-4'>
+// 			{element.product_detail.classification.description}
+// 		</td> */}
+// 		<td className='px-3 py-4'>
+// 			{element.product_detail.product_type.description}
+// 		</td>
+// 		<td className='px-3 py-4'>{element.stock}</td>
+// 		<td className='px-3 py-4'>
+// 			{formatDate(element.expiration_date)}
+// 		</td>
+// 		<td
+// 			className={`${
+// 				element.observation === null ? `text-center` : ''
+// 			}  px-3 py-4`}
+// 		>
+// 			{element.observation === null ? '' : element.observation}
+// 		</td>
+// 		<td className='flex justify-between items-center px-3 py-2'>
+// 			{/* <p className='mr-4 font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline'>
+// 				Detalle
+// 			</p> */}
+// 			<button
+// 				type='button'
+// 				onClick={() => console.log('working')}
+// 				className='bg-pharmacy-color-5 hover:bg-pharmacy-color-1 text-white font-bold py-1 px-2 rounded'
+// 			>
+// 				Edit
+// 			</button>
+// 		</td>
+// 	</tr>
+// ))}
