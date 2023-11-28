@@ -19,12 +19,15 @@ import Products from './components/Products/Products'
 import Sells from './components/Sells/Sells'
 import Registers from './components/Registers/Registers'
 import PrivateRoutes from './auth/PrivateRoutes'
-import Price from './components/Warehouse/Price/Price'
-import Stock from './components/Warehouse/Stock/Stock'
-import Container from './components/Warehouse/Container/Container'
-import TypeContainer from './components/Warehouse/TypeContainer/TypeContainer'
+
 // warehouse section
 import WarehouseHome from './components/Warehouse/Home/Home'
+import Stock from './components/Warehouse/Stock/Stock'
+import LostProducts from './components/Warehouse/LostProduct/LostProduct'
+import RefillOrder from './components/Warehouse/RefillOrder/RefillOrder'
+import Container from './components/Warehouse/Container/Container'
+import TypeContainer from './components/Warehouse/TypeContainer/TypeContainer'
+import Price from './components/Warehouse/Price/Price'
 
 function App() {
 	// react redux
@@ -66,6 +69,8 @@ function App() {
 					<Route element={<Stock />} path='/stock' />
 					<Route element={<Container />} path='/warehouse-container' />
 					<Route element={<TypeContainer />} path='/warehouse-type-container' />
+					<Route element={<LostProducts />} path='/warehouse-lost-products' />
+					<Route element={<RefillOrder />} path='warehouse-refill-order' />
 					{/* <Route element={<Warehouse/>} path='/warehouse' /> */}
 				</Route>
 				{/* <Header /> */}

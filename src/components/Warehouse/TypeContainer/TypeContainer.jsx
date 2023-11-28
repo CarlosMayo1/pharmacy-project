@@ -6,7 +6,7 @@
 
 // store
 
-const Container = () => {
+const TypeContainer = () => {
 	return (
 		<div className='p-6'>
 			<h1 className='mb-2 text-lg font-bold'>
@@ -107,4 +107,4 @@ const Container = () => {
 	)
 }
 
-export default Container
+export default TypeContainer
