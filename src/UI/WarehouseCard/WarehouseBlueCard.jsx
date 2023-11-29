@@ -1,3 +1,6 @@
+// react router dom
+import { Link } from 'react-router-dom'
+// tabler icon
 import { IconCircleArrowRight, IconShoppingCart } from '@tabler/icons-react'
 
 const BlueCard = () => {
@@ -20,13 +23,13 @@ const BlueCard = () => {
 
 			{/* footer */}
 			<div className='flex justify-end rounded-b-lg bg-card-color-5'>
-				<a
-					href='#'
+				<Link
+					to='stock-productos'
 					className='w-full flex items-center justify-center text-center p-1 text-sm font-normal'
 				>
 					Mas Info
 					<IconCircleArrowRight className='ml-2' />
-				</a>
+				</Link>
 			</div>
 		</div>
 	)

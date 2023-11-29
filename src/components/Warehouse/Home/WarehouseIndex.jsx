@@ -1,14 +1,7 @@
-import { IconEye } from '@tabler/icons-react'
-
-// 👁️ 👁️ This is a list of orders that has been completed
-// ❓ should I do another list of orders asked for the shop
-
-const RefillOrder = () => {
+const WarehouseIndex = () => {
 	return (
-		<>
-			<h1 className='mb-2 text-lg font-bold'>
-				Historial de despachos a tienda
-			</h1>
+		<div>
+			<h1 className='mb-2 text-lg font-bold'>Productos más solicitados</h1>
 			<div>
 				{/* Button */}
 				<div className='mb-2'>
@@ -21,28 +14,11 @@ const RefillOrder = () => {
 					</button>
 				</div>
 				{/* Search bar */}
-				<div className='flex items-center justify-between  pb-4 bg-white dark:bg-gray-900'>
-					<form>
-						<div className='flex items-center'>
-							<input
-								id='default-checkbox'
-								type='checkbox'
-								value=''
-								className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
-							/>
-							<label
-								htmlFor='default-checkbox'
-								className='mt-2 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-							>
-								Visualizar todo
-							</label>
-						</div>
-					</form>
-
-					<div className='relative'>
-						<label htmlFor='table-search' className='sr-only'>
-							Search
-						</label>
+				<div className='flex justify-end pb-4 bg-white dark:bg-gray-900'>
+					<label htmlFor='table-search' className='sr-only'>
+						Search
+					</label>
+					<div className='relative mt-1'>
 						<div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
 							<svg
 								className='w-4 h-4 text-gray-500 dark:text-gray-400'
@@ -73,19 +49,22 @@ const RefillOrder = () => {
 					<thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
 						<tr>
 							<th scope='col' className='px-3 py-3 border'>
-								# Orden
+								Nombre del producto
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
-								Responsable
+								Cantidad (unidades)
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
-								Fecha de despacho
+								Fecha de vencimiento
+							</th>
+							<th scope='col' className='px-3 py-3 border'>
+								Ubicación
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
 								Observación
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
-								Detalle
+								Acción
 							</th>
 						</tr>
 					</thead>
@@ -95,23 +74,22 @@ const RefillOrder = () => {
 								scope='row'
 								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 							>
-								00001
+								Gripa Check
 							</td>
-							<td className='border px-3 py-4'>Carlos Mayo</td>
-							<td className='border px-3 py-4'>11/05/2023</td>
-
+							<td className='border px-3 py-4'>200</td>
+							<td className='border px-3 py-4'>12/11/2024</td>
+							<td className='border px-3 py-4'>ANT01000000000001</td>
 							<td className='border px-3 py-4'>
-								No se pudo despachar acidoacetilsalisílico debido a que los 50
-								que quedaban fueron comidos por la rata.
+								Los productos llegaron con fecha muy próxima a vencerse y no se
+								precataron al momnento de ingresarlos en el almacen
 							</td>
 							<td className='border px-3 py-4 h-full'>
-								{/* 👁️ See the list of products that have been dispatched */}
 								<button
 									type='button'
 									onClick={() => console.log('working')}
-									className='bg-card-color-1 hover:bg-card-color-5 text-white font-bold py-1 px-2 rounded'
+									className='bg-pharmacy-color-5 hover:bg-pharmacy-color-1 text-white font-bold py-1 px-2 rounded'
 								>
-									<IconEye />
+									Edit
 								</button>
 							</td>
 						</tr>
@@ -120,75 +98,52 @@ const RefillOrder = () => {
 								scope='row'
 								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 							>
-								00010
+								Clorfenamina Meleato
 							</td>
-							<td className='border px-3 py-4'>Milagros Mayo</td>
-							<td className='border px-3 py-4'>02/02/2023</td>
+							<td className='border px-3 py-4'>300</td>
+							<td className='border px-3 py-4'>05/06/2024</td>
+							<td className='border px-3 py-4'>ANT01000000000002</td>
+							<td className='border px-3 py-4'>
+								De las 300 unidades, en realidad hay 100 que se vencen para la
+								fecha del 05/06/2023, el resto se encuentran para la fecha de
+								10/10/2024
+							</td>
+							<td className='border px-3 py-4 h-full'>
+								<button
+									type='button'
+									onClick={() => console.log('working')}
+									className='bg-pharmacy-color-5 hover:bg-pharmacy-color-1 text-white font-bold py-1 px-2 rounded'
+								>
+									Edit
+								</button>
+							</td>
+						</tr>
+						<tr className='bg-white'>
+							<td
+								scope='row'
+								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+							>
+								Anaflex
+							</td>
+							<td className='border px-3 py-4'>50</td>
+							<td className='border px-3 py-4'>01/02/2024</td>
+							<td className='border px-3 py-4'>ANT01000000000003</td>
 							<td className='border px-3 py-4'></td>
 							<td className='border px-3 py-4 h-full'>
 								<button
 									type='button'
 									onClick={() => console.log('working')}
-									className='bg-card-color-1 hover:bg-card-color-5  text-white font-bold py-1 px-2 rounded'
+									className='bg-pharmacy-color-5 hover:bg-pharmacy-color-1 text-white font-bold py-1 px-2 rounded'
 								>
-									<IconEye />
-								</button>
-							</td>
-						</tr>
-						<tr className='bg-white'>
-							<td
-								scope='row'
-								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-							>
-								00020
-							</td>
-							<td className='border px-3 py-4'>Maira Perez</td>
-							<td className='border px-3 py-4'>11/11/2023</td>
-
-							<td className='border px-3 py-4'>
-								No se despachó dolocordralan ni doloibupress debido a que no se
-								contaba con stock.
-							</td>
-							<td className='border px-3 py-4 h-full'>
-								{/* 👁️ the admin can see the button to approve but any other can't */}
-								<button
-									type='button'
-									onClick={() => console.log('working')}
-									className='bg-card-color-1 hover:bg-card-color-5 text-white font-bold py-1 px-2 rounded'
-								>
-									<IconEye />
-								</button>
-							</td>
-						</tr>
-						<tr className='bg-white'>
-							<td
-								scope='row'
-								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-							>
-								00002
-							</td>
-							<td className='border px-3 py-4'>Amelida Borja</td>
-							<td className='border px-3 py-4'>10/05/2023</td>
-							<td className='border px-3 py-4'>
-								Se envía un tolsabron que ha sido mallugado cuando fue
-								almacenado.
-							</td>
-							<td className='border px-3 py-4 h-full'>
-								<button
-									type='button'
-									onClick={() => console.log('working')}
-									className='bg-card-color-1 hover:bg-card-color-5  text-white font-bold py-1 px-2 rounded'
-								>
-									<IconEye />
+									Edit
 								</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			{/* HeadlessUI */}
-		</>
+		</div>
 	)
 }
 
-export default RefillOrder
+export default WarehouseIndex

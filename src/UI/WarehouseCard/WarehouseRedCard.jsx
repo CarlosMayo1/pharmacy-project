@@ -1,8 +1,7 @@
-import {
-	IconCircleArrowRight,
-	IconTrashX,
-	IconCalendarCheck,
-} from '@tabler/icons-react'
+// react router dom
+import { Link } from 'react-router-dom'
+// tabler icon
+import { IconCircleArrowRight, IconTrashX } from '@tabler/icons-react'
 
 const RedCard = () => {
 	return (
@@ -20,13 +19,13 @@ const RedCard = () => {
 
 			{/* footer */}
 			<div className='flex rounded-b-lg bg-card-color-8'>
-				<a
-					href='#'
+				<Link
+					to='perdida-productos'
 					className='w-full flex items-center justify-center text-center p-1 text-sm font-normal'
 				>
 					Mas Info
 					<IconCircleArrowRight className='ml-2' />
-				</a>
+				</Link>
 			</div>
 		</div>
 	)

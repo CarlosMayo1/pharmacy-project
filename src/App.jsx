@@ -22,12 +22,14 @@ import PrivateRoutes from './auth/PrivateRoutes'
 
 // warehouse section
 import WarehouseHome from './components/Warehouse/Home/Home'
+import WarehouseIndex from './components/Warehouse/Home/WarehouseIndex'
 import Stock from './components/Warehouse/Stock/Stock'
 import LostProducts from './components/Warehouse/LostProduct/LostProduct'
 import RefillOrder from './components/Warehouse/RefillOrder/RefillOrder'
 import Container from './components/Warehouse/Container/Container'
 import TypeContainer from './components/Warehouse/TypeContainer/TypeContainer'
 import Price from './components/Warehouse/Price/Price'
+import CloseToDueDate from './components/Warehouse/CloseToDueDate/CloseToDueDate'
 
 function App() {
 	// react redux
@@ -64,13 +66,17 @@ function App() {
 					<Route element={<Home />} path='/' exact />
 					<Route element={<Clients />} path='/clients' />
 					{/* I'm not sure about this component */}
-					<Route element={<WarehouseHome />} path='/warehouse' />
-					<Route element={<Price />} path='/prices' />
-					<Route element={<Stock />} path='/stock' />
-					<Route element={<Container />} path='/warehouse-container' />
-					<Route element={<TypeContainer />} path='/warehouse-type-container' />
-					<Route element={<LostProducts />} path='/warehouse-lost-products' />
-					<Route element={<RefillOrder />} path='warehouse-refill-order' />
+					<Route element={<WarehouseHome />} path='/warehouse'>
+						<Route index element={<WarehouseIndex />} />
+						<Route element={<Stock />} path='stock-productos' />
+						<Route element={<Price />} path='prices' />
+						<Route element={<Container />} path='container' />
+						<Route element={<TypeContainer />} path='type-container' />
+						<Route element={<LostProducts />} path='perdida-productos' />
+						<Route element={<RefillOrder />} path='orden-salida' />
+						<Route element={<CloseToDueDate />} path='proximos-vencer' />
+					</Route>
+
 					{/* <Route element={<Warehouse/>} path='/warehouse' /> */}
 				</Route>
 				{/* <Header /> */}

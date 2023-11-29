@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchStockFromSupabase } from '../../../utils/stock'
 // store
 import { stockSliceAction } from '../../../store/warehouseStore/warehouse-redux'
+// tabler icon
+import { IconEye, IconTrash, IconEdit } from '@tabler/icons-react'
 // componets
 import MyModal from './StockModal/StockModal'
 
@@ -43,7 +45,7 @@ const Store = () => {
 	}
 
 	return (
-		<div className='p-6'>
+		<>
 			<h1 className='mb-2 text-lg font-bold'>Tabla de almacen</h1>
 			<div>
 				{/* Button */}
@@ -104,10 +106,10 @@ const Store = () => {
 								Fecha de vencimiento
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
-								Ubciación
+								Observaciones
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
-								Observaciones
+								Detalle
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
 								Acción
@@ -115,98 +117,53 @@ const Store = () => {
 						</tr>
 					</thead>
 					<tbody>
-					<tr
-						className='bg-white'
-					>
-						<td
-							scope='row'
-							className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-						>
-							Clorfenamina Meleato 20mg
-						</td>
-						<td className='border px-3 py-4'>
-							1000
-						</td>
-						<td className='border px-3 py-4'>02/04/2024</td>
-						<td className='border px-3 py-4'>
-							<ul>
-								<li>
-								ANT0000000001
-								</li>
-								<li>
-								ANT0000000002
-								</li>
-								<li>
-								ANT0000000003
-								</li>
-							</ul>
-						</td>
-						<td
-							className='border px-3 py-4'
-						>
-							Hay 200 unidades que vencen para la fecha de 01/01/2024
-						</td>
-						<td className='border px-3 py-4 h-full'>
-							<button
-								type='button'
-								onClick={() => console.log('working')}
-								className='bg-pharmacy-color-5 hover:bg-pharmacy-color-1 text-white font-bold py-1 px-2 rounded'
+						<tr className='bg-white'>
+							<td
+								scope='row'
+								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 							>
-								Edit
-							</button>
-						</td>
-					</tr>
+								Clorfenamina Meleato 20mg
+							</td>
+							<td className='border px-3 py-4'>1000</td>
+							<td className='border px-3 py-4'>02/04/2024</td>
+							<td className='border px-3 py-4'>
+								Hay 200 unidades que vencen para la fecha de 01/01/2024
+							</td>
+							<td className='border px-3 py-4 h-full'>
+								<button
+									type='button'
+									onClick={() => console.log('working')}
+									className='bg-card-color-1 hover:bg-card-color-5 text-white font-bold py-1 px-2 rounded'
+								>
+									<IconEye />
+								</button>
+							</td>
+							<td className='border px-3 py-4 h-full'>
+								<div className='flex justify-between'>
+									<button
+										type='button'
+										onClick={() => console.log('working')}
+										className='bg-card-color-4 hover:bg-card-color-8 text-white font-bold py-1 px-2 rounded'
+									>
+										<IconTrash />
+									</button>
+									<button
+										type='button'
+										onClick={() => console.log('working')}
+										className='bg-card-color-3 hover:bg-card-color-7 text-white font-bold py-1 px-2 rounded'
+									>
+										<IconEye />
+									</button>
+								</div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
 			{/* HeadlessUI */}
 			<MyModal isOpen={isOpen} closeModal={closeModal} />
-		</div>
+		</>
 	)
 }
 
 export default Store
-
-
-// {stock.map(element => (
-// 	<tr
-// 		key={element.stock_id}
-// 		className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'
-// 	>
-// 		<td
-// 			scope='row'
-// 			className='px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-// 		>
-// 			{element.product_detail.product.name}
-// 		</td>
-// 		{/* <td className='px-6 py-4'>
-// 			{element.product_detail.classification.description}
-// 		</td> */}
-// 		<td className='px-3 py-4'>
-// 			{element.product_detail.product_type.description}
-// 		</td>
-// 		<td className='px-3 py-4'>{element.stock}</td>
-// 		<td className='px-3 py-4'>
-// 			{formatDate(element.expiration_date)}
-// 		</td>
-// 		<td
-// 			className={`${
-// 				element.observation === null ? `text-center` : ''
-// 			}  px-3 py-4`}
-// 		>
-// 			{element.observation === null ? '' : element.observation}
-// 		</td>
-// 		<td className='flex justify-between items-center px-3 py-2'>
-// 			{/* <p className='mr-4 font-medium cursor-pointer text-blue-600 dark:text-blue-500 hover:underline'>
-// 				Detalle
-// 			</p> */}
-// 			<button
-// 				type='button'
-// 				onClick={() => console.log('working')}
-// 				className='bg-pharmacy-color-5 hover:bg-pharmacy-color-1 text-white font-bold py-1 px-2 rounded'
-// 			>
-// 				Edit
-// 			</button>
-// 		</td>
-// 	</tr>
-// ))}

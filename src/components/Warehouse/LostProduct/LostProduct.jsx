@@ -2,7 +2,7 @@ import { IconEyeCheck } from '@tabler/icons-react'
 
 const LostProducts = () => {
 	return (
-		<div className='p-4'>
+		<>
 			<h1 className='mb-2 text-lg font-bold'>Lista de productos perdidos</h1>
 			<div>
 				{/* Button */}
@@ -204,7 +204,7 @@ const LostProducts = () => {
 				</table>
 			</div>
 			{/* HeadlessUI */}
-		</div>
+		</>
 	)
 }
 
