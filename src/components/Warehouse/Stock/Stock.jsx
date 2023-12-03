@@ -3,17 +3,19 @@ import { useState, useEffect } from 'react'
 // redux
 import { useSelector, useDispatch } from 'react-redux'
 // utils
-import { fetchStockFromSupabase } from '../../../utils/stock'
-// store
-import { stockSliceAction } from '../../../store/warehouseStore/warehouse-redux'
+import {
+	fetchBrandsFromSupabase,
+	fetchProductClassificationFromSupabase,
+	fetchProductTypesFromSupabase,
+} from '../../../utils/warehouse/index'
+import { addProductModal } from '../../../store/warehouseStore/warehouse-thunk'
 // tabler icon
 import { IconEye, IconTrash, IconEdit } from '@tabler/icons-react'
 // componets
-import MyModal from './StockModal/StockModal'
+import AddProductModal from './StockModal/StockModal'
 
-const Store = () => {
+const StockProducts = () => {
 	// state
-	const stock = useSelector(state => state.warehouseReducer.stock)
 	const dispatch = useDispatch()
 	// headlessUI state
 	const [isOpen, setIsOpen] = useState(false)
@@ -28,10 +30,7 @@ const Store = () => {
 	}
 
 	useEffect(() => {
-		fetchStockFromSupabase().then(response => {
-			console.log(response)
-			dispatch(stockSliceAction.getStockFromSupabase(response))
-		})
+		dispatch(addProductModal())
 	}, [])
 
 	const formatDate = d => {
@@ -152,7 +151,7 @@ const Store = () => {
 										onClick={() => console.log('working')}
 										className='bg-card-color-3 hover:bg-card-color-7 text-white font-bold py-1 px-2 rounded'
 									>
-										<IconEye />
+										<IconEdit />
 									</button>
 								</div>
 							</td>
@@ -161,9 +160,9 @@ const Store = () => {
 				</table>
 			</div>
 			{/* HeadlessUI */}
-			<MyModal isOpen={isOpen} closeModal={closeModal} />
+			<AddProductModal isOpen={isOpen} closeModal={closeModal} />
 		</>
 	)
 }
 
-export default Store
+export default StockProducts

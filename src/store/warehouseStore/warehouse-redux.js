@@ -5,17 +5,29 @@ const initialState = {
 	stock: [],
 	loading: false,
 	error: null,
+	// modal data
+	productBrand: [],
+	productType: [],
+	productClassification: [],
+	productFunctions: [],
+	productComponents: [],
 }
 
-const stockSlice = createSlice({
-	name: 'stock',
+const warehouseSlice = createSlice({
+	name: 'warehouse',
 	initialState,
 	reducers: {
-		getStockFromSupabase(state, action) {
-			state.stock = action.payload
+		getProductBrand(state, action) {
+			state.productBrand = action.payload
+		},
+		getProductClassification(state, action) {
+			state.productClassification = action.payload
+		},
+		getProductType(state, action) {
+			state.productType = action.payload
 		},
 	},
 })
 
-export default stockSlice.reducer
-export const stockSliceAction = stockSlice.actions
+export default warehouseSlice.reducer
+export const warehouseSliceAction = warehouseSlice.actions

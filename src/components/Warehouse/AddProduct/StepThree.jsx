@@ -1,0 +1,65 @@
+// tabler icon
+import { IconCircleArrowRight, IconCircleArrowLeft } from '@tabler/icons-react'
+
+const StepThree = ({ nextStep, previousStep }) => {
+	return (
+		// Third Section
+		<form className='w-full'>
+			<h2 className='pt-2 ext-lg font-medium leading-6 text-gray-900 border-b pb-2 mb-4'>
+				Sección de almacenamiento del producto
+			</h2>
+			<div className='w-full md:w-full mb-2'>
+				<label
+					className='block text-gray-700 text-sm font-bold mb-2'
+					htmlFor='grid-product-stock'
+				>
+					Indicar la cantidad de stock del producto
+				</label>
+				<input
+					className='shadow appearance-none border rounded w-full mb-2 py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
+					id='grid-product-stock'
+					type='number'
+					placeholder='1000'
+				/>
+				<p className='text-red-500 text-xs italic'>
+					Please fill out this field.
+				</p>
+			</div>
+			{/* If there is and observation */}
+			<div className='flex flex-wrap  mb-2'>
+				<label
+					htmlFor='product-price-observation'
+					className='block text-gray-700 text-sm font-bold mb-2'
+				>
+					Ingrese alguna observación de ser necesario
+				</label>
+				<textarea
+					id='product-price-observation'
+					rows='3'
+					className='shadow appearance-none border rounded w-full mb-2 py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
+					placeholder='Escriba un mensaje claro y sencillo'
+				></textarea>
+			</div>
+			<div className='flex justify-between mt-4'>
+				<button
+					type='button'
+					className='inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+					onClick={previousStep}
+				>
+					<IconCircleArrowLeft className='mr-2' />
+					Retroceder
+				</button>{' '}
+				<button
+					type='button'
+					className=' inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+					onClick={nextStep}
+				>
+					Siguiente
+					<IconCircleArrowRight className='ml-2' />
+				</button>
+			</div>
+		</form>
+	)
+}
+
+export default StepThree
