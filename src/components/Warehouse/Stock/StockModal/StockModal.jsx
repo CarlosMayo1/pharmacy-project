@@ -4,23 +4,13 @@ import { useState, Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 // components
 import StepOne from '../../AddProduct/StepOne/StepOne'
-import StepTwo from '../../AddProduct/StepTwo'
-import StepThree from '../../AddProduct/StepThree'
-import StepFour from '../../AddProduct/StepFour'
+import StepTwo from '../../AddProduct/StepTwo/StepTwo'
+import StepThree from '../../AddProduct/StepThree/StepThree'
+import StepFour from '../../AddProduct/StepFour/StepFour'
 
 const stockModal = ({ isOpen, closeModal }) => {
 	// state
 	const [counter, setCounter] = useState(1)
-
-	const getCurrentDate = () => {
-		const date = new Date()
-		let day = date.getDate()
-		let month = date.getMonth() + 1
-		let year = date.getFullYear()
-		// This arrangement can be altered based on how we want the date's format to appe
-		let currentDate = `${day}-${month}-${year}`
-		return currentDate
-	}
 
 	const onNextStep = () => {
 		if (counter >= STEPS.length) {
@@ -68,7 +58,7 @@ const stockModal = ({ isOpen, closeModal }) => {
 			case 1:
 				return <StepOne nextStep={onNextStep} />
 			case 2:
-				return <StepTwo nextStep={onNextStep} previousStep={onPreviousStep} />
+				return <StepTwo nextStep={onNextStep} />
 			case 3:
 				return <StepThree nextStep={onNextStep} previousStep={onPreviousStep} />
 			case 4:

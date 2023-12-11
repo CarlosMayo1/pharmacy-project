@@ -1,7 +1,7 @@
 // tabler icon
-import { IconCircleArrowRight, IconCircleArrowLeft } from '@tabler/icons-react'
+import { IconCircleArrowRight } from '@tabler/icons-react'
 
-const StepTwo = ({ nextStep, previousStep }) => {
+const StepTwo = ({ nextStep }) => {
 	return (
 		// Second Section
 		<form className='w-full'>
@@ -42,15 +42,7 @@ const StepTwo = ({ nextStep, previousStep }) => {
 					placeholder='Escriba un mensaje claro y sencillo'
 				></textarea>
 			</div>
-			<div className='flex justify-between mt-4'>
-				<button
-					type='button'
-					className='inline-flex justify-center rounded-md border border-transparent bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
-					onClick={previousStep}
-				>
-					<IconCircleArrowLeft className='mr-2' />
-					Retroceder
-				</button>{' '}
+			<div className='flex justify-end mt-4'>
 				<button
 					type='button'
 					className=' inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'

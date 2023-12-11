@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { TaskAbortError, createSlice } from '@reduxjs/toolkit'
 
 // state
 const initialState = {
@@ -11,6 +11,12 @@ const initialState = {
 	productClassification: [],
 	productFunctions: [],
 	productComponents: [],
+	modalMessage: {
+		show: false,
+		type: '',
+		background: '',
+		message: '',
+	},
 }
 
 const warehouseSlice = createSlice({
@@ -25,6 +31,22 @@ const warehouseSlice = createSlice({
 		},
 		getProductType(state, action) {
 			state.productType = action.payload
+		},
+		showModalMessage(state, action) {
+			state.modalMessage = {
+				show: action.payload.show,
+				type: action.payload.type,
+				background: action.payload.background,
+				message: action.payload.message,
+			}
+		},
+		changeModalMessage(state) {
+			state.modalMessage = {
+				show: false,
+				type: '',
+				background: '',
+				message: '',
+			}
 		},
 	},
 })

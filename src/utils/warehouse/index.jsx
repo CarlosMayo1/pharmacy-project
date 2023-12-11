@@ -1,8 +1,8 @@
 import { supabase } from '../supabase.client'
 
-// insert data into product table
-export const insertNewProduct = async data => {
-	const { error } = await supabase.from('product').insert(data)
+// insert data into product table and retrieve the record
+export const insertNewProductInSupabase = async data => {
+	const { error } = await supabase.from('product').insert(data).select()
 	return error
 }
 
@@ -34,4 +34,53 @@ export const fetchProductTypesFromSupabase = async () => {
 		.eq('state', 1)
 	if (data) return data
 	if (error) return error
+}
+
+// search for a product in the table
+export const searchForAProductByNameInSupabase = async productName => {
+	const { data, error } = await supabase
+		.from('product')
+		.select('product_id, name')
+		.ilike('name', `%${productName}%`)
+		.limit(3)
+	// .textSearch('name', `${productName}`)
+	if (data) return data
+	if (error) return error
+}
+
+// check if the inserted brand already exists in database
+export const searchForExistingBrandInSupabase = async productBrand => {
+	const { data, error } = await supabase
+		.from('product_brand')
+		.select()
+		.ilike('name', `%${productBrand}%`)
+	if (data) return data
+	if (error) return error
+}
+
+// check if the inserted classification already exists in database
+export const searchForExistingClassificationInSupabase =
+	async productClassification => {
+		const { data, error } = await supabase
+			.from('product_classification')
+			.select()
+			.eq('name', productClassification)
+		if (data) return data
+		if (error) return error
+	}
+
+// check if the inserted product type already exists in database
+export const searchForExistingProductTypeInSupabase = async productBrand => {
+	const { data, error } = await supabase
+		.from('product_brand')
+		.select()
+		.eq('name', productBrand)
+	if (data) return data
+	if (error) return error
+}
+
+// insert a new brand in the table
+export const insertNewBrandInSupabse = async data => {
+	const { error } = await supabase.from('product_brand').insert(data)
+	return error
 }

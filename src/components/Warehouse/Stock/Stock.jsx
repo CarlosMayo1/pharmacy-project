@@ -95,9 +95,6 @@ const StockProducts = () => {
 							<th scope='col' className='px-3 py-3 border'>
 								Nombre del producto
 							</th>
-							{/* <th scope='col' className='px-6 py-3'>
-								Classificacion
-							</th> */}
 							<th scope='col' className='px-3 py-3 border'>
 								Cantidad
 							</th>
