@@ -82,6 +82,22 @@ export const fetchProductClassification = () => {
 	}
 }
 
+export const fetchProductType = () => {
+	return async function getProductTypes(dispatch) {
+		fetchProductTypesFromSupabase().then(response => {
+			const productTypes = []
+			const types = response
+			types.map(type => {
+				productTypes.push({
+					value: type.product_type_id,
+					label: type.name,
+				})
+			})
+			dispatch(warehouseSliceAction.getProductType(productTypes))
+		})
+	}
+}
+
 // return async function fetchProductBrands(dispatch, getState) {
 //   fetchBrandsFromSupabase().then(response => {
 //     dispatch(warehouseSliceAction.getProductBrand(response))

@@ -12,13 +12,11 @@ import {
 	insertNewProductTypeInSupabase,
 } from '../../../../../utils/warehouse'
 // redux-thunk
-import { fetchProductClassification } from '../../../../../store/warehouseStore/warehouse-thunk'
+import { fetchProductType } from '../../../../../store/warehouseStore/warehouse-thunk'
 // store
 import { warehouseSliceAction } from '../../../../../store/warehouseStore/warehouse-redux'
 // components
 import SuccessfulMessage from '../SuccessfulMessage/SuccessfulMessage'
-
-import { fetchProductTypesFromSupabase } from '../../../../../utils/warehouse'
 
 const AddProductTypeModal = ({ isOpen, closeModal }) => {
 	const [inputQuery, setInputQuery] = useState('')
@@ -50,18 +48,8 @@ const AddProductTypeModal = ({ isOpen, closeModal }) => {
 		insertNewProductTypeInSupabase(insertData).then(response => {
 			console.log(response)
 			if (response === null) {
-				// fetch new data from database in all the select inputs
-				fetchProductTypesFromSupabase().then(response => {
-					const productTypes = []
-					const types = response
-					types.map(type => {
-						productTypes.push({
-							value: type.product_type_id,
-							label: type.name,
-						})
-					})
-					dispatch(warehouseSliceAction.getProductType(productTypes))
-				})
+				// fetch new data added to the product_type table
+				dispatch(fetchProductType())
 				dispatch(
 					warehouseSliceAction.showModalMessage({
 						show: true,
@@ -71,11 +59,11 @@ const AddProductTypeModal = ({ isOpen, closeModal }) => {
 					}),
 				)
 				reset({
-					productClassification: '',
+					productType: '',
 				})
 			}
 		})
-		setFocus('productClassification')
+		setFocus('productType')
 	})
 
 	const onInputChangeHandler = e => {

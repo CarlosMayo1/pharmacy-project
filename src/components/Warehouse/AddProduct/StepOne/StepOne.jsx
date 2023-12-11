@@ -1,7 +1,7 @@
 // react
-import { useState, useEffect, Fragment } from 'react'
+import { useState, useEffect } from 'react'
 // redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // react hook form
 import { useForm, Controller } from 'react-hook-form'
 // react-select
@@ -11,6 +11,8 @@ import {
 	searchForAProductByNameInSupabase,
 	insertNewProductInSupabase,
 } from '../../../../utils/warehouse'
+// store
+import { warehouseSliceAction } from '../../../../store/warehouseStore/warehouse-redux'
 // tabler icon
 import {
 	IconCircleArrowRight,
@@ -26,6 +28,7 @@ import AddClassificationModal from './AddClassificationModal/AddClassificationMo
 import AddProductTypeModal from './AddProductTypeModal/AddProductTypeModal'
 
 const StepOne = ({ nextStep }) => {
+	const dispatch = useDispatch()
 	const brands = useSelector(state => state.warehouseReducer.productBrand)
 	const classifications = useSelector(
 		state => state.warehouseReducer.productClassification,
@@ -55,6 +58,8 @@ const StepOne = ({ nextStep }) => {
 
 	const closeBrandModalHandler = () => {
 		setOpenBrandModal(false)
+		// 👁️ hides modal message when closing modal
+		dispatch(warehouseSliceAction.changeModalMessage())
 	}
 
 	// Product Classification Modal
@@ -64,6 +69,8 @@ const StepOne = ({ nextStep }) => {
 
 	const closeClassificationModalHandler = () => {
 		setOpenClassificationModal(false)
+		// 👁️ hides modal message when closing modal
+		dispatch(warehouseSliceAction.changeModalMessage())
 	}
 
 	// Product Type Modal
@@ -73,6 +80,8 @@ const StepOne = ({ nextStep }) => {
 
 	const closeProductTypeModalHandler = () => {
 		setOpenProductTypeModal(false)
+		// 👁️ hides modal message when closing modal
+		dispatch(warehouseSliceAction.changeModalMessage())
 	}
 
 	const onSubmitFormHandler = handleSubmit(data => {
