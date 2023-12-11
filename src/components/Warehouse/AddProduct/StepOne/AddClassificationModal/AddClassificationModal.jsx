@@ -48,7 +48,7 @@ const AddClassificationdModal = ({ isOpen, closeModal }) => {
 		insertNewClassificationInSupabase(insertData).then(response => {
 			console.log(response)
 			if (response === null) {
-				// fetch new data from database in all the select inputs
+				// fetch new data added to the product_classification table
 				dispatch(fetchProductClassification())
 				dispatch(
 					warehouseSliceAction.showModalMessage({

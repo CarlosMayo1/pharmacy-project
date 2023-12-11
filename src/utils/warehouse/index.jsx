@@ -70,11 +70,11 @@ export const searchForExistingClassificationInSupabase =
 	}
 
 // check if the inserted product type already exists in database
-export const searchForExistingProductTypeInSupabase = async productBrand => {
+export const searchForExistingProductTypeInSupabase = async productType => {
 	const { data, error } = await supabase
-		.from('product_brand')
+		.from('product_type')
 		.select()
-		.eq('name', productBrand)
+		.eq('name', productType)
 	if (data) return data
 	if (error) return error
 }
@@ -88,5 +88,10 @@ export const insertNewBrandInSupabse = async data => {
 // inser a new classification in the table
 export const insertNewClassificationInSupabase = async data => {
 	const { error } = await supabase.from('product_classification').insert(data)
+	return error
+}
+
+export const insertNewProductTypeInSupabase = async data => {
+	const { error } = await supabase.from('product_type').insert(data)
 	return error
 }
