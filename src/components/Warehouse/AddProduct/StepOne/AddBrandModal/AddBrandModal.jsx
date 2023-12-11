@@ -16,7 +16,7 @@ import { fetchProductBrand } from '../../../../../store/warehouseStore/warehouse
 // store
 import { warehouseSliceAction } from '../../../../../store/warehouseStore/warehouse-redux'
 // components
-import SuccessfulMessage from './SuccessfulMessage/SuccessfulMessage'
+import SuccessfulMessage from '../SuccessfulMessage/SuccessfulMessage'
 
 const AddBrandModal = ({ isOpen, closeModal }) => {
 	const [inputQuery, setInputQuery] = useState('')
@@ -28,12 +28,14 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 	const {
 		register,
 		handleSubmit,
+		reset,
+		setFocus,
 		formState: { errors },
 	} = useForm()
 	const dispatch = useDispatch()
 
 	const onSubmitFormHandler = handleSubmit(data => {
-		// if data is repeated, do not send info to database
+		// 👁️ if data is repeated, do not send info to database
 		if (repeatedData) {
 			return
 		}
@@ -46,7 +48,7 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 		insertNewBrandInSupabse(insertData).then(response => {
 			console.log(response)
 			if (response === null) {
-				// fetch new data from database in all the select inputs
+				// fetch new data added to the product_brand table
 				dispatch(fetchProductBrand())
 				dispatch(
 					warehouseSliceAction.showModalMessage({
@@ -56,8 +58,14 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 						message: 'Registrado con éxito',
 					}),
 				)
+				// clean the the input
+				reset({
+					productBrand: '',
+				})
 			}
 		})
+		// focus in the input
+		setFocus('productBrand')
 	})
 
 	const onInputChangeHandler = e => {
@@ -102,13 +110,12 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 		return () => clearTimeout(onSearchBrandNameInSupabase)
 	}, [inputQuery])
 
+	// displays success or error message after sending data to database
 	useEffect(() => {
-		// Close the modal after cleaning the green warning
-		console.log('working')
+		// clean the modal message
 		const onChangeModalMessage = setTimeout(() => {
-			console.log('Inside the setTimeout')
 			dispatch(warehouseSliceAction.changeModalMessage())
-		}, 2000)
+		}, 3000)
 		return () => clearTimeout(onChangeModalMessage)
 	}, [modalMessage.show])
 

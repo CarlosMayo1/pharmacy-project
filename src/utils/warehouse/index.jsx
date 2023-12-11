@@ -53,7 +53,7 @@ export const searchForExistingBrandInSupabase = async productBrand => {
 	const { data, error } = await supabase
 		.from('product_brand')
 		.select()
-		.ilike('name', `%${productBrand}%`)
+		.eq('name', productBrand)
 	if (data) return data
 	if (error) return error
 }
@@ -82,5 +82,11 @@ export const searchForExistingProductTypeInSupabase = async productBrand => {
 // insert a new brand in the table
 export const insertNewBrandInSupabse = async data => {
 	const { error } = await supabase.from('product_brand').insert(data)
+	return error
+}
+
+// inser a new classification in the table
+export const insertNewClassificationInSupabase = async data => {
+	const { error } = await supabase.from('product_classification').insert(data)
 	return error
 }
