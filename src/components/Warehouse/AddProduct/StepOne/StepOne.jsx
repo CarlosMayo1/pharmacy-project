@@ -116,7 +116,7 @@ const StepOne = ({ nextStep }) => {
 		nextStep()
 	})
 
-	const onChangeCheckbox = e => {
+	const onChangeCheckbox = () => {
 		setShowSection(!showSection)
 	}
 

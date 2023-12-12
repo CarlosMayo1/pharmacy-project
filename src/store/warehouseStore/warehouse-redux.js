@@ -1,4 +1,4 @@
-import { TaskAbortError, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 // state
 const initialState = {
@@ -17,6 +17,7 @@ const initialState = {
 		background: '',
 		message: '',
 	},
+	insertedProduct: {},
 }
 
 const warehouseSlice = createSlice({
@@ -47,6 +48,9 @@ const warehouseSlice = createSlice({
 				background: '',
 				message: '',
 			}
+		},
+		getInsertedProduct(state, action) {
+			state.insertedProduct = action.payload
 		},
 	},
 })
