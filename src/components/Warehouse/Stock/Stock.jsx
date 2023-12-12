@@ -1,13 +1,7 @@
 // react
 import { useState, useEffect } from 'react'
 // redux
-import { useSelector, useDispatch } from 'react-redux'
-// utils
-import {
-	fetchBrandsFromSupabase,
-	fetchProductClassificationFromSupabase,
-	fetchProductTypesFromSupabase,
-} from '../../../utils/warehouse/index'
+import { useDispatch } from 'react-redux'
 import { addProductModal } from '../../../store/warehouseStore/warehouse-thunk'
 // tabler icon
 import { IconEye, IconTrash, IconEdit } from '@tabler/icons-react'
