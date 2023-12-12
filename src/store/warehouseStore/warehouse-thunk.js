@@ -18,7 +18,9 @@ export const addProductModal = () => {
 			brands.map(brand => {
 				productBrands.push({ value: brand.product_brand_id, label: brand.name })
 			})
-			dispatch(warehouseSliceAction.getProductBrand(productBrands))
+			// ☑️ sorting array alphabetically
+			const orderedArr = sortArrAphabetically(productBrands)
+			dispatch(warehouseSliceAction.getProductBrand(orderedArr))
 		})
 
 		// fetch all product classification from supabase
@@ -31,9 +33,9 @@ export const addProductModal = () => {
 					label: classification.name,
 				})
 			})
-			dispatch(
-				warehouseSliceAction.getProductClassification(productClassifications),
-			)
+			// ☑️ sorting array alphabetically
+			const orderedArr = sortArrAphabetically(productClassifications)
+			dispatch(warehouseSliceAction.getProductClassification(orderedArr))
 		})
 
 		// fetch all product types from supabase
@@ -46,7 +48,9 @@ export const addProductModal = () => {
 					label: type.name,
 				})
 			})
-			dispatch(warehouseSliceAction.getProductType(productTypes))
+			// ☑️ sorting array alphabetically
+			const orderedArr = sortArrAphabetically(productTypes)
+			dispatch(warehouseSliceAction.getProductType(orderedArr))
 		})
 	}
 }
@@ -59,7 +63,9 @@ export const fetchProductBrand = () => {
 			brands.map(brand => {
 				productBrands.push({ value: brand.product_brand_id, label: brand.name })
 			})
-			dispatch(warehouseSliceAction.getProductBrand(productBrands))
+			// ☑️ sorting array alphabetically
+			const orderedArr = sortArrAphabetically(productBrands)
+			dispatch(warehouseSliceAction.getProductBrand(orderedArr))
 		})
 	}
 }
@@ -75,9 +81,9 @@ export const fetchProductClassification = () => {
 					label: classification.name,
 				})
 			})
-			dispatch(
-				warehouseSliceAction.getProductClassification(productClassifications),
-			)
+			// ☑️ sorting array alphabetically
+			const orderedArr = sortArrAphabetically(productClassifications)
+			dispatch(warehouseSliceAction.getProductClassification(orderedArr))
 		})
 	}
 }
@@ -93,7 +99,28 @@ export const fetchProductType = () => {
 					label: type.name,
 				})
 			})
-			dispatch(warehouseSliceAction.getProductType(productTypes))
+			// ☑️ sorting array alphabetically
+			const orderedArr = sortArrAphabetically(productTypes)
+			dispatch(warehouseSliceAction.getProductType(orderedArr))
 		})
 	}
+}
+
+// sorting function
+const sortArrAphabetically = arr => {
+	// sorting array alphabetically
+	const sortedArr = arr.sort((a, b) => {
+		let firstBrand = a.label.toLowerCase()
+		let secondBrand = b.label.toLowerCase()
+
+		if (firstBrand < secondBrand) {
+			return -1
+		}
+		if (firstBrand > secondBrand) {
+			return 1
+		}
+		return 0
+	})
+
+	return sortedArr
 }
