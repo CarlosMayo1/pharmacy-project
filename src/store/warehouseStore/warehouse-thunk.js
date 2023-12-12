@@ -97,16 +97,3 @@ export const fetchProductType = () => {
 		})
 	}
 }
-
-// return async function fetchProductBrands(dispatch, getState) {
-//   fetchBrandsFromSupabase().then(response => {
-//     dispatch(warehouseSliceAction.getProductBrand(response))
-//   })
-// }
-
-// export const fetchAllBrandsFromSupabase = createAsyncThunk('warehouse/fetchBrandsFromSupabase', () => {
-//   const dispatch = useDispatch()
-//   fetchBrandsFromSupabase().then(response => {
-//     dispatch()
-//   })
-// })
