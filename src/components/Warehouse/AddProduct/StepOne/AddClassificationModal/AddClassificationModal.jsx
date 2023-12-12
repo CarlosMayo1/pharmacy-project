@@ -17,6 +17,8 @@ import { fetchProductClassification } from '../../../../../store/warehouseStore/
 import { warehouseSliceAction } from '../../../../../store/warehouseStore/warehouse-redux'
 // components
 import SuccessfulMessage from '../SuccessfulMessage/SuccessfulMessage'
+// tabler icon
+import { IconInfoHexagon } from '@tabler/icons-react'
 
 const AddClassificationdModal = ({ isOpen, closeModal }) => {
 	const [inputQuery, setInputQuery] = useState('')
@@ -142,7 +144,7 @@ const AddClassificationdModal = ({ isOpen, closeModal }) => {
 							leaveFrom='opacity-100 scale-100'
 							leaveTo='opacity-0 scale-95'
 						>
-							<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+							<Dialog.Panel className='w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
 								{/* Successful message */}
 								{modalMessage.show && <SuccessfulMessage />}
 								<div className='mt-2'>
@@ -150,6 +152,21 @@ const AddClassificationdModal = ({ isOpen, closeModal }) => {
 										<h3 className='text-lg font-medium leading-6 text-gray-900 border-b pb-2 mb-4'>
 											Ingresar Nueva Clasificación de Producto
 										</h3>
+
+										{/* helpful information for the user */}
+										<div className='w-full bg-gray-50 border-l-4 border-gray-200 py-2 px-4 mb-4 '>
+											<p className='text-gray-500 text-sm font-semibold flex flex-col'>
+												<span className='flex'>
+													<IconInfoHexagon size={18} className='mr-2' />
+													El nombre de la clasificación debe iniciar con letra
+													mayúscula.
+												</span>
+												<span>
+													Ejemplo:
+													<span className='font-bold ml-1'> Órales</span>
+												</span>
+											</p>
+										</div>
 
 										{/* Name of product */}
 										<div className='flex flex-wrap -mx-3 mb-4'>
