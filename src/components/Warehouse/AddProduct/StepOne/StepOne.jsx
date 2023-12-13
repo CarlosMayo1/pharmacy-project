@@ -43,6 +43,7 @@ const StepOne = ({ nextStep }) => {
 		useState('')
 	const {
 		control,
+		reset,
 		register,
 		handleSubmit,
 		formState: { errors },
@@ -98,7 +99,7 @@ const StepOne = ({ nextStep }) => {
 			density: data.productDensity,
 			user_worker_id: JSON.parse(localStorage.getItem('session'))
 				.user_worker_id, // gets data from the user logged
-			created_date: getCurrent(),
+			created_date: getCurrentDate(),
 			expire_date: data.productExpirationDate,
 			state: 1,
 			isCompleted: 1,
@@ -111,6 +112,11 @@ const StepOne = ({ nextStep }) => {
 
 		insertNewProductInSupabase(insertData).then(response => {
 			console.log(response)
+			if (response === null) {
+				dispatch(warehouseSliceAction.getInsertedProduct(response[0]))
+				// cleans all the fields
+				reset()
+			}
 		})
 
 		nextStep()
@@ -120,7 +126,7 @@ const StepOne = ({ nextStep }) => {
 		setShowSection(!showSection)
 	}
 
-	const getCurrent = () => {
+	const getCurrentDate = () => {
 		const date = new Date()
 		let day = date.getDate()
 		let month = date.getMonth() + 1

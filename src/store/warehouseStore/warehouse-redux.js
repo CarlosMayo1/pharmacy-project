@@ -33,6 +33,9 @@ const warehouseSlice = createSlice({
 		getProductType(state, action) {
 			state.productType = action.payload
 		},
+		getProductFunctions(state, action) {
+			state.productFunctions = action.payload
+		},
 		showModalMessage(state, action) {
 			state.modalMessage = {
 				show: action.payload.show,

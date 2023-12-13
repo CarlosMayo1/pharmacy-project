@@ -1,24 +1,42 @@
 // react hook form
 import { useForm } from 'react-hook-form'
+// react redux
+import { useSelector } from 'react-redux'
 // tabler icon
 import { IconCircleArrowRight } from '@tabler/icons-react'
+// utils
+import { insertNewPriceInSupabase } from '../../../../utils/warehouse'
 
 const StepTwo = ({ nextStep }) => {
+	const insertedProduct = useSelector(
+		state => state.warehouseReducer.insertedProduct,
+	)
 	const {
 		register,
+		reset,
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
 
 	const onSubmitFormHandler = handleSubmit(data => {
 		const insertData = {
-			productId: data.productId, // gets the id of the inserted product
+			product_id: insertedProduct.product_id, // gets the id of the inserted product
 			price: data.productPrice,
 			observation: data.productObservation,
 			user_worker_id: JSON.parse(localStorage.getItem('session'))
 				.user_worker_id, // gets data from the user logged
+			isComplete: 1,
+			state: 1,
 		}
-		console.log(data)
+
+		insertNewPriceInSupabase(insertData).then(response => {
+			console.log(response)
+			if (response === null) {
+				// cleans the input
+				reset()
+				nextStep()
+			}
+		})
 	})
 
 	return (
@@ -41,6 +59,7 @@ const StepTwo = ({ nextStep }) => {
 					id='grid-product-price'
 					type='number'
 					min='0'
+					step='any'
 					placeholder='S/'
 					{...register('productPrice', {
 						required: {

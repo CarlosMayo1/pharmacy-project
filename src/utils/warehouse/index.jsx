@@ -30,6 +30,16 @@ export const fetchProductTypesFromSupabase = async () => {
 	if (error) return error
 }
 
+// fetch all the functions from product_functions table
+export const fetchFunctionsFromSupabase = async () => {
+	const { data, error } = await supabase
+		.from('product_function')
+		.select('function_id, description')
+		.eq('state', 1)
+	if (data) return data
+	if (error) return error
+}
+
 // search for a product in the table
 export const searchForAProductByNameInSupabase = async productName => {
 	const { data, error } = await supabase
@@ -90,13 +100,28 @@ export const insertNewBrandInSupabse = async data => {
 	return error
 }
 
-// inser a new classification in the table
+// insert a new classification in the table
 export const insertNewClassificationInSupabase = async data => {
 	const { error } = await supabase.from('product_classification').insert(data)
 	return error
 }
 
+// insert a new type in the table
 export const insertNewProductTypeInSupabase = async data => {
 	const { error } = await supabase.from('product_type').insert(data)
+	return error
+}
+
+// insert new price in the table
+export const insertNewPriceInSupabase = async price => {
+	const { error } = await supabase.from('product_price').insert(price)
+	return error
+}
+
+// insert function associated to the product
+export const insertNewFunctionInSupabase = async productFunction => {
+	const { error } = await supabase
+		.from('product_functions')
+		.insert(productFunction)
 	return error
 }
