@@ -268,8 +268,8 @@ const StepOne = ({ nextStep }) => {
 							<div className='bg-gray-50  border-l-4 border-gray-200 mt-2 py-2 px-4'>
 								<p className='flex items-center font-light mb-2'>
 									{' '}
-									<IconListCheck className='mr-2' /> Lista de productos
-									existentes
+									<IconListCheck size={18} className='mr-2' /> Lista de
+									productos existentes
 								</p>
 								<ul>
 									{searchedProducts.map(product => (

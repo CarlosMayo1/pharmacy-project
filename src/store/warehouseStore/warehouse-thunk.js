@@ -60,7 +60,7 @@ export const addProductModal = () => {
 			const functions = response
 			functions.map(type => {
 				productFunctions.push({
-					value: type.product_functions_id,
+					value: type.function_id,
 					label: type.description,
 				})
 			})
