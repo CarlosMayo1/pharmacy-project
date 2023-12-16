@@ -85,6 +85,7 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 			setRepeatedData(false)
 			setShowSpinner(false)
 			setDisableSubmitButton(false)
+			clearErrors('productBrand')
 			return
 		}
 

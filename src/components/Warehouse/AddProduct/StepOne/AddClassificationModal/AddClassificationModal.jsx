@@ -25,11 +25,12 @@ const AddClassificationdModal = ({ isOpen, closeModal }) => {
 	const [showSpinner, setShowSpinner] = useState(false)
 	const [disableSubmitButton, setDisableSubmitButton] = useState(false)
 	const [repeatedData, setRepeatedData] = useState(false)
-	const [repeatedDataErrorMessage, setRepeatedDataErrorMessage] = useState('')
 	const modalMessage = useSelector(state => state.warehouseReducer.modalMessage)
 	const {
 		register,
 		handleSubmit,
+		setError,
+		clearErrors,
 		reset,
 		setFocus,
 		formState: { errors },
@@ -80,9 +81,9 @@ const AddClassificationdModal = ({ isOpen, closeModal }) => {
 		// avoids searching when not necessary
 		if (inputQuery === '' || inputQuery === ' ') {
 			setRepeatedData(false)
-			setRepeatedDataErrorMessage('')
 			setShowSpinner(false)
 			setDisableSubmitButton(false)
+			clearErrors('productClassification')
 			return
 		}
 
@@ -94,13 +95,15 @@ const AddClassificationdModal = ({ isOpen, closeModal }) => {
 				if (response.length > 0) {
 					if (response[0].name.toLowerCase() === inputQuery.toLowerCase()) {
 						setRepeatedData(true)
-						setRepeatedDataErrorMessage(
-							'Esta clasificación ya se encuentra registrada en la base de datos',
-						)
+						setError('productClassification', {
+							type: 'custom',
+							message:
+								'Esta clasificación ya se encuentra registrada en la base de datos',
+						})
 					}
 				} else {
 					setRepeatedData(false)
-					setRepeatedDataErrorMessage('')
+					clearErrors('productClassification')
 					setDisableSubmitButton(false)
 				}
 				console.log(response)
@@ -163,7 +166,7 @@ const AddClassificationdModal = ({ isOpen, closeModal }) => {
 												</span>
 												<span>
 													Ejemplo:
-													<span className='font-bold ml-1'> Órales</span>
+													<span className='font-bold ml-1'> Orales</span>
 												</span>
 											</p>
 										</div>
@@ -190,9 +193,6 @@ const AddClassificationdModal = ({ isOpen, closeModal }) => {
 														onChange: e => onInputChangeHandler(e),
 													})}
 												/>
-												<p className='text-red-500 text-xs italic'>
-													{repeatedData ? repeatedDataErrorMessage : null}
-												</p>
 												<p className='text-red-500 text-xs italic'>
 													{errors.productClassification &&
 														errors.productClassification.message}
