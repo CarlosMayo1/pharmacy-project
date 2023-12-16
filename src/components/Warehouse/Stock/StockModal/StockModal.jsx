@@ -10,7 +10,7 @@ import StepFour from '../../AddProduct/StepFour/StepFour'
 
 const stockModal = ({ isOpen, closeModal }) => {
 	// state
-	const [counter, setCounter] = useState(4)
+	const [counter, setCounter] = useState(1)
 
 	const onNextStep = () => {
 		if (counter >= STEPS.length) {

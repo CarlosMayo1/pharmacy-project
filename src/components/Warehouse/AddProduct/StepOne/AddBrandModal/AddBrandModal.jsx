@@ -25,11 +25,12 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 	const [showSpinner, setShowSpinner] = useState(false)
 	const [disableSubmitButton, setDisableSubmitButton] = useState(false)
 	const [repeatedData, setRepeatedData] = useState(false)
-	const [repeatedDataErrorMessage, setRepeatedDataErrorMessage] = useState('')
 	const modalMessage = useSelector(state => state.warehouseReducer.modalMessage)
 	const {
 		register,
 		handleSubmit,
+		setError,
+		clearErrors,
 		reset,
 		setFocus,
 		formState: { errors },
@@ -82,7 +83,6 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 		// avoids searching when not necessary
 		if (inputQuery === '' || inputQuery === ' ') {
 			setRepeatedData(false)
-			setRepeatedDataErrorMessage('')
 			setShowSpinner(false)
 			setDisableSubmitButton(false)
 			return
@@ -95,14 +95,16 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 
 				if (response.length > 0) {
 					if (response[0].name.toLowerCase() === inputQuery.toLowerCase()) {
+						setError('productBrand', {
+							type: 'custom',
+							message:
+								'Esta marca ya se encuentra registrada en la base de datos',
+						})
 						setRepeatedData(true)
-						setRepeatedDataErrorMessage(
-							'Esta marca ya se encuentra registrada en la base de datos',
-						)
 					}
 				} else {
 					setRepeatedData(false)
-					setRepeatedDataErrorMessage('')
+					clearErrors('productBrand')
 					setDisableSubmitButton(false)
 				}
 				console.log(response)
@@ -193,9 +195,6 @@ const AddBrandModal = ({ isOpen, closeModal }) => {
 														onChange: e => onInputChangeHandler(e),
 													})}
 												/>
-												<p className='text-red-500 text-xs italic'>
-													{repeatedData ? repeatedDataErrorMessage : null}
-												</p>
 												<p className='text-red-500 text-xs italic'>
 													{errors.productBrand && errors.productBrand.message}
 												</p>

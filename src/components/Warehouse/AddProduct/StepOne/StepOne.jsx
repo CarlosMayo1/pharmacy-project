@@ -454,9 +454,6 @@ const StepOne = ({ nextStep }) => {
 						placeholder='Nombre común conocido'
 						{...register('productCommonName')}
 					/>
-					<p className='text-red-500 text-xs italic'>
-						{/* Please fill out this field. */}
-					</p>
 				</div>
 				{/* Checkbox */}
 				<div className='flex mb-2'>
