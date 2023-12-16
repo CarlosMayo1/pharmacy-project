@@ -25,11 +25,12 @@ const AddProductTypeModal = ({ isOpen, closeModal }) => {
 	const [showSpinner, setShowSpinner] = useState(false)
 	const [disableSubmitButton, setDisableSubmitButton] = useState(false)
 	const [repeatedData, setRepeatedData] = useState(false)
-	const [repeatedDataErrorMessage, setRepeatedDataErrorMessage] = useState('')
 	const modalMessage = useSelector(state => state.warehouseReducer.modalMessage)
 	const {
 		register,
 		handleSubmit,
+		setError,
+		clearErrors,
 		reset,
 		setFocus,
 		formState: { errors },
@@ -80,7 +81,7 @@ const AddProductTypeModal = ({ isOpen, closeModal }) => {
 		// avoids searching when not necessary
 		if (inputQuery === '' || inputQuery === ' ') {
 			setRepeatedData(false)
-			setRepeatedDataErrorMessage('')
+			clearErrors('productType')
 			setShowSpinner(false)
 			setDisableSubmitButton(false)
 			return
@@ -94,13 +95,15 @@ const AddProductTypeModal = ({ isOpen, closeModal }) => {
 				if (response.length > 0) {
 					if (response[0].name.toLowerCase() === inputQuery.toLowerCase()) {
 						setRepeatedData(true)
-						setRepeatedDataErrorMessage(
-							'Esta clasificación ya se encuentra registrada en la base de datos',
-						)
+						setError('productType', {
+							type: 'custom',
+							message:
+								'Esta clasificación ya se encuentra registrada en la base de datos',
+						})
 					}
 				} else {
 					setRepeatedData(false)
-					setRepeatedDataErrorMessage('')
+					clearErrors('productType')
 					setDisableSubmitButton(false)
 				}
 				console.log(response)
@@ -190,9 +193,6 @@ const AddProductTypeModal = ({ isOpen, closeModal }) => {
 														onChange: e => onInputChangeHandler(e),
 													})}
 												/>
-												<p className='text-red-500 text-xs italic'>
-													{repeatedData ? repeatedDataErrorMessage : null}
-												</p>
 												<p className='text-red-500 text-xs italic'>
 													{errors.productType && errors.productType.message}
 												</p>
