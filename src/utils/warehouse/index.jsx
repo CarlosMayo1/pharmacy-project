@@ -83,6 +83,16 @@ export const searchForExistingProductTypeInSupabase = async productType => {
 	if (error) return error
 }
 
+// search for an specific function
+export const searchForFunctionInSupabase = async fnct => {
+	const { data, error } = await supabase
+		.from('product_function')
+		.select('description')
+		.eq('function_id', fnct)
+	if (data) return data
+	if (error) return error
+}
+
 // insert data into product table and retrieve the record
 export const insertNewProductInSupabase = async newProduct => {
 	const { data, error } = await supabase
@@ -118,10 +128,10 @@ export const insertNewPriceInSupabase = async price => {
 	return error
 }
 
-// insert function associated to the product
-export const insertNewFunctionInSupabase = async productFunction => {
+// insert bulk of functions associated to the product
+export const insertNewFunctionsInSupabase = async arrFunctions => {
 	const { error } = await supabase
 		.from('product_functions')
-		.insert(productFunction)
+		.insert(arrFunctions)
 	return error
 }

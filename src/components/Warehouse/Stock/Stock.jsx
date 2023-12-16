@@ -18,7 +18,7 @@ const StockProducts = () => {
 		setIsOpen(false)
 	}
 
-	const openModal = item => {
+	const openModal = () => {
 		// dispatch(priceSliceAction.editPrice(item))
 		setIsOpen(true)
 	}
