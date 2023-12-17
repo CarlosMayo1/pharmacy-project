@@ -122,6 +122,24 @@ export const fetchProductType = () => {
 	}
 }
 
+export const fetchFunction = () => {
+	return async function getFunctions(dispatch) {
+		fetchFunctionsFromSupabase().then(response => {
+			const productFunctions = []
+			const functions = response
+			functions.map(type => {
+				productFunctions.push({
+					value: type.function_id,
+					label: type.description,
+				})
+			})
+			// ☑️ sorting array alphabetically
+			const orderedArr = sortArrAphabetically(productFunctions)
+			dispatch(warehouseSliceAction.getProductFunctions(orderedArr))
+		})
+	}
+}
+
 // sorting function
 const sortArrAphabetically = arr => {
 	// sorting array alphabetically

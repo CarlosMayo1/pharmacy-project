@@ -7,9 +7,16 @@ import { useForm, Controller } from 'react-hook-form'
 // react-select
 import Select from 'react-select'
 // tabler icon
-import { IconListNumbers, IconPlaystationX } from '@tabler/icons-react'
+import {
+	IconListNumbers,
+	IconPlaystationX,
+	IconFlag2Filled,
+	IconLink,
+} from '@tabler/icons-react'
 // utils
 import { insertNewFunctionsInSupabase } from '../../../../utils/warehouse'
+// components
+import AddNewFunctionModal from './AddNewFunction/AddNewFunction'
 
 const StepFour = () => {
 	const functions = useSelector(
@@ -18,6 +25,7 @@ const StepFour = () => {
 	const [showList, setShowList] = useState(false)
 	const [listOfFunctions, setListOfFunctions] = useState([])
 	const [showSubmitButton, setShowSubmitButton] = useState(false)
+	const [showNewFunctionModal, setShowModalFunctionModal] = useState(false)
 	const {
 		control,
 		getValues,
@@ -126,6 +134,14 @@ const StepFour = () => {
 		setListOfFunctions(filteredFunctions)
 	}
 
+	const showAddNewFunctionModalHandler = () => {
+		setShowModalFunctionModal(true)
+	}
+
+	const closeAddNewFunctionModalHandler = () => {
+		setShowModalFunctionModal(false)
+	}
+
 	useEffect(() => {
 		// hide the list when it's empty
 		if (listOfFunctions.length === 0) {
@@ -205,82 +221,109 @@ const StepFour = () => {
 
 	return (
 		// Fourth Section
-		<form className='w-full'>
-			<h2 className='pt-2 ext-lg font-medium leading-6 text-gray-900 border-b pb-2 mb-4'>
-				Sección de funcionalidad del producto
-			</h2>
-			{/* Function */}
-			<div className='flex justify-items-center'>
-				<p>Nombre del producto:</p>{' '}
-				<span className=' text-gray-700 text-sm font-bold ml-2 mt-1 mb-2 underline'>
-					Amoxicilina con ácido clavulanico
-				</span>
-			</div>
-			<div className='w-full  mb-4'>
-				<label
-					className='block text-gray-700 text-sm font-bold mb-2'
-					htmlFor='grid-product-function'
-				>
-					Ingrese la funcionalidad del producto
-				</label>
-				<div className='flex flex-col'>
-					<Controller
-						name='productFunction'
-						control={control}
-						defaultValue=''
-						rules={{
-							value: true,
-							required: 'Este campo es obligatorio',
-							// onChange: e => onSelectAFunctionHandler(e),
-						}}
-						render={({ field }) => (
-							<Select name='productFunction' {...field} options={functions} />
-						)}
-					/>
+		<>
+			<form className='w-full'>
+				<h2 className='pt-2 ext-lg font-medium leading-6 text-gray-900 border-b pb-2 mb-4'>
+					Sección de funcionalidad del producto
+				</h2>
+				{/* Function */}
+				<div className='flex justify-items-center'>
+					<p>Nombre del producto:</p>{' '}
+					<span className=' text-gray-700 text-sm font-bold ml-2 mt-1 mb-2 underline'>
+						Amoxicilina con ácido clavulanico
+					</span>
 				</div>
-				<p className='text-red-500 text-xs italic'>
-					{errors.productFunction && errors.productFunction.message}
-				</p>
-			</div>
-			{/* If there is and observation */}
-			<div className='flex flex-wrap  mb-2'>
-				<label
-					htmlFor='product-observation'
-					className='block text-gray-700 text-sm font-bold mb-2'
-				>
-					Ingrese alguna observación de ser necesario
-				</label>
-				<textarea
-					id='product-observation'
-					rows='3'
-					className='shadow appearance-none border rounded w-full mb-2 py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
-					placeholder='Escriba un mensaje claro y sencillo'
-					{...register('productObservation')}
-				></textarea>
-			</div>
-			{showList && <ListOfFunctionsSection />}
-			{/* Next and Previous Buttons */}
-			<div className='flex justify-center mt-4'>
-				<button
-					type='button'
-					onClick={onAddProductFunction}
-					className={`${
-						showSubmitButton ? 'hidden ' : ''
-					}inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
-				>
-					Agregar
-				</button>
-				{showSubmitButton && (
+				<div className='w-full  mb-4'>
+					<label
+						className='block text-gray-700 text-sm font-bold mb-2'
+						htmlFor='grid-product-function'
+					>
+						Ingrese la funcionalidad del producto
+					</label>
+					<div className='flex flex-col'>
+						<Controller
+							name='productFunction'
+							control={control}
+							defaultValue=''
+							rules={{
+								value: true,
+								required: 'Este campo es obligatorio',
+								// onChange: e => onSelectAFunctionHandler(e),
+							}}
+							render={({ field }) => (
+								<Select name='productFunction' {...field} options={functions} />
+							)}
+						/>
+					</div>
+					<p className='text-red-500 text-xs italic'>
+						{errors.productFunction && errors.productFunction.message}
+					</p>
+				</div>
+
+				{/* helpful information for the user */}
+				<div className='w-full bg-gray-50 border-l-4 border-gray-200 py-2 px-4 mb-4 '>
+					<p className='text-gray-500 text-sm font-semibold flex items-center mb-2'>
+						<IconFlag2Filled size={18} className='mr-2' /> ¿No existe algun
+						dato? Ingresalo en el siguiente enlace:
+					</p>
+					<ul className='text-sm text-gray-500 font-bold'>
+						<li>
+							<button
+								type='button'
+								onClick={showAddNewFunctionModalHandler}
+								className='flex items-center'
+							>
+								<IconLink size={18} className='mr-2' />
+								Ingresar marca
+							</button>
+						</li>
+					</ul>
+				</div>
+
+				{/* If there is and observation */}
+				<div className='flex flex-wrap  mb-2'>
+					<label
+						htmlFor='product-observation'
+						className='block text-gray-700 text-sm font-bold mb-2'
+					>
+						Ingrese alguna observación de ser necesario
+					</label>
+					<textarea
+						id='product-observation'
+						rows='3'
+						className='shadow appearance-none border rounded w-full mb-2 py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
+						placeholder='Escriba un mensaje claro y sencillo'
+						{...register('productObservation')}
+					></textarea>
+				</div>
+				{showList && <ListOfFunctionsSection />}
+				{/* Next and Previous Buttons */}
+				<div className='flex justify-center mt-4'>
 					<button
 						type='button'
-						onClick={onSubmitFormHandler}
-						className={`inline-flex justify-center rounded-md border border-transparent bg-green-300 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
+						onClick={onAddProductFunction}
+						className={`${
+							showSubmitButton ? 'hidden ' : ''
+						}inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
 					>
-						Enviar
+						Agregar
 					</button>
-				)}
-			</div>
-		</form>
+					{showSubmitButton && (
+						<button
+							type='button'
+							onClick={onSubmitFormHandler}
+							className={`inline-flex justify-center rounded-md border border-transparent bg-green-300 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
+						>
+							Enviar
+						</button>
+					)}
+				</div>
+			</form>
+			<AddNewFunctionModal
+				isOpen={showNewFunctionModal}
+				closeModal={closeAddNewFunctionModalHandler}
+			/>
+		</>
 	)
 }
 

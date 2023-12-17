@@ -87,8 +87,8 @@ export const searchForExistingProductTypeInSupabase = async productType => {
 export const searchForFunctionInSupabase = async fnct => {
 	const { data, error } = await supabase
 		.from('product_function')
-		.select('description')
-		.eq('function_id', fnct)
+		.select()
+		.eq('description', fnct)
 	if (data) return data
 	if (error) return error
 }
@@ -133,5 +133,10 @@ export const insertNewFunctionsInSupabase = async arrFunctions => {
 	const { error } = await supabase
 		.from('product_functions')
 		.insert(arrFunctions)
+	return error
+}
+
+export const insertNewFunctionInSupabase = async fnct => {
+	const { error } = await supabase.from('product_function').insert(fnct)
 	return error
 }
