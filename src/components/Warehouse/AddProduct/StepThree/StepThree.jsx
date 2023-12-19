@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 // tabler icon
 import { IconCircleArrowRight } from '@tabler/icons-react'
 // utils
-import { insertNewPriceInSupabase } from '../../../../utils/warehouse'
+import { insertNewStockInSupabase } from '../../../../utils/warehouse'
 
 const StepThree = ({ nextStep }) => {
 	const insertedProduct = useSelector(
@@ -32,7 +32,7 @@ const StepThree = ({ nextStep }) => {
 
 		console.log(insertData)
 
-		insertNewPriceInSupabase(insertData).then(response => {
+		insertNewStockInSupabase(insertData).then(response => {
 			console.log(response)
 			if (response === null) {
 				// cleans all the fields
@@ -48,7 +48,7 @@ const StepThree = ({ nextStep }) => {
 		let month = date.getMonth() + 1
 		let year = date.getFullYear()
 		// This arrangement can be altered based on how we want the date's format to appe
-		let currentDate = `${day}/${month}/${year}`
+		let currentDate = `${year}-${month}-${day}`
 		return currentDate
 	}
 

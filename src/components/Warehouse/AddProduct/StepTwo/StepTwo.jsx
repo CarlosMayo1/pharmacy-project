@@ -25,7 +25,7 @@ const StepTwo = ({ nextStep }) => {
 			observation: data.productObservation,
 			user_worker_id: JSON.parse(localStorage.getItem('session'))
 				.user_worker_id, // gets data from the user logged
-			isComplete: 1,
+			isCompleted: 1,
 			state: 1,
 		}
 

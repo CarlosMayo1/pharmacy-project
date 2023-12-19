@@ -140,3 +140,8 @@ export const insertNewFunctionInSupabase = async fnct => {
 	const { error } = await supabase.from('product_function').insert(fnct)
 	return error
 }
+
+export const insertNewStockInSupabase = async productStock => {
+	const { error } = await supabase.from('stock').insert(productStock)
+	return error
+}

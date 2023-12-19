@@ -44,6 +44,8 @@ const StepOne = ({ nextStep }) => {
 	const {
 		control,
 		reset,
+		setError,
+		clearErrors,
 		register,
 		handleSubmit,
 		formState: { errors },
@@ -112,14 +114,14 @@ const StepOne = ({ nextStep }) => {
 
 		insertNewProductInSupabase(insertData).then(response => {
 			console.log(response)
-			if (response === null) {
+			// if the product has been inserted
+			if (response.length > 0) {
 				dispatch(warehouseSliceAction.getInsertedProduct(response[0]))
 				// cleans all the fields
 				reset()
+				nextStep()
 			}
 		})
-
-		nextStep()
 	})
 
 	const onChangeCheckbox = () => {
@@ -132,7 +134,7 @@ const StepOne = ({ nextStep }) => {
 		let month = date.getMonth() + 1
 		let year = date.getFullYear()
 		// This arrangement can be altered based on how we want the date's format to appe
-		let currentDate = `${day}/${month}/${year}`
+		let currentDate = `${year}-${month}-${day}`
 		return currentDate
 	}
 
@@ -203,15 +205,19 @@ const StepOne = ({ nextStep }) => {
 				if (response.length > 0) {
 					if (response[0].name === inputQuery) {
 						setRepeatedProduct(true)
-						setRepeatedProductErrorMessage(
-							'Este producto ya se encuentra registrado en la base de datos',
-						)
+						setError('repeatedProduct', {
+							type: 'custom',
+							message:
+								'Este producto ya se encuentra registrado en la base de datos',
+						})
 					}
 					setShowList(true)
 					setSearchedProducts(response)
 				} else {
 					setRepeatedProduct(false)
-					setRepeatedProductErrorMessage('')
+					clearErrors('repeatedProduct')
+					setShowList(false)
+					// setRepeatedProductErrorMessage('')
 				}
 			})
 			// })
@@ -261,7 +267,7 @@ const StepOne = ({ nextStep }) => {
 							})}
 						/>
 						<p className='text-red-500 text-xs italic'>
-							{repeatedProduct ? repeatedProductErrorMessage : null}
+							{errors.repeatedProduct && errors.repeatedProduct.message}
 						</p>
 
 						{showList && (

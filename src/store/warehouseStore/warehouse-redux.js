@@ -14,8 +14,8 @@ const initialState = {
 	modalMessage: {
 		show: false,
 		type: '',
-		background: '',
-		message: '',
+		background: 'bg-card-color-2',
+		message: 'Registrado exitosamente',
 	},
 	insertedProduct: {},
 }

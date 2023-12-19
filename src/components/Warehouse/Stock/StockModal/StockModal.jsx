@@ -10,7 +10,7 @@ import StepFour from '../../AddProduct/StepFour/StepFour'
 
 const stockModal = ({ isOpen, closeModal }) => {
 	// state
-	const [counter, setCounter] = useState(4)
+	const [counter, setCounter] = useState(1)
 
 	const onNextStep = () => {
 		if (counter >= STEPS.length) {
@@ -62,7 +62,7 @@ const stockModal = ({ isOpen, closeModal }) => {
 			case 3:
 				return <StepThree nextStep={onNextStep} previousStep={onPreviousStep} />
 			case 4:
-				return <StepFour previousStep={onPreviousStep} />
+				return <StepFour previousStep={onPreviousStep} counter={setCounter} />
 		}
 	}
 
@@ -128,3 +128,27 @@ const stockModal = ({ isOpen, closeModal }) => {
 }
 
 export default stockModal
+
+{
+	/* <div>
+									<h3 className='flex justify-center mb-2'>
+										<IconCircleCheck size='40' className='text-green-500' />
+									</h3>
+									<h4 className='text-center mb-4 font-bold text-lg'>
+										Se ha registrado exitosamente
+									</h4>
+									<p className='flex mb-4'>
+										Haga click aqui para{' '}
+										<IconLink className='text-gray-500 mx-1' />
+										<button className='underline'>
+											agregar nuevo producto
+										</button>{' '}
+									</p>
+
+									<div className='flex justify-center'>
+										<button className='bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded font-semibold'>
+											Cerrar
+										</button>
+									</div>
+								</div> */
+}

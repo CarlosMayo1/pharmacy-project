@@ -1,7 +1,7 @@
 // react
 import { useState, useEffect } from 'react'
 // react redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // react hook form
 import { useForm, Controller } from 'react-hook-form'
 // react-select
@@ -15,13 +15,21 @@ import {
 } from '@tabler/icons-react'
 // utils
 import { insertNewFunctionsInSupabase } from '../../../../utils/warehouse'
+// store
+import { warehouseSliceAction } from '../../../../store/warehouseStore/warehouse-redux'
 // components
 import AddNewFunctionModal from './AddNewFunction/AddNewFunction'
+import SuccessfulMessage from '../StepOne/SuccessfulMessage/SuccessfulMessage'
 
-const StepFour = () => {
+const StepFour = ({ counter }) => {
 	const functions = useSelector(
 		state => state.warehouseReducer.productFunctions,
 	)
+	const insertedProduct = useSelector(
+		state => state.warehouseReducer.insertedProduct,
+	)
+	const dispatch = useDispatch()
+	const modalMessage = useSelector(state => state.warehouseReducer.modalMessage)
 	const [showList, setShowList] = useState(false)
 	const [listOfFunctions, setListOfFunctions] = useState([])
 	const [showSubmitButton, setShowSubmitButton] = useState(false)
@@ -42,7 +50,7 @@ const StepFour = () => {
 		const insertFunctions = []
 		for (let i = 0; i < listOfSelectedFunctions.length; i++) {
 			insertFunctions.push({
-				product_id: 'fed1c37a-b065-4755-9724-f436525bc9e0',
+				product_id: insertedProduct.product_id,
 				product_function_id: listOfSelectedFunctions[i].productFunction.value,
 				observation: listOfSelectedFunctions[i].productObservation,
 				state: 1,
@@ -53,7 +61,21 @@ const StepFour = () => {
 		insertNewFunctionsInSupabase(insertFunctions).then(response => {
 			console.log(response)
 			if (response === null) {
-				console.log('well done!')
+				dispatch(
+					warehouseSliceAction.showModalMessage({
+						show: true,
+						type: 'success',
+						background: 'bg-card-color-6',
+						message: 'Registrado con éxito',
+					}),
+				)
+
+				// after 2 seconds return to step 01
+				setTimeout(() => {
+					// cleans modal message
+					dispatch(warehouseSliceAction.changeModalMessage())
+					counter(1)
+				}, 2000)
 			}
 		})
 
@@ -191,12 +213,9 @@ const StepFour = () => {
 									{fnct.productFunction.label}
 								</td>
 								<td className='border px-2 py-2'>
-									<a
-										href='#'
-										className='text-xs font-medium text-blue-600 dark:text-blue-500 hover:underline'
-									>
+									<p className='text-xs font-medium text-gray-900'>
 										{fnct.productObservation}
-									</a>
+									</p>
 								</td>
 								<td className='flex justify-center px-2 py-2'>
 									<button
@@ -223,15 +242,26 @@ const StepFour = () => {
 		// Fourth Section
 		<>
 			<form className='w-full'>
+				{modalMessage.show && <SuccessfulMessage />}
 				<h2 className='pt-2 ext-lg font-medium leading-6 text-gray-900 border-b pb-2 mb-4'>
 					Sección de funcionalidad del producto
 				</h2>
 				{/* Function */}
-				<div className='flex justify-items-center'>
-					<p>Nombre del producto:</p>{' '}
-					<span className=' text-gray-700 text-sm font-bold ml-2 mt-1 mb-2 underline'>
-						Amoxicilina con ácido clavulanico
-					</span>
+				<div>
+					<div className='flex items-center mb-2'>
+						<p className='text-sm'>Nombre del producto:</p>{' '}
+						<span className=' text-gray-700 text-sm font-bold ml-2 underline'>
+							{insertedProduct.name}
+						</span>
+					</div>
+					<p
+						className={`${
+							insertedProduct.observation !== '' ? 'block' : 'hidden '
+						} text-sm mb-4`}
+					>
+						<span className='underline'>Observaciones:</span>{' '}
+						{insertedProduct.observation}
+					</p>
 				</div>
 				<div className='w-full  mb-4'>
 					<label
