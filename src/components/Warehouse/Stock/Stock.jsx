@@ -1,7 +1,7 @@
 // react
 import { useState, useEffect } from 'react'
 // redux
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { addProductModal } from '../../../store/warehouseStore/warehouse-thunk'
 // tabler icon
 import { IconEye, IconTrash, IconEdit } from '@tabler/icons-react'
@@ -9,6 +9,9 @@ import { IconEye, IconTrash, IconEdit } from '@tabler/icons-react'
 import AddProductModal from './StockModal/StockModal'
 
 const StockProducts = () => {
+	const listOfProducts = useSelector(
+		state => state.warehouseReducer.listOfProducts,
+	)
 	// state
 	const dispatch = useDispatch()
 	// headlessUI state
@@ -83,70 +86,74 @@ const StockProducts = () => {
 					</div>
 				</div>
 				{/* Table of prices */}
-				<table className='border-collapse w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+				<table className='border-collapse border w-full text-sm text-left text-gray-500 dark:text-gray-400'>
 					<thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
 						<tr>
-							<th scope='col' className='px-3 py-3 border'>
+							<th scope='col' className='px-1.5 py-1.5 border'>
 								Nombre del producto
 							</th>
-							<th scope='col' className='px-3 py-3 border'>
+							<th scope='col' className='px-1.5 py-1.5 border'>
 								Cantidad
 							</th>
-							<th scope='col' className='px-3 py-3 border'>
+							<th scope='col' className='px-1.5 py-1.5 border'>
 								Fecha de vencimiento
 							</th>
-							<th scope='col' className='px-3 py-3 border'>
+							<th scope='col' className='px-1.5 py-1.5 border'>
 								Observaciones
 							</th>
-							<th scope='col' className='px-3 py-3 border'>
+							<th scope='col' className='text-center py-1.5 border'>
 								Detalle
 							</th>
-							<th scope='col' className='px-3 py-3 border'>
+							<th scope='col' className='py-1.5 border text-center'>
 								Acción
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr className='bg-white'>
-							<td
-								scope='row'
-								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-							>
-								Clorfenamina Meleato 20mg
-							</td>
-							<td className='border px-3 py-4'>1000</td>
-							<td className='border px-3 py-4'>02/04/2024</td>
-							<td className='border px-3 py-4'>
-								Hay 200 unidades que vencen para la fecha de 01/01/2024
-							</td>
-							<td className='border px-3 py-4 h-full'>
-								<button
-									type='button'
-									onClick={() => console.log('working')}
-									className='bg-card-color-1 hover:bg-card-color-5 text-white font-bold py-1 px-2 rounded'
-								>
-									<IconEye />
-								</button>
-							</td>
-							<td className='border px-3 py-4 h-full'>
-								<div className='flex justify-between'>
-									<button
-										type='button'
-										onClick={() => console.log('working')}
-										className='bg-card-color-4 hover:bg-card-color-8 text-white font-bold py-1 px-2 rounded'
+						{listOfProducts.map(product => {
+							return (
+								<tr key={product.product_id} className='bg-white'>
+									<td
+										scope='row'
+										className='border font-medium px-1.5 py-1 text-gray-900 whitespace-nowrap dark:text-white'
 									>
-										<IconTrash />
-									</button>
-									<button
-										type='button'
-										onClick={() => console.log('working')}
-										className='bg-card-color-3 hover:bg-card-color-7 text-white font-bold py-1 px-2 rounded'
-									>
-										<IconEdit />
-									</button>
-								</div>
-							</td>
-						</tr>
+										{product.name}
+									</td>
+									<td className='border'>{product.stock}</td>
+									<td className='border'>{product.expire_date}</td>
+									<td className='border'>{product.observation}</td>
+									<td className='border '>
+										<div className='flex justify-center py-1'>
+											<button
+												type='button'
+												onClick={() => console.log('working')}
+												className='bg-card-color-1 hover:bg-card-color-5 text-white font-bold py-1 px-1 rounded'
+											>
+												<IconEye size={18} />
+											</button>
+										</div>
+									</td>
+									<td className='border'>
+										<div className='flex justify-evenly'>
+											<button
+												type='button'
+												onClick={() => console.log('working')}
+												className='bg-card-color-4 hover:bg-card-color-8 text-white font-bold py-1 px-1 rounded'
+											>
+												<IconTrash size={18} />
+											</button>
+											<button
+												type='button'
+												onClick={() => console.log('working')}
+												className='bg-card-color-3 hover:bg-card-color-7 text-white font-bold py-1 px-1 rounded'
+											>
+												<IconEdit size={18} />
+											</button>
+										</div>
+									</td>
+								</tr>
+							)
+						})}
 					</tbody>
 				</table>
 			</div>

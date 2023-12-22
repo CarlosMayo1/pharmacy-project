@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 // react-select
 import Select from 'react-select'
+
 // utils
 import {
 	searchForAProductByNameInSupabase,

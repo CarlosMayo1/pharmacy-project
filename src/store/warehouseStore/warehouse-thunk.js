@@ -4,6 +4,7 @@ import {
 	fetchProductClassificationFromSupabase,
 	fetchProductTypesFromSupabase,
 	fetchFunctionsFromSupabase,
+	fetchProductsFromSupabase,
 } from '../../utils/warehouse'
 // store
 import { warehouseSliceAction } from './warehouse-redux'
@@ -67,6 +68,20 @@ export const addProductModal = () => {
 			// ☑️ sorting array alphabetically
 			const orderedArr = sortArrAphabetically(productFunctions)
 			dispatch(warehouseSliceAction.getProductFunctions(orderedArr))
+		})
+
+		fetchProductsFromSupabase().then(response => {
+			const productsArr = []
+			const products = response
+			products.map(type => {
+				productsArr.push({
+					value: type.product_id,
+					label: type.name,
+				})
+			})
+			// ☑️ sorting array alphabetically
+			const orderedArr = sortArrAphabetically(productsArr)
+			dispatch(warehouseSliceAction.getListOfProducts(orderedArr))
 		})
 	}
 }

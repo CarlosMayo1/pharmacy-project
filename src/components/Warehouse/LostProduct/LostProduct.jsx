@@ -1,6 +1,18 @@
+// react
+import { useState } from 'react'
+// tabler icon
 import { IconEyeCheck } from '@tabler/icons-react'
+import AddLostProduct from './AddLostProduct/AddLostProduct'
 
 const LostProducts = () => {
+	const [isOpen, setIsOpen] = useState(false)
+	const openModal = () => {
+		setIsOpen(true)
+	}
+
+	const closeModal = () => {
+		setIsOpen(false)
+	}
 	return (
 		<>
 			<h1 className='mb-2 text-lg font-bold'>Lista de productos perdidos</h1>
@@ -9,7 +21,7 @@ const LostProducts = () => {
 				<div className='mb-2'>
 					<button
 						type='button'
-						// onClick={openModal}
+						onClick={openModal}
 						className='bg-pharmacy-color-1 hover:bg-pharmacy-color-5 text-white font-bold py-2 px-4 rounded'
 					>
 						Agregar
@@ -204,6 +216,7 @@ const LostProducts = () => {
 				</table>
 			</div>
 			{/* HeadlessUI */}
+			{isOpen && <AddLostProduct isOpen={isOpen} closeModal={closeModal} />}
 		</>
 	)
 }

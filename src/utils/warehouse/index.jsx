@@ -1,5 +1,9 @@
 import { supabase } from '../supabase.client'
 
+// ===============================
+// FETCHING
+// ===============================
+
 // fetch all the brands from product_brand table
 export const fetchBrandsFromSupabase = async () => {
 	const { data, error } = await supabase
@@ -39,6 +43,19 @@ export const fetchFunctionsFromSupabase = async () => {
 	if (data) return data
 	if (error) return error
 }
+
+export const fetchProductsFromSupabase = async () => {
+	const { data, error } = await supabase
+		.from('product')
+		.select('product_id, name, observation, expire_date, stock(stock)')
+		.limit(15)
+	if (data) return data
+	if (error) return error
+}
+
+// ===============================
+// SEARCHING
+// ===============================
 
 // search for a product in the table
 export const searchForAProductByNameInSupabase = async productName => {
@@ -92,6 +109,10 @@ export const searchForFunctionInSupabase = async fnct => {
 	if (data) return data
 	if (error) return error
 }
+
+// ===============================
+// INSERTING
+// ===============================
 
 // insert data into product table and retrieve the record
 export const insertNewProductInSupabase = async newProduct => {

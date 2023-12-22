@@ -5,6 +5,7 @@ const initialState = {
 	stock: [],
 	loading: false,
 	error: null,
+	listOfProducts: [],
 	// modal data
 	productBrand: [],
 	productType: [],
@@ -54,6 +55,9 @@ const warehouseSlice = createSlice({
 		},
 		getInsertedProduct(state, action) {
 			state.insertedProduct = action.payload
+		},
+		getListOfProducts(state, action) {
+			state.listOfProducts = action.payload
 		},
 	},
 })
