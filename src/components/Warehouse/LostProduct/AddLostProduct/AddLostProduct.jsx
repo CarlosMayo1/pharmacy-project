@@ -1,13 +1,27 @@
 // react
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
+// react-redux
+import { useSelector, useDispatch } from 'react-redux'
 // react hook form
 import { useForm, Controller } from 'react-hook-form'
 // headless ui
 import { Dialog, Transition } from '@headlessui/react'
 // react-select
 import Select from 'react-select'
+// warehouse-thunk
+import {
+	fetchProductsForSelect,
+	fetchLostProducts,
+} from '../../../../store/warehouseStore/warehouse-thunk'
+// store
+import { insertNewLostProductInSupabase } from '../../../../utils/warehouse'
+// components
+import SuccessfulMessage from '../../AddProduct/StepOne/SuccessfulMessage/SuccessfulMessage'
 
 const AddLostProduct = ({ isOpen, closeModal }) => {
+	const products = useSelector(state => state.warehouseReducer.listOfProducts)
+	const modalMessage = useSelector(state => state.warehouseReducer.modalMessage)
+	const dispatch = useDispatch()
 	const {
 		control,
 		register,
@@ -17,8 +31,39 @@ const AddLostProduct = ({ isOpen, closeModal }) => {
 	} = useForm()
 
 	const onSubmitFormHandler = handleSubmit(data => {
-		console.log(data)
+		const lostProduct = {
+			product_id: data.product.value,
+			user_worker: JSON.parse(localStorage.getItem('session')).user_worker_id,
+			amount: data.amount,
+			cause: data.productLostCause,
+			created_date: getCurrentDate(),
+			state: 1,
+		}
+		console.log(lostProduct)
+		insertNewLostProductInSupabase(lostProduct).then(response => {
+			if (response === null) {
+				console.log('The information has been sent successfully')
+				dispatch(fetchLostProducts())
+			}
+			// clean the form
+			reset()
+			closeModal()
+		})
 	})
+
+	useEffect(() => {
+		dispatch(fetchProductsForSelect())
+	}, [])
+
+	const getCurrentDate = () => {
+		const date = new Date()
+		let day = date.getDate()
+		let month = date.getMonth() + 1
+		let year = date.getFullYear()
+		// This arrangement can be altered based on how we want the date's format to appe
+		let currentDate = `${year}-${month}-${day}`
+		return currentDate
+	}
 
 	return (
 		<Transition appear show={isOpen} as={Fragment}>
@@ -47,6 +92,7 @@ const AddLostProduct = ({ isOpen, closeModal }) => {
 							leaveTo='opacity-0 scale-95'
 						>
 							<Dialog.Panel className='w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+								{modalMessage.show && <SuccessfulMessage />}
 								<form className='w-full' onSubmit={onSubmitFormHandler}>
 									<h3 className='text-lg font-medium leading-6 text-gray-900 border-b pb-2 mb-4'>
 										Producto Perdido
@@ -57,21 +103,34 @@ const AddLostProduct = ({ isOpen, closeModal }) => {
 										<div className='w-full px-3 mb-6 md:mb-0'>
 											<label
 												className='block text-gray-700 text-sm font-bold mb-2'
-												htmlFor='grid-amount'
+												htmlFor='grid-product'
 											>
-												Ingrese la cantidad
+												Seleccione el producto
 											</label>
 											<Controller
-												name='amount'
+												name='product'
 												control={control}
 												rules={{
 													value: true,
 													message: 'Este campo es obligatorio',
 												}}
+												defaultValue=''
 												render={({ field }) => (
 													<Select {...field} options={products} />
 												)}
 											/>
+										</div>
+									</div>
+
+									{/*  Amount */}
+									<div className='flex flex-wrap -mx-3 mb-4'>
+										<div className='w-full px-3 mb-6 md:mb-0'>
+											<label
+												className='block text-gray-700 text-sm font-bold mb-2'
+												htmlFor='grid-amount'
+											>
+												Ingrese la cantidad
+											</label>
 											<input
 												className='shadow appearance-none border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
 												id='grid-amount'
@@ -83,67 +142,26 @@ const AddLostProduct = ({ isOpen, closeModal }) => {
 														message: 'Este campo es obligatorio.',
 													},
 												})}
-												// {...register('productBrand', {
-												// 	required: {
-												// 		value: true,
-												// 		message: 'Este campo es obligatorio',
-												// 	},
-												// 	onChange: e => onInputChangeHandler(e),
-												// })}
 											/>
-											{/* <p className='text-red-500 text-xs italic'>
-													{errors.productBrand && errors.productBrand.message}
-												</p> */}
-										</div>
-									</div>
-
-									{/* Amount of product lost */}
-									<div className='flex flex-wrap -mx-3 mb-4'>
-										<div className='w-full px-3 mb-6 md:mb-0'>
-											<label
-												className='block text-gray-700 text-sm font-bold mb-2'
-												htmlFor='grid-product'
-											>
-												Nombre del producto
-											</label>
-											<input
-												className='shadow appearance-none border rounded w-full py-1.5 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
-												id='grid-product'
-												type='text'
-												placeholder='Nombre del producto'
-												{...register('product', {
-													required: {
-														value: true,
-														message: 'Este campo es obligatorio',
-													},
-												})}
-												// {...register('productBrand', {
-												// 	required: {
-												// 		value: true,
-												// 		message: 'Este campo es obligatorio',
-												// 	},
-												// 	onChange: e => onInputChangeHandler(e),
-												// })}
-											/>
-											{/* <p className='text-red-500 text-xs italic'>
-													{errors.productBrand && errors.productBrand.message}
-												</p> */}
+											<p className='text-red-500 text-xs italic'>
+												{errors.amount && errors.amount.message}
+											</p>
 										</div>
 									</div>
 
 									<div className='flex flex-wrap  mb-2'>
 										<label
-											htmlFor='product-observation'
+											htmlFor='product-lost-cause'
 											className='block text-gray-700 text-sm font-bold mb-2'
 										>
-											Ingrese alguna observación de ser necesario
+											Ingresar el motivo de la perdida del producto
 										</label>
 										<textarea
-											id='product-observation'
+											id='product-lost-cause'
 											rows='3'
 											className='shadow appearance-none border rounded w-full mb-2 py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
 											placeholder='Escriba un mensaje claro y sencillo'
-											// {...register('productObservation')}
+											{...register('productLostCause')}
 										></textarea>
 									</div>
 
@@ -154,7 +172,21 @@ const AddLostProduct = ({ isOpen, closeModal }) => {
 											className='bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent  px-4 py-2 text-sm font-medium  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
 										>
 											Enviar
-											{/* {showSpinner ? (
+										</button>
+									</div>
+								</form>
+							</Dialog.Panel>
+						</Transition.Child>
+					</div>
+				</div>
+			</Dialog>
+		</Transition>
+	)
+}
+
+export default AddLostProduct
+{
+	/* {showSpinner ? (
 												<div role='status'>
 													<svg
 														aria-hidden='true'
@@ -176,17 +208,5 @@ const AddLostProduct = ({ isOpen, closeModal }) => {
 												</div>
 											) : (
 												'Enviar'
-											)} */}
-										</button>
-									</div>
-								</form>
-							</Dialog.Panel>
-						</Transition.Child>
-					</div>
-				</div>
-			</Dialog>
-		</Transition>
-	)
+											)} */
 }
-
-export default AddLostProduct

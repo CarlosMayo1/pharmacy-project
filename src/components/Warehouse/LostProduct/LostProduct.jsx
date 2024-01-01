@@ -1,11 +1,22 @@
 // react
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+// react-redux
+import { useSelector, useDispatch } from 'react-redux'
 // tabler icon
-import { IconEyeCheck } from '@tabler/icons-react'
+import { IconEdit, IconTrash } from '@tabler/icons-react'
+// store
+import { fetchLostProducts } from '../../../store/warehouseStore/warehouse-thunk'
+// components
 import AddLostProduct from './AddLostProduct/AddLostProduct'
+import EditLostProduct from './EditLostProduct/EditLostProduct'
+import { warehouseSliceAction } from '../../../store/warehouseStore/warehouse-redux'
 
 const LostProducts = () => {
+	const lostProducts = useSelector(state => state.warehouseReducer.lostProducts)
+	const dispatch = useDispatch()
 	const [isOpen, setIsOpen] = useState(false)
+	const [isOpenEditModal, setIsOpenEditModal] = useState(false)
+
 	const openModal = () => {
 		setIsOpen(true)
 	}
@@ -13,6 +24,31 @@ const LostProducts = () => {
 	const closeModal = () => {
 		setIsOpen(false)
 	}
+
+	const openEditModal = lostProduct => {
+		dispatch(warehouseSliceAction.getEditLostProduct(lostProduct))
+		setIsOpenEditModal(true)
+	}
+
+	const closeEditModal = () => {
+		setIsOpenEditModal(false)
+	}
+
+	const formatDate = newDate => {
+		const date = new Date(newDate)
+		let day = date.getDate()
+		let month = date.getMonth() + 1
+		let year = date.getFullYear()
+		// This arrangement can be altered based on how we want the date's format to appe
+		let currentDate = `${day}/${month}/${year}`
+		return currentDate
+	}
+
+	useEffect(() => {
+		// fetch all the lost products from supabase
+		dispatch(fetchLostProducts())
+	}, [])
+
 	return (
 		<>
 			<h1 className='mb-2 text-lg font-bold'>Lista de productos perdidos</h1>
@@ -79,146 +115,79 @@ const LostProducts = () => {
 				<table className='border-collapse w-full text-sm text-left text-gray-500 dark:text-gray-400'>
 					<thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
 						<tr>
-							<th scope='col' className='px-3 py-3 border'>
+							<th scope='col' className='px-1.5 py-1.5 border'>
 								Nombre del producto
 							</th>
-							<th scope='col' className='px-3 py-3 border'>
-								Cantidad (unidades)
+							<th scope='col' className='px-1.5 py-1.5 border'>
+								Uni
 							</th>
-							<th scope='col' className='px-3 py-3 border'>
+							{/* <th scope='col' className='px-3 py-3 border'>
 								Fecha de vencimiento
+							</th> */}
+							<th scope='col' className='px-1.5 py-1.5 border'>
+								Causa de perdida de producto
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
-								Observación
+								Fecha
 							</th>
 							<th scope='col' className='px-3 py-3 border'>
-								Estado
+								Reportado por
 							</th>
-							<th scope='col' className='px-3 py-3 border'>
+							<th scope='col' className='px-1.5 py-1.5 border'>
 								Acción
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr className='bg-white'>
-							<td
-								scope='row'
-								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-							>
-								Dioxaflex
-							</td>
-							<td className='border px-3 py-4'>2</td>
-							<td className='border px-3 py-4'>11/11/2023</td>
-
-							<td className='border px-3 py-4'>
-								Hubo una caja que nadie se percató que estaba proxima a
-								vencerse.
-							</td>
-							<td className='border px-3 py-4'>
-								<span className='bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'>
-									Pendiente
-								</span>
-							</td>
-							<td className='border px-3 py-4 h-full'>
-								{/* 👁️ the admin can see the button to approve but any other can't */}
-								<button
-									type='button'
-									onClick={() => console.log('working')}
-									className='bg-card-color-4 hover:bg-card-color-8 text-white font-bold py-1 px-2 rounded'
+						{lostProducts.map(lostProduct => (
+							<tr key={lostProduct.lost_product_id} className='bg-white'>
+								<td
+									scope='row'
+									className='border px-1.5 py-1.5 font-medium text-gray-900 whitespace-nowrap dark:text-white'
 								>
-									<IconEyeCheck />
-								</button>
-							</td>
-						</tr>
-						<tr className='bg-white'>
-							<td
-								scope='row'
-								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-							>
-								Anaflex
-							</td>
-							<td className='border px-3 py-4'>10</td>
-							<td className='border px-3 py-4'>01/02/2024</td>
-							<td className='border px-3 py-4'></td>
-							<td className='border px-3 py-4'>
-								<span className='bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300'>
-									Aprobado
-								</span>
-							</td>
-							<td className='border px-3 py-4 h-full'>
-								<button
-									type='button'
-									onClick={() => console.log('working')}
-									className='bg-gray-400  text-white font-bold py-1 px-2 rounded'
-								>
-									<IconEyeCheck />
-								</button>
-							</td>
-						</tr>
-						<tr className='bg-white'>
-							<td
-								scope='row'
-								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-							>
-								Ciproflixacino
-							</td>
-							<td className='border px-3 py-4'>3</td>
-							<td className='border px-3 py-4'>11/11/2025</td>
-
-							<td className='border px-3 py-4'>
-								Accidentalmente fue pisada por alguien
-							</td>
-							<td className='border px-3 py-4'>
-								<span className='bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'>
-									Pendiente
-								</span>
-							</td>
-							<td className='border px-3 py-4 h-full'>
-								{/* 👁️ the admin can see the button to approve but any other can't */}
-								<button
-									type='button'
-									onClick={() => console.log('working')}
-									className='bg-card-color-4 hover:bg-card-color-8 text-white font-bold py-1 px-2 rounded'
-								>
-									<IconEyeCheck />
-								</button>
-							</td>
-						</tr>
-						<tr className='bg-white'>
-							<td
-								scope='row'
-								className='border px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-							>
-								Tolsabron
-							</td>
-							<td className='border px-3 py-4'>1</td>
-							<td className='border px-3 py-4'>10/05/2024</td>
-							<td className='border px-3 py-4'>
-								El producto vino golpeado al ser trasladado. Fue vendido a uno
-								de los trabajadores a precio preferencial de S/8.00
-							</td>
-							<td className='border px-3 py-4'>
-								<span className='bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300'>
-									Aprobado
-								</span>
-							</td>
-							<td className='border px-3 py-4 h-full'>
-								<button
-									type='button'
-									onClick={() => console.log('working')}
-									className='bg-gray-400  text-white font-bold py-1 px-2 rounded'
-								>
-									<IconEyeCheck />
-								</button>
-							</td>
-						</tr>
+									{lostProduct.product.name}
+								</td>
+								<td className='border px-1.5 py-1.5'>{lostProduct.amount}</td>
+								<td className='border px-1.5 py-1.5'>{lostProduct.cause}</td>
+								<td className='border px-1.5 py-1.5'>
+									{formatDate(lostProduct.created_date)}
+								</td>
+								<td className='border px-1.5 py-1.5'>
+									{lostProduct.user_worker.worker.name}
+								</td>
+								<td className='border px-1.5 py-1.5 flex justify-between'>
+									<button
+										type='button'
+										onClick={() => openEditModal(lostProduct)}
+										className='bg-blue-400 hover:bg-blue-500 text-white font-bold py-1 px-1.5 rounded'
+									>
+										<IconEdit size={18} />
+									</button>
+									<button
+										type='button'
+										onClick={() => console.log('working')}
+										className='bg-card-color-4 hover:bg-card-color-8 text-white font-bold py-1 px-1.5 rounded'
+									>
+										<IconTrash size={18} />
+									</button>
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</div>
 			{/* HeadlessUI */}
 			{isOpen && <AddLostProduct isOpen={isOpen} closeModal={closeModal} />}
+			{isOpenEditModal && (
+				<EditLostProduct
+					isOpenEditModal={isOpenEditModal}
+					closeEditModal={closeEditModal}
+				/>
+			)}
 		</>
 	)
 }
 
 export default LostProducts
+
+// 	className='bg-card-color-4 hover:bg-card-color-8 text-white font-bold py-1 px-2 rounded'

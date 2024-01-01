@@ -53,6 +53,16 @@ export const fetchProductsFromSupabase = async () => {
 	if (error) return error
 }
 
+export const fetchLostProductsFromSupabase = async () => {
+	const { error, data } = await supabase
+		.from('lost_product')
+		.select(
+			'lost_product_id, product(name, expire_date), amount, cause, created_date, user_worker(user_worker_id, worker(name)), state, checked',
+		)
+	if (error) return error
+	if (data) return data
+}
+
 // ===============================
 // SEARCHING
 // ===============================
@@ -164,5 +174,35 @@ export const insertNewFunctionInSupabase = async fnct => {
 
 export const insertNewStockInSupabase = async productStock => {
 	const { error } = await supabase.from('stock').insert(productStock)
+	return error
+}
+
+export const insertNewLostProductInSupabase = async lostProduct => {
+	const { error } = await supabase.from('lost_product').insert(lostProduct)
+	return error
+}
+
+// ===============================
+// UPDATE
+// ===============================
+export const updateLostProductInSupabase = async updateLostProduct => {
+	const { error } = await supabase
+		.from('lost_product')
+		.update({
+			amount: updateLostProduct.amount,
+			cause: updateLostProduct.cause,
+		})
+		.eq('lost_product_id', updateLostProduct.lost_product_id)
+	return error
+}
+
+// ===============================
+// DELETE
+// ===============================
+export const deleteLostProductInSupabase = async id => {
+	const { error } = supabase
+		.from('lost_product')
+		.delete()
+		.eq('lost_product_id', id)
 	return error
 }

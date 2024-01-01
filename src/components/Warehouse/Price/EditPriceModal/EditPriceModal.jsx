@@ -63,7 +63,7 @@ const EditPriceModal = ({ isOpen, closeModal }) => {
 		let month = date.getMonth() + 1
 		let year = date.getFullYear()
 		// This arrangement can be altered based on how we want the date's format to appe
-		let currentDate = `${day}-${month}-${year}`
+		let currentDate = `${year}-${month}-${day}`
 		return currentDate
 	}
 

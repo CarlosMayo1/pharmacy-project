@@ -19,6 +19,9 @@ const initialState = {
 		message: 'Registrado exitosamente',
 	},
 	insertedProduct: {},
+	// lost product
+	lostProducts: [],
+	editLostProduct: {},
 }
 
 const warehouseSlice = createSlice({
@@ -58,6 +61,12 @@ const warehouseSlice = createSlice({
 		},
 		getListOfProducts(state, action) {
 			state.listOfProducts = action.payload
+		},
+		getLostProducts(state, action) {
+			state.lostProducts = action.payload
+		},
+		getEditLostProduct(state, action) {
+			state.editLostProduct = action.payload
 		},
 	},
 })
