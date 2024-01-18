@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-07T22:42:56.793Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="t8A1TeuEGolfNY-pHrUf" version="22.1.15" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2024-01-18T21:12:32.876Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="b8nErChPcvQwxKjnJvqo" version="22.1.20" type="github" pages="8">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="products">
     <mxGraphModel dx="3008" dy="1761" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -2131,7 +2131,7 @@
         <mxCell id="vtB1oazxM818j5biYDyd-18" value="+ observation (text)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rounded=0;shadow=0;html=0;" parent="vtB1oazxM818j5biYDyd-13" vertex="1">
           <mxGeometry y="130" width="200" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="vtB1oazxM818j5biYDyd-19" value="+ state (int2)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rounded=0;shadow=0;html=0;" parent="vtB1oazxM818j5biYDyd-13" vertex="1">
+        <mxCell id="vtB1oazxM818j5biYDyd-19" value="+ status (int2)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rounded=0;shadow=0;html=0;" parent="vtB1oazxM818j5biYDyd-13" vertex="1">
           <mxGeometry y="156" width="200" height="22" as="geometry" />
         </mxCell>
         <mxCell id="vtB1oazxM818j5biYDyd-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="vtB1oazxM818j5biYDyd-14" target="e6ohmyNpMIwH9ul1CDw7-18" edge="1">
@@ -2180,7 +2180,7 @@
         <mxCell id="hEtezAXmO8uQGJDj0ZOZ-8" value="+ state (int2)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rounded=0;shadow=0;html=0;" parent="hEtezAXmO8uQGJDj0ZOZ-1" vertex="1">
           <mxGeometry y="186" width="180" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="De8Nw3IJFOHczFtUTQDi-1" value="Timestampz is better to manage with JS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="De8Nw3IJFOHczFtUTQDi-1" value="Timestampz is better to manage with JS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="-2970" y="-12" width="240" height="30" as="geometry" />
         </mxCell>
       </root>
